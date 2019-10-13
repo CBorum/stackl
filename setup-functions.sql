@@ -231,7 +231,6 @@ $$
 LANGUAGE plpgsql;
 
 -- D5:
-
 -- Terms in document
 DROP TABLE IF EXISTS ndwi;
 
