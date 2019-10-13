@@ -296,8 +296,8 @@ CREATE OR REPLACE FUNCTION words_to_words_weighted_sum (query_string varchar)
 BEGIN
     RETURN query
     SELECT
-        terms.term,
-        SUM(ndtwi.rdt) AS term_rdt
+        SUM(ndtwi.rdt) AS term_rdt,
+        terms.term
     FROM
         terms
         JOIN ndtwi USING (term)
