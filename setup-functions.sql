@@ -35,7 +35,6 @@ CREATE OR REPLACE FUNCTION exact_match (user_id int, s1 text, s2 text, s3 text)
 )
     AS $BODY$
 BEGIN
-    --insert into??
     RETURN query
     SELECT
         p.post_id,
@@ -75,7 +74,7 @@ SELECT
     id AS post_id,
     lower(word) AS term
 FROM
-    words --evt. tilføj "what"
+    words
 WHERE
     word ~* '^[A-Za-z0-9].*$'
     AND tablename = 'posts'
@@ -184,11 +183,6 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql;
-
-SELECT
-    *
-FROM
-    exact_match ('particular order except');
 
 -- D4:
 CREATE OR REPLACE FUNCTION best_match (VARIADIC _terms varchar[])
@@ -353,11 +347,6 @@ END;
 $$
 LANGUAGE plpgsql;
 
-SELECT
-    *
-FROM
-    ranked_weighted ('java and kuk');
-
 -- weight_query_far 3.0
 CREATE OR REPLACE FUNCTION weight_query_far (VARIADIC _terms varchar[])
     RETURNS TABLE (
@@ -403,7 +392,6 @@ $$
 LANGUAGE plpgsql;
 
 -- D7:
-
 -- adding to stopwords
 INSERT INTO stopwords (word)
     VALUES (n t);
@@ -513,4 +501,3 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql;
-
