@@ -308,3 +308,111 @@ CREATE TABLE marking (
 );
 
 COMMIT;
+
+DROP TABLE IF EXISTS terms;
+
+CREATE TABLE terms AS
+SELECT
+    id AS post_id,
+    lower(word) AS term
+FROM
+    words
+WHERE
+    word ~* '^[A-Za-z0-9].*$'
+    AND tablename = 'posts'
+    AND (what = 'title'
+        OR what = 'body');
+
+-- Terms in document
+DROP TABLE IF EXISTS ndwi;
+
+-- Create n(d)
+CREATE TABLE ndwi AS
+SELECT
+    post_id,
+    count(term) AS term_count
+FROM
+    terms
+GROUP BY
+    post_id;
+
+UPDATE
+    ndtwi
+SET
+    tf = LOG(1.0 + CAST(ndtwi.term_count AS numeric) / CAST(ndwi.term_count AS numeric))
+FROM
+    ndwi
+WHERE
+    ndwi.post_id = ndtwi.post_id;
+
+-- Update n(d,t)
+UPDATE
+    ndtwi
+SET
+    rdt = ndtwi.tf * (1.0 / cast(ntwi.term_count AS numeric))
+FROM
+    ntwi
+WHERE
+    ntwi.term = ndtwi.term;
+
+-- Terms in document
+DROP TABLE IF EXISTS ndwi;
+
+CREATE TABLE ndwi AS
+SELECT
+    post_id,
+    count(term) AS term_count
+FROM
+    terms
+GROUP BY
+    post_id;
+
+-- Total term count in all docs
+DROP TABLE IF EXISTS ntwi;
+
+CREATE TABLE ntwi AS
+SELECT
+    term,
+    count(term) AS term_count
+FROM
+    terms
+GROUP BY
+    term;
+
+-- Specific term count in doc
+DROP TABLE IF EXISTS ndtwi;
+
+CREATE TABLE ndtwi AS
+SELECT
+    post_id,
+    term,
+    count(term) AS term_count
+FROM
+    terms
+GROUP BY
+    post_id,
+    term;
+
+ALTER TABLE ndtwi
+    ADD COLUMN tf numeric;
+
+ALTER TABLE ndtwi
+    ADD COLUMN rdt numeric;
+
+UPDATE
+    ndtwi
+SET
+    tf = LOG(1.0 + CAST(ndtwi.term_count AS numeric) / CAST(ndwi.term_count AS numeric))
+FROM
+    ndwi
+WHERE
+    ndwi.post_id = ndtwi.post_id;
+
+UPDATE
+    ndtwi
+SET
+    rdt = ndtwi.tf * (1.0 / cast(ntwi.term_count AS numeric))
+FROM
+    ntwi
+WHERE
+    ntwi.term = ndtwi.term;
