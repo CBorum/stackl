@@ -336,37 +336,6 @@ FROM
 GROUP BY
     post_id;
 
-UPDATE
-    ndtwi
-SET
-    tf = LOG(1.0 + CAST(ndtwi.term_count AS numeric) / CAST(ndwi.term_count AS numeric))
-FROM
-    ndwi
-WHERE
-    ndwi.post_id = ndtwi.post_id;
-
--- Update n(d,t)
-UPDATE
-    ndtwi
-SET
-    rdt = ndtwi.tf * (1.0 / cast(ntwi.term_count AS numeric))
-FROM
-    ntwi
-WHERE
-    ntwi.term = ndtwi.term;
-
--- Terms in document
-DROP TABLE IF EXISTS ndwi;
-
-CREATE TABLE ndwi AS
-SELECT
-    post_id,
-    count(term) AS term_count
-FROM
-    terms
-GROUP BY
-    post_id;
-
 -- Total term count in all docs
 DROP TABLE IF EXISTS ntwi;
 
