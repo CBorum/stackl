@@ -172,7 +172,7 @@ BEGIN
         tags IS NOT NULL LOOP
             exit
             WHEN rec IS NULL;
-            split_tags: = regexp_split_to_array(rec.tags, '::');
+            split_tags = regexp_split_to_array(rec.tags, '::');
             <<innerloop>>
             FOREACH r IN ARRAY split_tags LOOP
                 INSERT INTO tag (text)
@@ -203,10 +203,10 @@ BEGIN
         tags IS NOT NULL LOOP
             exit
             WHEN rec IS NULL;
-            split_tags: = regexp_split_to_array(rec.tags, '::');
+            split_tags = regexp_split_to_array(rec.tags, '::');
             <<innerloop>>
             FOREACH r IN ARRAY split_tags LOOP
-                _tag_id: = (
+                _tag_id = (
                     SELECT
                         tag_id
                     FROM
