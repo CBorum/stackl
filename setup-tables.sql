@@ -309,6 +309,10 @@ CREATE TABLE marking (
 
 COMMIT;
 
+-- create indexing tables
+
+BEGIN;
+
 DROP TABLE IF EXISTS terms;
 
 CREATE TABLE terms AS
@@ -385,3 +389,5 @@ FROM
     ntwi
 WHERE
     ntwi.term = ndtwi.term;
+
+COMMIT;
