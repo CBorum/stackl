@@ -237,8 +237,8 @@ $$
 LANGUAGE plpgsql;
 
 -- D5:
--- Terms in document
 
+-- Terms in document
 DROP TABLE IF EXISTS ndwi;
 
 CREATE TABLE ndwi AS
@@ -403,8 +403,8 @@ $$
 LANGUAGE plpgsql;
 
 -- D7:
--- adding to stopwords
 
+-- adding to stopwords
 INSERT INTO stopwords (word)
     VALUES (n t);
 
