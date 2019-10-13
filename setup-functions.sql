@@ -317,7 +317,8 @@ BEGIN
         terms.term
     ORDER BY
         SUM(ndtwi.rdt)
-        DESC;
+        DESC
+        LIMIT 50;
 END
 $$
 LANGUAGE plpgsql;
