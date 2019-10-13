@@ -59,7 +59,7 @@ CREATE OR REPLACE FUNCTION array_union (anyarray, anyarray)
 
 $$;
 
-CREATE OR REPLACE FUNCTION exact_match (query text)
+CREATE OR REPLACE FUNCTION exact_match (user_id int, query text)
     RETURNS TABLE (
         post_id integer, body text
 )
@@ -70,6 +70,8 @@ DECLARE
     term_arr text[];
     r CHARACTER VARYING;
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, query);
     term_arr := string_to_array(query, ' ');
     raise notice '%', term_arr[1];
     ids := ARRAY (
@@ -104,7 +106,7 @@ $$
 LANGUAGE plpgsql;
 
 -- D4:
-CREATE OR REPLACE FUNCTION best_match (VARIADIC _terms varchar[])
+CREATE OR REPLACE FUNCTION best_match (user_id int, VARIADIC _terms varchar[])
     RETURNS TABLE (
         post_id int, rank bigint
 )
@@ -115,6 +117,8 @@ DECLARE
     _s varchar;
     _query_string varchar;
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, array_to_string(_terms, ' '));
     foreach _term IN ARRAY _terms LOOP
         _s := 'terms.term = ''' || _term || '''';
         term_branches := array_append(term_branches, _s);
@@ -129,12 +133,14 @@ $$
 LANGUAGE plpgsql;
 
 -- wrapper function to get body of post in result
-CREATE OR REPLACE FUNCTION best_match_w_body (VARIADIC _terms varchar[])
+CREATE OR REPLACE FUNCTION best_match_w_body (user_id int, VARIADIC _terms varchar[])
     RETURNS TABLE (
         post_id int, rank bigint, body text
 )
     AS $$
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, array_to_string(_terms, ' '));
     RETURN query
     SELECT
         best_match.post_id,
@@ -150,7 +156,7 @@ $$
 LANGUAGE plpgsql;
 
 -- D6:
-CREATE OR REPLACE FUNCTION ranked_weighted (query text)
+CREATE OR REPLACE FUNCTION ranked_weighted (user_id int, query text)
     RETURNS TABLE (
         post_id integer, rdt numeric
 )
@@ -161,6 +167,8 @@ DECLARE
     term_arr text[];
     r CHARACTER VARYING;
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, query);
     term_arr := string_to_array(query, ' ');
     raise notice '%', term_arr[1];
     ids := ARRAY (
@@ -203,7 +211,7 @@ $$
 LANGUAGE plpgsql;
 
 -- same query as above but another implementation
-CREATE OR REPLACE FUNCTION ranked_weighted_2 (VARIADIC _terms varchar[])
+CREATE OR REPLACE FUNCTION ranked_weighted_2 (user_id int, VARIADIC _terms varchar[])
     RETURNS TABLE (
         post_id int, r_sum numeric
 )
@@ -214,6 +222,8 @@ DECLARE
     _query_string varchar;
     _term varchar;
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, array_to_string(_terms, ' '));
     foreach _term IN ARRAY _terms LOOP
         _s := 'ndtwi.term = ''' || _term || '''';
         _term_branches := array_append(_term_branches, _s);
@@ -227,12 +237,14 @@ $$
 LANGUAGE plpgsql;
 
 -- wrapper function for 'ranked_weighted_2' -> adds body to result set
-CREATE OR REPLACE FUNCTION ranked_weighted_2_w_body (VARIADIC _terms varchar[])
+CREATE OR REPLACE FUNCTION ranked_weighted_2_w_body (user_id int, VARIADIC _terms varchar[])
     RETURNS TABLE (
         post_id int, r_sum numeric, body text
 )
     AS $$
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, array_to_string(_terms, ' '));
     RETURN query
     SELECT
         ranked_weighted_2.post_id,
@@ -253,12 +265,14 @@ INSERT INTO stopwords (word)
     VALUES ('n t');
 
 -- boolean version
-CREATE OR REPLACE FUNCTION words_to_words (query_string varchar)
+CREATE OR REPLACE FUNCTION words_to_words (user_id int, query_string varchar)
     RETURNS TABLE (
         term text, term_count numeric
 )
     AS $$
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, query_string);
     RETURN query
     SELECT
         terms.term,
@@ -288,12 +302,14 @@ $$
 LANGUAGE plpgsql;
 
 -- weight version with sum
-CREATE OR REPLACE FUNCTION words_to_words_weighted_sum (query_string varchar)
+CREATE OR REPLACE FUNCTION words_to_words_weighted_sum (user_id int, query_string varchar)
     RETURNS TABLE (
         term_freq numeric, term text
 )
     AS $$
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, query_string);
     RETURN query
     SELECT
         SUM(ndtwi.rdt) AS term_rdt,
@@ -324,12 +340,14 @@ $$
 LANGUAGE plpgsql;
 
 -- weight version with avg
-CREATE OR REPLACE FUNCTION words_to_words_weighted_avg (query_string varchar)
+CREATE OR REPLACE FUNCTION words_to_words_weighted_avg (user_id int, query_string varchar)
     RETURNS TABLE (
         term_count numeric, term text
 )
     AS $$
 BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, query_string);
     RETURN query
     SELECT
         AVG(ndtwi.rdt) AS term_rdt,
