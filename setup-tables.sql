@@ -377,7 +377,7 @@ ALTER TABLE ndtwi ADD COLUMN tf numeric;
 ALTER TABLE ndtwi ADD PRIMARY KEY (post_id, term);
 ALTER TABLE ndtwi ADD CONSTRAINT ndtwi_post_id_fkey FOREIGN KEY (post_id) REFERENCES post;
 ALTER TABLE ndwi ADD CONSTRAINT ndwi_post_id_fkey FOREIGN KEY (post_id) REFERENCES post;
-ALTER TABLE ndwi ADD PRIMARY KEY (post);
+ALTER TABLE ndwi ADD PRIMARY KEY (post_id);
 ALTER TABLE ntwi ADD PRIMARY KEY (term);
 
 
