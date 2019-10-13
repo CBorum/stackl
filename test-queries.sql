@@ -4,7 +4,9 @@ insert into marking (user_id, row_id, table_name) values (1, 1258694, 'post');
 
 insert into marking (user_id, row_id, table_name) values (1, 2782235, 'comment');
 
-select marker(1, 27822353, 'comments', null);
+select marker(1, 9158957, 'comment', null);
+
+select marker(1, 1252, 'post', 'Meget brugbar post');
 
 select searcher(1, 'injection');
 
