@@ -147,7 +147,7 @@ BEGIN
         best_match.rank,
         post.body
     FROM
-        best_match (VARIADIC _terms)
+        best_match (user_id, VARIADIC _terms)
         JOIN post USING (post_id)
     ORDER BY
         rank DESC;
@@ -251,7 +251,7 @@ BEGIN
         ranked_weighted_2.r_sum,
         post.body
     FROM
-        ranked_weighted_2 (VARIADIC _terms)
+        ranked_weighted_2 (user_id, VARIADIC _terms)
         JOIN post USING (post_id)
     ORDER BY
         r_sum DESC;
@@ -285,7 +285,7 @@ BEGIN
             SELECT
                 post_id
             FROM
-                exact_match (query_string))
+                exact_match (user_id, query_string))
         AND terms.term NOT IN (
             SELECT
                 word
@@ -322,7 +322,7 @@ BEGIN
             SELECT
                 post_id
             FROM
-                exact_match (query_string))
+                exact_match (user_id, query_string))
         AND terms.term NOT IN (
             SELECT
                 word
@@ -360,7 +360,7 @@ BEGIN
             SELECT
                 post_id
             FROM
-                exact_match (query_string))
+                exact_match (user_id, query_string))
         AND terms.term NOT IN (
             SELECT
                 word
