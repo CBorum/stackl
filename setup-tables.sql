@@ -61,10 +61,8 @@ CREATE TABLE post_Link (
     PRIMARY KEY (from_post_id, to_post_id)
 );
 
-COMMIT;
 
 -- data migration script
-BEGIN;
 
 -- population the location table with all distinct locations
 INSERT INTO location (text)
@@ -241,9 +239,7 @@ WHERE
         FROM
             post);
 
-COMMIT;
 
-BEGIN;
 
 CREATE OR REPLACE FUNCTION check_post_or_comment_exist (row_id int, table_name varchar(50))
         RETURNS boolean
@@ -307,11 +303,9 @@ CREATE TABLE marking (
     PRIMARY KEY (user_id, row_id, table_name)
 );
 
-COMMIT;
 
 -- create indexing tables
 
-BEGIN;
 
 DROP TABLE IF EXISTS terms;
 
@@ -325,7 +319,11 @@ WHERE
     word ~* '^[A-Za-z0-9].*$'
     AND tablename = 'posts'
     AND (what = 'title'
-        OR what = 'body');
+        OR what = 'body')
+GROUP BY
+	id, lower(word);
+
+
 
 -- Terms in document
 DROP TABLE IF EXISTS ndwi;
@@ -357,17 +355,31 @@ DROP TABLE IF EXISTS ndtwi;
 
 CREATE TABLE ndtwi AS
 SELECT
-    post_id,
-    term,
-    count(term) AS term_count
+    id as post_id,
+    word as term,
+    count(word) AS term_count
 FROM
-    terms
+    words
+where
+	word ~* '^[A-Za-z0-9].*$'
+    AND tablename = 'posts'
+    AND (what = 'title'
+    OR what = 'body')
 GROUP BY
     post_id,
-    term;
+    word;
 
-ALTER TABLE ndtwi
-    ADD COLUMN tf numeric;
+
+
+ALTER TABLE terms ADD PRIMARY KEY (post_id, term);
+ALTER TABLE ndtwi ADD COLUMN tf numeric;
+ALTER TABLE ndtwi ADD PRIMARY KEY (post_id, term);
+ALTER TABLE ndtwi ADD CONSTRAINT ndtwi_post_id_fkey FOREIGN KEY (post_id) REFERENCES post;
+ALTER TABLE ndtwi ADD CONSTRAINT ndtwi_term_fkey FOREIGN KEY (term) REFERENCES terms;
+ALTER TABLE ndwi ADD CONSTRAINT ndwi_post_id_fkey FOREIGN KEY (post_id) REFERENCES post;
+ALTER TABLE ndwi ADD PRIMARY KEY (post);
+ALTER TABLE ntwi ADD PRIMARY KEY (term);
+
 
 ALTER TABLE ndtwi
     ADD COLUMN rdt numeric;
@@ -390,11 +402,10 @@ FROM
 WHERE
     ntwi.term = ndtwi.term;
 
-COMMIT;
 
 -- Adding indexes
 
-BEGIN;
+
 
 drop index if exists stopwords_word;
 drop index if exists post_idx;
