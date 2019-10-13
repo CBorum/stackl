@@ -17,7 +17,7 @@ BEGIN
         OR post.body ~* s;
 END
 $BODY$
-LANGUAGE plpgsql
+LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION marker (user_id int, row_id int, table_name varchar, note varchar)
     RETURNS void
     AS $$
@@ -250,7 +250,7 @@ LANGUAGE plpgsql;
 -- D7:
 -- adding to stopwords
 INSERT INTO stopwords (word)
-    VALUES (n t);
+    VALUES ('n t');
 
 -- boolean version
 CREATE OR REPLACE FUNCTION words_to_words (query_string varchar)
