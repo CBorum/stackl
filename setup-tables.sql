@@ -162,7 +162,8 @@ DECLARE
     split_tags text[];
     r CHARACTER VARYING;
 BEGIN
-    < < outerloop > > FOR rec IN SELECT DISTINCT
+    <<outerloop>>
+    FOR rec IN SELECT DISTINCT
         (id),
         tags
     FROM
@@ -172,7 +173,8 @@ BEGIN
             exit
             WHEN rec IS NULL;
             split_tags: = regexp_split_to_array(rec.tags, '::');
-            < < innerloop > > FOREACH r IN ARRAY split_tags LOOP
+            <<innerloop>>
+            FOREACH r IN ARRAY split_tags LOOP
                 INSERT INTO tag (text)
                 VALUES (r) ON CONFLICT ON CONSTRAINT tag_text_key DO NOTHING;
             END LOOP;
@@ -191,7 +193,8 @@ DECLARE
     r CHARACTER VARYING;
     _tag_id int;
 BEGIN
-    < < outerloop > > FOR rec IN SELECT DISTINCT
+    <<outerloop>>
+    FOR rec IN SELECT DISTINCT
         (id),
         tags
     FROM
@@ -201,7 +204,8 @@ BEGIN
             exit
             WHEN rec IS NULL;
             split_tags: = regexp_split_to_array(rec.tags, '::');
-            < < innerloop > > FOREACH r IN ARRAY split_tags LOOP
+            <<innerloop>>
+            FOREACH r IN ARRAY split_tags LOOP
                 _tag_id: = (
                     SELECT
                         tag_id
