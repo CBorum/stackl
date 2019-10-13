@@ -1,15 +1,15 @@
 -- create tables script (Q&A)
 BEGIN;
 
-DROP TABLE IF EXISTS LOCATION CASCADE;
+DROP TABLE IF EXISTS location CASCADE;
 DROP TABLE IF EXISTS author CASCADE;
 DROP TABLE IF EXISTS post CASCADE;
-DROP TABLE IF EXISTS COMMENT CASCADE;
+DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS tag CASCADE;
 DROP TABLE IF EXISTS post_tag CASCADE;
 DROP TABLE IF EXISTS post_link CASCADE;
 
-CREATE TABLE LOCATION (
+CREATE TABLE location (
     location_id SERIAL PRIMARY KEY,
     text text UNIQUE
 );
@@ -19,7 +19,7 @@ CREATE TABLE author (
     name text,
     creation_date timestamp(6),
     age INT,
-    location_id INT REFERENCES LOCATION
+    location_id INT REFERENCES location
 );
 
 CREATE TABLE post (
@@ -35,7 +35,7 @@ CREATE TABLE post (
     post_type_id INT
 );
 
-CREATE TABLE COMMENT (
+CREATE TABLE comment (
     comment_id INT PRIMARY KEY,
     score INT,
     text text,
@@ -67,7 +67,7 @@ COMMIT;
 BEGIN;
 
 -- population the location table with all distinct locations
-INSERT INTO LOCATION (text)
+INSERT INTO location (text)
 SELECT DISTINCT
     (ownerlocation)
 FROM
@@ -83,7 +83,7 @@ SELECT DISTINCT
     location_id
 FROM
     posts_universal
-    LEFT JOIN LOCATION ON location.text = ownerlocation;
+    LEFT JOIN location ON location.text = ownerlocation;
 
 -- populating the author table again with all distinct authors(owners) from
 -- comments_universal that does not already exist in the author table
@@ -97,7 +97,7 @@ SELECT DISTINCT
     location_id
 FROM
     comments_universal
-    LEFT JOIN LOCATION ON location.text = authorlocation
+    LEFT JOIN location ON location.text = authorlocation
 WHERE
     authorid NOT IN ( SELECT DISTINCT
             (ownerid)
@@ -136,7 +136,7 @@ WHERE
             post);
 
 -- populating the comment table with all entries from comments_universal
-INSERT INTO COMMENT (comment_id,
+INSERT INTO comment (comment_id,
     score,
     text,
     created_date,
@@ -262,7 +262,7 @@ BEGIN
         SELECT
             COUNT(comment_id) INTO row_count
         FROM
-            COMMENT
+            comment
         WHERE
             comment_id = row_id;
     ELSE
