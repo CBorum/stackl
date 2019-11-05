@@ -38,7 +38,7 @@ namespace stackl.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("");
+                optionsBuilder.UseNpgsql(Env.GetInstance().Dict["CONNECTION_STRING"]);
             }
         }
 
