@@ -14,9 +14,9 @@ namespace stackl {
         private Env(){
             try{
                 Dict = new Dictionary<string, string>();
-                string text = System.IO.File.ReadAllText(".env");
-                var lines = text.Split(@"\r");
-                foreach(var line in lines){
+                var lines = System.IO.File.ReadLines(".env");
+                foreach (var line in lines)
+                {
                     var splitLine = line.Split("=", 2);
                     Dict[splitLine[0].Trim()] = splitLine[1].Trim();
                 }
