@@ -1,5 +1,5 @@
 namespace stackl.Controllers {
-    public class PostController {
+    public class CommentController {
 
     }
 }
