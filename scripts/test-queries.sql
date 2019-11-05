@@ -36,4 +36,5 @@ select * from words_to_words_weighted_avg(1, 'sql injection');
 -- D.7 Words to word query with summed relevance
 select * from words_to_words_weighted_sum(1, 'sql injection');
 
-select * from marking;
+-- view all search entries so far
+select * from search_entry;
