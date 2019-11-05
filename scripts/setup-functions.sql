@@ -259,6 +259,27 @@ END
 $$
 LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION ranked_weighted_2_w_body_2 (user_id int, VARIADIC _terms varchar[])
+    RETURNS TABLE (
+                      post_id int, creation_date timestamp, body text, score int, closed_date timestamp, title text, author_id int, parent_id int, accepted_answer_id int, post_type_id int
+                  )
+AS $$
+BEGIN
+    INSERT INTO search_entry (user_id, query)
+    VALUES (user_id, array_to_string(_terms, ' '));
+    RETURN query
+        SELECT
+            ranked_weighted_2.post_id,
+            post.creation_date,post.body,post.score,post.closed_date,post.title,post.author_id,post.parent_id,post.accepted_answer_id,post.post_type_id
+        FROM
+            ranked_weighted_2 (user_id, VARIADIC _terms)
+                JOIN post USING (post_id)
+        ORDER BY
+            r_sum DESC;
+END
+$$
+    LANGUAGE plpgsql;
+
 -- D7:
 -- adding to stopwords
 INSERT INTO stopwords (word)
