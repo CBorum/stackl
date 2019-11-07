@@ -15,7 +15,8 @@ namespace stackl {
         private Env(){
             try{
                 Dict = new Dictionary<string, string>();
-                var path = Directory.GetCurrentDirectory().Replace("bin/Debug/netcoreapp3.0", ".env");
+                var path = Directory.GetCurrentDirectory().Replace("/bin/Debug/netcoreapp3.0", "");
+                path += "/.env";
                 var lines = System.IO.File.ReadLines(path);
                 foreach (var line in lines)
                 {

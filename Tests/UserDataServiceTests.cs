@@ -11,30 +11,74 @@ namespace stackl.Tests
         {
             //Given
             var userRepository = new UserRepository();
-            var newUser = new StacklUser();
-            newUser.Username = "magda";
-            newUser.Password = "xd";
+            var newUser = new StacklUser(randName(), "xd");
 
             //When
             var user = await userRepository.Create(newUser);
 
             //Then
             Assert.NotNull(user);
-            Assert.Equal("magda", user.Username);
-            Assert.NotEqual("xd", user.Password);
+            Assert.Equal(newUser.Username, user.Username);
+            Assert.Equal("xd", user.Password);
+
+            Assert.True(await userRepository.Delete(user.UserId));
         }
-        
-        // [Fact]
-        // public void TestInsertSearchQuery()
-        // {
-        //     //Given
-        //     var userRepository = new UserRepository();
 
-        //     //When
-        //     userRepository.AddSearchHistory("test search", 1);
+        [Fact]
+        public async void TestInsertSearchQuery()
+        {
+            //Given
+            var userRepository = new UserRepository();
+            var user = await userRepository.Create(new StacklUser(randName(), "pw"));
 
-        //     //Then
-        //     // TODO: assert
-        // }
+            //When
+            var post = userRepository.AddSearchHistory("test search", user.UserId);
+
+            //Then
+            Assert.NotNull(post);
+            Assert.True(await userRepository.Delete(user.UserId));
+        }
+
+        [Fact]
+        public async void TestGetSeachEntries()
+        {
+            //Given
+            var userRepository = new UserRepository();
+            var user = await userRepository.Create(new StacklUser(randName(), "pw"));
+            userRepository.AddSearchHistory("test search", user.UserId);
+
+            //When
+            var searchEntries = userRepository.GetSearchHistory(0, 100);
+
+            //Then
+            Assert.Equal(1, searchEntries.Count);
+            Assert.Equal("test search", searchEntries[0].Query);
+
+            Assert.True(await userRepository.Delete(user.UserId));
+        }
+
+        [Fact]
+        public void TestInsertMarking()
+        {
+            //Given
+
+            //When
+
+            //Then
+        }
+
+        [Fact]
+        public void TestGetMarkings()
+        {
+            //Given
+
+            //When
+
+            //Then
+        }
+
+        public string randName() {
+            return System.Guid.NewGuid().ToString().Substring(0,25);
+        }
     }
 }
