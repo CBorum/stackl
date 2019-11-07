@@ -25,6 +25,7 @@ namespace stackl {
                 }
             }catch(Exception ex){
                 Console.WriteLine("Failed to read .env file (is a .env file present in the project directory?)");
+                Console.WriteLine(ex);
             }
         }
 
