@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using stackl.Models;
 
 namespace stackl.DataAccessLayer {
-    public class CommentDataService : ICommentDataService
+    public class CommentRepository : ICommentRepository
     {
         public List<Comment> GetCommentsForPost(int postId)
         {

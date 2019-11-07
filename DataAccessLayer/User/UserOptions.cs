@@ -3,13 +3,9 @@ using stackl.DataAccessLayer;
 
 namespace stackl.DataAccessLayer {
 
-    public class UserOptions : IOptions
+    public class UserOptions : Options
     {
-        public List<string> IncludedModels { get; set; }
-
-        public UserOptions(){
-            IncludedModels = new List<string>();
-        }
+        
     }
 
 }

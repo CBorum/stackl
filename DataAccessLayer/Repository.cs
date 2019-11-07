@@ -8,11 +8,6 @@ using System.Linq;
 
 namespace stackl
 {
-    public interface IEntity
-    {
-        int Id { get; set; }
-    }
-
     public abstract class Repository<TEntity, TOptions> : IRepository<TEntity, TOptions>
         where TEntity : class
         where TOptions : IOptions, new()

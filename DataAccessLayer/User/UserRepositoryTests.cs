@@ -4,7 +4,7 @@ using stackl.Models;
 
 namespace stackl.Tests
 {
-    public class UserDataServiceTests
+    public class UserRepositoryTests
     {
         [Fact]
         public async void TestCreateUser()

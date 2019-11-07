@@ -3,12 +3,8 @@ using stackl.Models;
 using stackl.DataAccessLayer;
 
 namespace stackl.DataAccessLayer {
-    public class PostOptions : IOptions
+    public class PostOptions : Options
     {
-        public List<string> IncludedModels { get; set;}
-
-        public PostOptions(){
-            IncludedModels = new List<string>();
-        }
+        
     }
 }
