@@ -259,7 +259,7 @@ END
 $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION ranked_weighted_2_w_body_2 (user_id int, VARIADIC _terms varchar[])
+CREATE OR REPLACE FUNCTION ranked_weighted_2_w_body_2 (user_id int, "offset" int, "limit" int, VARIADIC _terms varchar[])
     RETURNS TABLE (
                       post_id int, creation_date timestamp, body text, score int, closed_date timestamp, title text, author_id int, parent_id int, accepted_answer_id int, post_type_id int
                   )
@@ -275,7 +275,9 @@ BEGIN
             ranked_weighted_2 (user_id, VARIADIC _terms)
                 JOIN post USING (post_id)
         ORDER BY
-            r_sum DESC;
+            r_sum DESC
+            OFFSET "offset" ROWS
+            LIMIT "limit";
 END
 $$
     LANGUAGE plpgsql;
