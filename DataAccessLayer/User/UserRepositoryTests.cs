@@ -32,10 +32,10 @@ namespace stackl.Tests
             var user = await userRepository.Create(new StacklUser(randName(), "pw"));
 
             //When
-            var post = userRepository.AddSearchHistory("test search", user.UserId);
+            var searchEntry = userRepository.AddSearchHistory("test search", user.UserId);
 
             //Then
-            Assert.NotNull(post);
+            Assert.NotNull(searchEntry);
             Assert.True(await userRepository.Delete(user.UserId));
         }
 

@@ -9,11 +9,12 @@ namespace stackl.DataAccessLayer {
     {
         raw2Context context = new raw2Context();
 
-        public Post AddSearchHistory(string query, int userId)
+        public SearchEntry AddSearchHistory(string query, int userId)
         {
-            return context.Post
-                .FromSqlRaw("select * from searcher({0}, {1})", query, userId)
-                .FirstOrDefault(null);
+            var searchEntry = new SearchEntry(query, userId);
+            context.SearchEntry.Add(searchEntry);
+            var res = context.SaveChanges();
+            return res != 1 ? null : searchEntry;
         }
 
         public List<Marking> GetMarkings(int offset, int limit)
