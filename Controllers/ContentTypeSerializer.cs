@@ -1,14 +1,11 @@
-
 using System;
-using System.Net;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Xml.Serialization;
 using System.IO;
+using System.Net;
 using System.Xml;
-using stackl.Models;
+using System.Xml.Serialization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace stackl
+namespace stackl.Controllers
 {
     public static class ContentTypeSerializer
     {

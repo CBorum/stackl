@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using stackl.DataAccessLayer;
+using stackl.DataAccessLayer.Post;
 using stackl.Models;
 
 namespace stackl.Controllers {

@@ -1,15 +1,14 @@
-using System;
-using System.Linq;
 using System.Collections.Generic;
-using stackl.Models;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using stackl.Models;
 
-namespace stackl.DataAccessLayer {
+namespace stackl.DataAccessLayer.User {
     public class UserRepository : Repository<StacklUser, UserOptions>, IUserRepository 
     {
         raw2Context context = new raw2Context();
 
-        public Post AddSearchHistory(string query, int userId)
+        public Models.Post AddSearchHistory(string query, int userId)
         {
             return context.Post
                 .FromSqlRaw("select * from searcher({0}, {1})", query, userId)

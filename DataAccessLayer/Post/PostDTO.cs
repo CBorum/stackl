@@ -1,7 +1,6 @@
 using System;
-using stackl;
 
-namespace stackl.DataAccessLayer {
+namespace stackl.DataAccessLayer.Post {
 
     public class PostDTO
     {

@@ -1,6 +1,4 @@
-using System;
-
-namespace stackl.DataAccessLayer {
+namespace stackl.DataAccessLayer.Search {
 
     public class SearchRequest
     {

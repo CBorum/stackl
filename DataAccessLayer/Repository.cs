@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using stackl.Models;
-using stackl.DataAccessLayer;
-using System.Threading.Tasks;
-using System.Linq;
 
-namespace stackl
+namespace stackl.DataAccessLayer
 {
     public abstract class Repository<TEntity, TOptions> : IRepository<TEntity, TOptions>
         where TEntity : class
