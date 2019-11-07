@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace stackl {
+namespace stackl.DataAccessLayer {
     public interface IRepository<T> {
         T Get(int id);
         List<T> GetAll();

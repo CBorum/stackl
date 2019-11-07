@@ -11,7 +11,7 @@ namespace stackl.DataAccessLayer {
         public IQueryable<Post> ranked_weighted_2_w_body_2(int id, string input)
         {
             #warning mangler error håndtering
-            return context.Post.FromSqlRaw("select * from ranked_weighted_2_w_body_2({0},{1})", id, input);
+            return context.Post.FromSqlRaw("select * from ranked_weighted_2_w_body_2({0},{1}) ", id, input);
         }
         
     }
