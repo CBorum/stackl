@@ -14,7 +14,7 @@ namespace stackl.Controllers
         [HttpPost]
         public ActionResult Search(SearchRequest searchRequest)
         {
-            var res = sds.RankedWeightedSearch(searchRequest.Id, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
+            var res = sds.RankedWeightedSearch(searchRequest.UserId, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
             if (res == null) return NotFound();
             var posts = from post in res
                 select new PostDTO()
