@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using stackl.Models;
 
 namespace stackl.DataAccessLayer {
-    public class PostDataService
+    public class PostRepository
     {
         public Post Create(Post entity)
         {
