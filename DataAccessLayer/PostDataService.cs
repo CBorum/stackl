@@ -1,13 +1,32 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using stackl.Models;
 
 namespace stackl.DataAccessLayer {
-    public class PostDataService {
+    public class PostDataService : IRepository<Post>
+    {
+        public Post Create(Post entity)
+        {
+            throw new System.NotImplementedException();
+        }
 
-      
-        
+        public bool Delete(Post entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Post Get(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<Post> GetAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Post Update(Post entity)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
