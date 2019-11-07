@@ -7,7 +7,11 @@ namespace stackl.Controllers {
     [Route("api/[controller]")]
     public class PostController : ControllerBase {
 
-        
+        [HttpGet("{id}", Name = nameof(GetPost))]
+        public ActionResult GetPost(int id)
+        {
+            return Ok();
+        }
         
 
     }
