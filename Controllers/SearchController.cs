@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using stackl.DataAccessLayer;
 
@@ -13,9 +14,18 @@ namespace stackl.Controllers
         [HttpPost]
         public ActionResult Search(SearchRequest searchRequest)
         {
-            var res = sds.ranked_weighted_2_w_body_2(searchRequest.Id, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
+            var res = sds.RankedWeightedSearch(searchRequest.Id, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
             if (res == null) return NotFound();
-            return Ok(res);
+            var posts = from post in res
+                select new PostDTO()
+                {
+                    PostId = post.PostId,
+                    Body = post.Body,
+                    Score = post.Score,
+                    CreationDate = post.CreationDate,
+                    PostURI = Url.ActionLink("GetPost", "Post", new { id = post.PostId })
+                };
+            return Ok(posts);
         }
     }
 }

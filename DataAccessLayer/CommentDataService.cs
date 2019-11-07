@@ -4,7 +4,7 @@ using stackl.Models;
 namespace stackl.DataAccessLayer {
     public class CommentDataService : ICommentDataService
     {
-        public List<Comment> getCommentForPost(int postId)
+        public List<Comment> GetCommentsForPost(int postId)
         {
             throw new System.NotImplementedException();
         }

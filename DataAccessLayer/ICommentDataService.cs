@@ -4,6 +4,6 @@ using stackl.Models;
 
 namespace stackl.DataAccessLayer {
     public interface ICommentDataService {
-        List<Comment> getCommentForPost(int postId);
+        List<Comment> GetCommentsForPost(int postId);
     }
 }

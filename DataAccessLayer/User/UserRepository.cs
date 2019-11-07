@@ -2,29 +2,29 @@ using System.Collections.Generic;
 using stackl.Models;
 
 namespace stackl.DataAccessLayer {
-    public class UserReposity : IRepository<StacklUser>
+    public class UserRepository : Repository<StacklUser, User.UserOptions>, IUserRepository 
     {
-        public StacklUser Create(StacklUser user)
+        public Post AddSearchHistory(string query, int userId)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Delete(StacklUser entity)
+        public List<Marking> GetMarkings(int offset, int limit)
         {
             throw new System.NotImplementedException();
         }
 
-        public StacklUser Get(int id)
+        public List<SearchEntry> GetSearchHistory(int offset, int limit)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<StacklUser> GetAll()
+        public void SetPostMarking(int postId, int userId)
         {
             throw new System.NotImplementedException();
         }
 
-        public StacklUser Update(StacklUser entity)
+        void IUserRepository.AddSearchHistory(string query, int userId)
         {
             throw new System.NotImplementedException();
         }
