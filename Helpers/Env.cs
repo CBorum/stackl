@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.IO;
 
 
 namespace stackl {
@@ -14,7 +15,8 @@ namespace stackl {
         private Env(){
             try{
                 Dict = new Dictionary<string, string>();
-                var lines = System.IO.File.ReadLines(".env");
+                var path = Directory.GetCurrentDirectory().Replace("bin/Debug/netcoreapp3.0", ".env");
+                var lines = System.IO.File.ReadLines(path);
                 foreach (var line in lines)
                 {
                     var splitLine = line.Split("=", 2);

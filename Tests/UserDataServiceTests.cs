@@ -7,7 +7,7 @@ namespace stackl.Tests
     public class UserDataServiceTests
     {
         [Fact]
-        public void TestCreateUser()
+        public async void TestCreateUser()
         {
             //Given
             var userRepository = new UserRepository();
@@ -16,7 +16,7 @@ namespace stackl.Tests
             newUser.Password = "xd";
 
             //When
-            var user = userRepository.Create(newUser);
+            var user = await userRepository.Create(newUser);
 
             //Then
             Assert.NotNull(user);
@@ -24,17 +24,17 @@ namespace stackl.Tests
             Assert.NotEqual("xd", user.Password);
         }
         
-        [Fact]
-        public void TestInsertSearchQuery()
-        {
-            //Given
-            var userRepository = new UserRepository();
+        // [Fact]
+        // public void TestInsertSearchQuery()
+        // {
+        //     //Given
+        //     var userRepository = new UserRepository();
 
-            //When
-            userRepository.AddSearchHistory("test search", 1);
+        //     //When
+        //     userRepository.AddSearchHistory("test search", 1);
 
-            //Then
-            // TODO: assert
-        }
+        //     //Then
+        //     // TODO: assert
+        // }
     }
 }
