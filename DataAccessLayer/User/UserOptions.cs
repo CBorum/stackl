@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using stackl.DataAccessLayer;
 
-namespace stackl.DataAccessLayer.User {
+namespace stackl.DataAccessLayer {
 
     public class UserOptions : IOptions
     {

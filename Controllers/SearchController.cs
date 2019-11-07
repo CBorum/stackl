@@ -9,7 +9,7 @@ namespace stackl.Controllers
     [Route("api/[controller]")]
     public class SearchController : ControllerBase
     {
-        SearchDataService sds = new SearchDataService();
+        SearchRepository sds = new SearchRepository();
 
         [HttpPost]
         public ActionResult Search(SearchRequest searchRequest)

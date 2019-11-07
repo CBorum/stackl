@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using stackl.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace stackl.DataAccessLayer
-{
-    public class UserRepository : Repository<StacklUser, User.UserOptions>, IUserRepository
+namespace stackl.DataAccessLayer {
+    public class UserRepository : Repository<StacklUser, UserOptions>, IUserRepository 
     {
         raw2Context context = new raw2Context();
 

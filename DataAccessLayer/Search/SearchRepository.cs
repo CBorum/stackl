@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using stackl.Models;
 
 namespace stackl.DataAccessLayer {
-    public class SearchDataService {
+    public class SearchRepository {
 
         raw2Context context = new raw2Context();
         public List<Post> RankedWeightedSearch(int id,int offset, int limit, string input)
