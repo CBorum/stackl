@@ -4,6 +4,8 @@ using stackl.Models;
 namespace stackl.DataAccessLayer {
     public class UserRepository : Repository<StacklUser, User.UserOptions>, IUserRepository 
     {
+        raw2Context context = new raw2Context();
+
         public Post AddSearchHistory(string query, int userId)
         {
             throw new System.NotImplementedException();
