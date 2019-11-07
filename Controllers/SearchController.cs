@@ -13,7 +13,7 @@ namespace stackl.Controllers
         [HttpPost]
         public ActionResult Search(SearchRequest searchRequest)
         {
-            var res = sds.ranked_weighted_2_w_body_2(searchRequest.Id, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
+            var res = sds.RankedWeightedSearch(searchRequest.Id, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
             if (res == null) return NotFound();
             return Ok(res);
         }

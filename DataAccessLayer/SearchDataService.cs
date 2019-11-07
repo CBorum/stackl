@@ -8,7 +8,7 @@ namespace stackl.DataAccessLayer {
     public class SearchDataService {
 
         raw2Context context = new raw2Context();
-        public List<Post> ranked_weighted_2_w_body_2(int id,int offset, int limit, string input)
+        public List<Post> RankedWeightedSearch(int id,int offset, int limit, string input)
         {
             try
             {

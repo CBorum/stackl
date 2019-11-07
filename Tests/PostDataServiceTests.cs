@@ -10,7 +10,7 @@ namespace stackl.Tests
         public void TestGetPostByID_NotFound()
         {
             //Given
-            PostDataService postDataService = new PostDataService();
+            var postDataService = new PostDataService();
 
             //When
             var post = postDataService.Get(1);
@@ -23,7 +23,7 @@ namespace stackl.Tests
         public void TestGetPostByID_Valid()
         {
             //Given
-            PostDataService postDataService = new PostDataService();
+            var postDataService = new PostDataService();
             var testPost = new Post();
             testPost.PostId = 71;
 
@@ -39,7 +39,7 @@ namespace stackl.Tests
         public void TestGetAllPosts()
         {
             //Given
-            PostDataService postDataService = new PostDataService();
+            var postDataService = new PostDataService();
 
             //When
             var posts = postDataService.GetAll();
