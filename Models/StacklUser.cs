@@ -11,6 +11,12 @@ namespace stackl.Models
             SearchEntry = new HashSet<SearchEntry>();
         }
 
+        public StacklUser(string username, string password)
+        {
+            this.Username = username;
+            this.Password = password;
+        }
+
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

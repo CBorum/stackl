@@ -6,9 +6,11 @@ using stackl.DataAccessLayer;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace stackl {
-    public interface IEntity {
-        int Id {get;set;}
+namespace stackl
+{
+    public interface IEntity
+    {
+        int Id { get; set; }
     }
 
     public abstract class Repository<TEntity, TOptions> : IRepository<TEntity, TOptions>
@@ -17,7 +19,8 @@ namespace stackl {
     {
         public async Task<TEntity> Create(TEntity entity)
         {
-            using(var dbContext = new raw2Context()){
+            using (var dbContext = new raw2Context())
+            {
                 dbContext.Set<TEntity>().Add(entity);
                 await dbContext.SaveChangesAsync();
                 return entity;
@@ -26,8 +29,9 @@ namespace stackl {
 
         public async Task<bool> Delete(int id)
         {
-            using(var dbContext = new raw2Context()){
-                
+            using (var dbContext = new raw2Context())
+            {
+
                 var entity = await dbContext.Set<TEntity>().FindAsync(id);
                 if (entity == null)
                 {
@@ -43,17 +47,20 @@ namespace stackl {
 
         public async Task<TEntity> Get(int id)
         {
-            using(var dbContext = new raw2Context()){
+            using (var dbContext = new raw2Context())
+            {
                 return await dbContext.Set<TEntity>().FindAsync(id);
             }
         }
 
         public async Task<TEntity> Get(int id, TOptions options)
         {
-            using(var dbContext = new raw2Context()){
+            using (var dbContext = new raw2Context())
+            {
                 var entry = dbContext.Set<TEntity>().FindAsync();
 
-                foreach(var model in options.IncludedModels){
+                foreach (var model in options.IncludedModels)
+                {
                     dbContext.Entry(entry).Reference(model).Load();
                 }
 
@@ -63,17 +70,20 @@ namespace stackl {
 
         public async Task<List<TEntity>> GetAll(int offset, int limit)
         {
-            using(var dbContext = new raw2Context()){
+            using (var dbContext = new raw2Context())
+            {
                 return await dbContext.Set<TEntity>().Skip(offset).Take(limit).ToListAsync();
             }
         }
 
         public async Task<List<TEntity>> GetAll(int offset, int limit, TOptions options)
         {
-            using(var dbContext = new raw2Context()){
+            using (var dbContext = new raw2Context())
+            {
                 var x = dbContext.Set<TEntity>().Skip(offset).Take(limit);
 
-                foreach(var model in options.IncludedModels){
+                foreach (var model in options.IncludedModels)
+                {
                     x = x.Include(model);
                 }
 
@@ -83,7 +93,8 @@ namespace stackl {
 
         public async Task<TEntity> Update(TEntity entity)
         {
-            using(var dbContext = new raw2Context()){
+            using (var dbContext = new raw2Context())
+            {
                 dbContext.Entry(entity).State = EntityState.Modified;
                 await dbContext.SaveChangesAsync();
                 return entity;
