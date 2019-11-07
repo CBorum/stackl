@@ -1,16 +1,51 @@
 using Xunit;
+using stackl.DataAccessLayer;
+using stackl.Models;
 
-namespace stackl.Tests {
-    public class PostDataServiceTests {
+namespace stackl.Tests
+{
+    public class PostDataServiceTests
+    {
         [Fact]
-        public void TestName()
+        public void TestGetPostByID_NotFound()
         {
-        //Given
-        
-        //When
-        
-        //Then
+            //Given
+            PostDataService postDataService = new PostDataService();
+
+            //When
+            var post = postDataService.Get(1);
+
+            //Then
+            Assert.Null(post);
         }
 
+        [Fact]
+        public void TestGetPostByID_Valid()
+        {
+            //Given
+            PostDataService postDataService = new PostDataService();
+            var testPost = new Post();
+            testPost.PostId = 71;
+
+            //When
+            var post = postDataService.Get(71);
+
+            //Then
+            Assert.NotNull(post);
+            Assert.Equal(testPost.PostId, post.PostId);
+        }
+
+        [Fact]
+        public void TestGetAllPosts()
+        {
+            //Given
+            PostDataService postDataService = new PostDataService();
+
+            //When
+            var posts = postDataService.GetAll();
+
+            //Then
+            Assert.Equal(100, posts.Count);
+        }
     }
 }
