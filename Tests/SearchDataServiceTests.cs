@@ -31,5 +31,17 @@ namespace stackl.Tests
             //Then
             Assert.Equal(10, posts.Count);
         }
+        [Fact]
+        public void TestSearchByOffset_10()
+        {
+            //Given
+            SearchDataService searchDataService = new SearchDataService();
+            
+            //When
+            var posts = searchDataService.RankedWeightedSearch(1, 10, 10, "java");
+            //Then
+            Assert.Equal(57795, posts[0].PostId);
+        }
+        
     }
 }
