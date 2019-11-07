@@ -35,7 +35,7 @@ namespace stackl.Tests
         public void TestSearchByOffset_10()
         {
             //Given
-            SearchDataService searchDataService = new SearchDataService();
+            SearchRepository searchDataService = new SearchRepository();
             
             //When
             var posts = searchDataService.RankedWeightedSearch(1, 10, 10, "java");
