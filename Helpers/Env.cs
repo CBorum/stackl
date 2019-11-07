@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.IO;
 
-
-namespace stackl {
+namespace stackl.Helpers {
 
     class Env {
         private static Env instance {get;} = new Env();

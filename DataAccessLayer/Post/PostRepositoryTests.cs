@@ -1,8 +1,6 @@
 using Xunit;
-using stackl.DataAccessLayer;
-using stackl.Models;
 
-namespace stackl.Tests
+namespace stackl.DataAccessLayer.Post
 {
     public class PostDataServiceTests
     {
@@ -24,7 +22,7 @@ namespace stackl.Tests
         {
             //Given
             var postDataService = new PostRepository();
-            var testPost = new Post();
+            var testPost = new Models.Post();
             testPost.PostId = 71;
 
             //When

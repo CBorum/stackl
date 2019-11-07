@@ -1,5 +1,3 @@
-using Xunit;
-
-namespace stackl.Tests {
+namespace stackl.DataAccessLayer.Comment {
     
 }

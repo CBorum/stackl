@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using stackl.Models;
 
-namespace stackl.DataAccessLayer {
+namespace stackl.DataAccessLayer.Comment {
     public class CommentRepository : ICommentRepository
     {
-        public List<Comment> GetCommentsForPost(int postId)
+        public List<Models.Comment> GetCommentsForPost(int postId)
         {
             throw new System.NotImplementedException();
         }

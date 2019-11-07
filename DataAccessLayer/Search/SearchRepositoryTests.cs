@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using stackl.DataAccessLayer;
-using stackl.Models;
 using Xunit;
 
-namespace stackl.Tests
+namespace stackl.DataAccessLayer.Search
 {
     public class SearchDataServiceTests
     {
