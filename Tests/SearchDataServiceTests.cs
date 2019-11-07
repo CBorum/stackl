@@ -12,7 +12,7 @@ namespace stackl.Tests
         public void TestSearchByID_NotFound()
         {
             //Given
-            SearchDataService searchDataService = new SearchDataService();
+            SearchRepository searchDataService = new SearchRepository();
             
             //When
             var posts = searchDataService.RankedWeightedSearch(-1, 0, 10, "test");
@@ -24,7 +24,7 @@ namespace stackl.Tests
         public void TestSearchByLimit_10()
         {
             //Given
-            SearchDataService searchDataService = new SearchDataService();
+            SearchRepository searchDataService = new SearchRepository();
             
             //When
             var posts = searchDataService.RankedWeightedSearch(1, 0, 10, "java");

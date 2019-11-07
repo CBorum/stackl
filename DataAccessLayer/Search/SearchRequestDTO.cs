@@ -1,7 +1,7 @@
 using System;
 
-namespace stackl.DataAccessLayer
-{
+namespace stackl.DataAccessLayer {
+
     public class SearchRequest
     {
         public SearchRequest(int id,int offset, int limit, string input)
@@ -18,13 +18,4 @@ namespace stackl.DataAccessLayer
         public string Input { get; set; }
     }
 
-    public class PostDTO
-    {
-        public int PostId { get; set; }
-        public DateTime? CreationDate { get; set; }
-        public string Body { get; set; }
-        public int? Score { get; set; }
-        public string PostURI { get; set; }
-    }
-    
 }
