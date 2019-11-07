@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using stackl.DataAccessLayer;
@@ -6,7 +7,7 @@ using stackl.Models;
 
 namespace stackl.Controllers {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/post")]
     public class PostController : ControllerBase {
 
         [HttpGet("{id}", Name = nameof(GetPost))]

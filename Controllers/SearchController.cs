@@ -6,7 +6,7 @@ using stackl.DataAccessLayer;
 namespace stackl.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/search")]
     public class SearchController : ControllerBase
     {
         SearchRepository sds = new SearchRepository();
