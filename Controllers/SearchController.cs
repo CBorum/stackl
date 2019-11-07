@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using stackl.DataAccessLayer;
+using stackl.DataAccessLayer.Post;
+using stackl.DataAccessLayer.Search;
 
 namespace stackl.Controllers
 {
@@ -11,7 +13,7 @@ namespace stackl.Controllers
     {
         SearchRepository sds = new SearchRepository();
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Search(SearchRequest searchRequest)
         {
             var res = sds.RankedWeightedSearch(searchRequest.UserId, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);

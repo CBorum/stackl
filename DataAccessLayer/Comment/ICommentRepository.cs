@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using stackl.Models;
 
-namespace stackl.DataAccessLayer {
+namespace stackl.DataAccessLayer.Comment {
     public interface ICommentRepository {
-        List<Comment> GetCommentsForPost(int postId);
+        List<Models.Comment> GetCommentsForPost(int postId);
     }
 }

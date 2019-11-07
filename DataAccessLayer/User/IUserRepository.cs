@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using stackl.Models;
 
-namespace stackl.DataAccessLayer
+namespace stackl.DataAccessLayer.User
 {
     public interface IUserRepository
     {

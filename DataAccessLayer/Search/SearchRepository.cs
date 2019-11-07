@@ -4,11 +4,11 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using stackl.Models;
 
-namespace stackl.DataAccessLayer {
+namespace stackl.DataAccessLayer.Search {
     public class SearchRepository {
 
         raw2Context context = new raw2Context();
-        public List<Post> RankedWeightedSearch(int id,int offset, int limit, string input)
+        public List<Models.Post> RankedWeightedSearch(int id,int offset, int limit, string input)
         {
             try
             {

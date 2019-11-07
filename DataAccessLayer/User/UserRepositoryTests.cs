@@ -1,8 +1,7 @@
-using Xunit;
-using stackl.DataAccessLayer;
 using stackl.Models;
+using Xunit;
 
-namespace stackl.Tests
+namespace stackl.DataAccessLayer.User
 {
     public class UserRepositoryTests
     {

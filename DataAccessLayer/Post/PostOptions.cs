@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using stackl.Models;
-using stackl.DataAccessLayer;
-
-namespace stackl.DataAccessLayer {
+namespace stackl.DataAccessLayer.Post {
     public class PostOptions : Options
     {
         
