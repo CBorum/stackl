@@ -211,7 +211,7 @@ $$
 LANGUAGE plpgsql;
 
 -- same query as above but another implementation
-CREATE OR REPLACE FUNCTION ranked_weighted_2 (user_id int, VARIADIC _terms varchar[])
+CREATE OR REPLACE FUNCTION ranked_weighted_2 (VARIADIC _terms varchar[])
     RETURNS TABLE (
         post_id int, r_sum numeric
 )
@@ -222,15 +222,13 @@ DECLARE
     _query_string varchar;
     _term varchar;
 BEGIN
-    INSERT INTO search_entry (user_id, query)
-    VALUES (user_id, array_to_string(_terms, ' '));
     foreach _term IN ARRAY _terms LOOP
         _s := 'ndtwi.term = ''' || _term || '''';
         _term_branches := array_append(_term_branches, _s);
     END LOOP;
     _query_string := 'select post_id, sum(rdt) as r_sum
  			from ndtwi where ' || array_to_string(_term_branches, ' OR ') || ' group by post_id order by r_sum desc limit 100;';
-    raise notice '%', _query_string;
+    --raise notice '%', _query_string;
     RETURN query EXECUTE _query_string;
 END
 $$
@@ -259,28 +257,24 @@ END
 $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION ranked_weighted_2_w_body_2 (user_id int, "offset" int, "limit" int, VARIADIC _terms varchar[])
-    RETURNS TABLE (
-                      post_id int, creation_date timestamp, body text, score int, closed_date timestamp, title text, author_id int, parent_id int, accepted_answer_id int, post_type_id int
-                  )
-AS $$
+CREATE OR REPLACE FUNCTION "public"."search_ranked_weighted"("offset" int4, "limit" int4, VARIADIC "_terms" _varchar)
+    RETURNS TABLE("post_id" int4, "creation_date" timestamp, "body" text, "score" int4, "closed_date" timestamp, "title" text, "author_id" int4, "parent_id" int4, "accepted_answer_id" int4, "post_type_id" int4) AS $BODY$
 BEGIN
-    INSERT INTO search_entry (user_id, query)
-    VALUES (user_id, array_to_string(_terms, ' '));
     RETURN query
         SELECT
             ranked_weighted_2.post_id,
             post.creation_date,post.body,post.score,post.closed_date,post.title,post.author_id,post.parent_id,post.accepted_answer_id,post.post_type_id
         FROM
-            ranked_weighted_2 (user_id, VARIADIC _terms)
+            ranked_weighted_2 (VARIADIC _terms)
                 JOIN post USING (post_id)
         ORDER BY
             r_sum DESC
             OFFSET "offset" ROWS
-            LIMIT "limit";
+        LIMIT "limit";
 END
-$$
+$BODY$
     LANGUAGE plpgsql;
+
 
 -- D7:
 -- adding to stopwords
