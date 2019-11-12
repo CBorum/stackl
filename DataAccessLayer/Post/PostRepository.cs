@@ -7,8 +7,11 @@ namespace stackl.DataAccessLayer.Post
 {
     public class PostRepository : Repository<Models.Post, PostOptions>
     {
-
         raw2Context context = new raw2Context();
+
+        public PostRepository(raw2Context dbContext) : base(dbContext)
+        {
+        }
 
         public async Task<Models.Post> GetComplete(int id)
         {

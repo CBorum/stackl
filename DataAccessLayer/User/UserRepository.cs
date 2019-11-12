@@ -8,6 +8,10 @@ namespace stackl.DataAccessLayer.User {
     {
         raw2Context context = new raw2Context();
 
+        public UserRepository(raw2Context dbContext) : base(dbContext)
+        {
+        }
+
         public SearchEntry AddSearchHistory(string query, int userId)
         {
             var searchEntry = new SearchEntry(query, userId);

@@ -15,11 +15,17 @@ namespace stackl.Controllers
     public class PostController : ControllerBase
     {
 
+        PostRepository repository;
+
+        public PostController(PostRepository repository){
+            this.repository = repository;
+        }
+
         [HttpGet("{id}", Name = nameof(GetPost))]
         public async Task<ActionResult> GetPost(int id)
         {
             // postid 30373
-            var post = await new PostRepository().GetComplete(id);
+            var post = await repository.GetComplete(id);
             if (post == null) return NotFound();
 
             var dto = this.postDTOMapper(post);

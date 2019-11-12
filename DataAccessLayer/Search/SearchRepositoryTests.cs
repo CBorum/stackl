@@ -1,14 +1,23 @@
 using Xunit;
+using stackl.Models;
 
 namespace stackl.DataAccessLayer.Search
 {
-    public class SearchDataServiceTests
+    public class SearchRepositoryTests
     {
+        raw2Context context;
+
+        
+        public SearchRepositoryTests(){
+            context = new raw2Context();
+        }
+
         [Fact]
         public void TestSearchByID_NotFound()
         {
+            
             //Given
-            SearchRepository searchDataService = new SearchRepository();
+            SearchRepository searchDataService = new SearchRepository(context);
             
             //When
             var posts = searchDataService.RankedWeightedSearch(-1, 0, 10, "test");
@@ -20,7 +29,7 @@ namespace stackl.DataAccessLayer.Search
         public void TestSearchByLimit_10()
         {
             //Given
-            SearchRepository searchDataService = new SearchRepository();
+            SearchRepository searchDataService = new SearchRepository(context);
             
             //When
             var posts = searchDataService.RankedWeightedSearch(1, 0, 10, "java");
@@ -31,7 +40,7 @@ namespace stackl.DataAccessLayer.Search
         public void TestSearchByOffset_10()
         {
             //Given
-            SearchRepository searchDataService = new SearchRepository();
+            SearchRepository searchDataService = new SearchRepository(context);
             
             //When
             var posts = searchDataService.RankedWeightedSearch(1, 10, 10, "java");

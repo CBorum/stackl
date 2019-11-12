@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using stackl.DataAccessLayer;
 using stackl.DataAccessLayer.Post;
 using stackl.DataAccessLayer.Search;
+using stackl.Models;
 
 namespace stackl.Controllers
 {
@@ -11,12 +12,16 @@ namespace stackl.Controllers
     [Route("api/search")]
     public class SearchController : ControllerBase
     {
-        SearchRepository sds = new SearchRepository();
+        SearchRepository repository;
+
+        public SearchController(){
+            repository = new SearchRepository(new raw2Context());
+        }
 
         [HttpGet]
         public ActionResult Search(SearchRequest searchRequest)
         {
-            var res = sds.RankedWeightedSearch(searchRequest.UserId, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
+            var res = repository.RankedWeightedSearch(searchRequest.UserId, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
             if (res == null) return NotFound();
             var posts = from post in res
                 select new DTO.Post()

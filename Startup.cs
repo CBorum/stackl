@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using stackl.Models;
+using stackl.DataAccessLayer;
 
 namespace stackl
 {
@@ -26,6 +28,13 @@ namespace stackl
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddDbContext<raw2Context>();
+
+            services.AddScoped<DataAccessLayer.Post.PostRepository>();
+            services.AddScoped<DataAccessLayer.Search.SearchRepository>();
+            services.AddScoped<DataAccessLayer.User.UserRepository>();
+            services.AddScoped<DataAccessLayer.Comment.CommentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
