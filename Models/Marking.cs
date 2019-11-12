@@ -9,7 +9,7 @@ namespace stackl.Models
         public int RowId { get; set; }
         public string TableName { get; set; }
         public string Note { get; set; }
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         public virtual StacklUser User { get; set; }
     }

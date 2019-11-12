@@ -9,5 +9,6 @@ namespace stackl.DataAccessLayer.Post {
         public string Body { get; set; }
         public int? Score { get; set; }
         public string PostURI { get; set; }
+        public string Title { get; set; }
     }
 }
