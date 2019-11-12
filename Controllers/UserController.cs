@@ -22,7 +22,7 @@ namespace stackl.Controllers
             var markings = repository.GetMarkings(0, 10);
             if (markings == null) return NotFound();
 
-            var markingsDTO = markings.Select(m => new DTO.Marking 
+            var markingsDTO = markings.Select(m => new MarkingDTO 
             {
                 Userid = m.UserId,
                 RowId = m.RowId,

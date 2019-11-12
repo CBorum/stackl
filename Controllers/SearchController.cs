@@ -5,6 +5,7 @@ using stackl.DataAccessLayer;
 using stackl.DataAccessLayer.Post;
 using stackl.DataAccessLayer.Search;
 using stackl.Models;
+using stackl.Controllers.DTO;
 
 namespace stackl.Controllers
 {
@@ -24,7 +25,7 @@ namespace stackl.Controllers
             var res = repository.RankedWeightedSearch(searchRequest.UserId, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
             if (res == null) return NotFound();
             var posts = from post in res
-                select new DTO.Post()
+                select new PostDTO()
                 {
                     PostId = post.PostId,
                     Body = post.Body,

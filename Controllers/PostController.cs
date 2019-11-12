@@ -32,7 +32,7 @@ namespace stackl.Controllers
             return Ok(dto);
         }
 
-        private DTO.Post postDTOMapper(Models.Post post)
+        private PostDTO postDTOMapper(Models.Post post)
         {
             var postDTO = PostDTOFromModel(post);
             postDTO.Tags = post.PostTag.Select(pt => pt.Tag.Text).ToList();
@@ -51,9 +51,9 @@ namespace stackl.Controllers
             return postDTO;
         }
 
-        private DTO.Post PostDTOFromModel(Models.Post post)
+        private PostDTO PostDTOFromModel(Models.Post post)
         {
-            return new DTO.Post(post.PostId,
+            return new PostDTO(post.PostId,
                 post.CreationDate,
                 post.ClosedDate,
                 post.Body,
@@ -62,20 +62,20 @@ namespace stackl.Controllers
                 post.Title);
         }
 
-        private DTO.Author AuthorDTOFromModel(Models.Author author)
+        private AuthorDTO AuthorDTOFromModel(Models.Author author)
         {
-            return new DTO.Author(author.Name);
+            return new AuthorDTO(author.Name);
         }
 
-        private DTO.Comment CommentDTOFromModel(Models.Comment comment)
+        private CommentDTO CommentDTOFromModel(Models.Comment comment)
         {
-            var c = new DTO.Comment(comment.CommentId,
+            var c = new CommentDTO(comment.CommentId,
                 comment.Score,
                 comment.Text,
                 comment.CreatedDate);
             if (comment.Author != null)
             {
-                c.Author = AuthorDTOFromModel(comment.Author);
+                c.AuthorDTO = AuthorDTOFromModel(comment.Author);
             }
             return c;
         }

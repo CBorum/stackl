@@ -1,12 +1,18 @@
 using System;
-using stackl.Controllers;
-using stackl.DataAccessLayer.Post;
-using stackl.Models;
 
-namespace stackl.Controllers {
+namespace stackl.Controllers.DTO {
 
     public class CommentDTO
     {
+        public CommentDTO() {}
+        public CommentDTO(int commentId, int? score, string text, DateTime? createdDate)
+        {
+            CommentId = commentId;
+            Score = score;
+            Text = text;
+            CreatedDate = createdDate;
+        }
+
         public int CommentId { get; set; }
         public int? Score { get; set; }
         public string Text { get; set; }

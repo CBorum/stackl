@@ -1,10 +1,16 @@
 using System;
 
-namespace stackl.Controllers {
+namespace stackl.Controllers.DTO {
 
     public class AuthorDTO
     {
-        public int AuthorId { get; set; }
+        public AuthorDTO() {}
+        public AuthorDTO(string Name)
+        {
+            this.Name = Name;
+        }
+
         public string Name { get; set; }
+        public int AuthorId { get; set; }
     }
 }
