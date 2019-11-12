@@ -32,6 +32,9 @@ namespace stackl
             services.AddDbContext<raw2Context>();
 
             services.AddScoped<DataAccessLayer.Post.PostRepository>();
+            services.AddScoped<DataAccessLayer.Search.SearchRepository>();
+            services.AddScoped<DataAccessLayer.User.UserRepository>();
+            services.AddScoped<DataAccessLayer.Comment.CommentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
