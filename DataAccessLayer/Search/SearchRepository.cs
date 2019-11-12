@@ -5,9 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using stackl.Models;
 
 namespace stackl.DataAccessLayer.Search {
-    public class SearchRepository {
+    public class SearchRepository : Repository<SearchEntry, SearchOptions> {
 
         raw2Context context = new raw2Context();
+
+        public SearchRepository(raw2Context dbContext) : base(dbContext)
+        {
+        }
+
         public List<Models.Post> RankedWeightedSearch(int id,int offset, int limit, string input)
         {
             try

@@ -5,11 +5,13 @@ namespace stackl.DataAccessLayer.User
 {
     public class UserRepositoryTests
     {
+        raw2Context context;
+
         [Fact]
         public async void TestCreateUser()
         {
             //Given
-            var userRepository = new UserRepository();
+            var userRepository = new UserRepository(context);
             var newUser = new StacklUser(randName(), "xd");
 
             //When
@@ -27,7 +29,7 @@ namespace stackl.DataAccessLayer.User
         public async void TestInsertSearchQuery()
         {
             //Given
-            var userRepository = new UserRepository();
+            var userRepository = new UserRepository(context);
             var user = await userRepository.Create(new StacklUser(randName(), "pw"));
 
             //When
@@ -42,7 +44,7 @@ namespace stackl.DataAccessLayer.User
         public async void TestGetSeachEntries()
         {
             //Given
-            var userRepository = new UserRepository();
+            var userRepository = new UserRepository(context);
             var user = await userRepository.Create(new StacklUser(randName(), "pw"));
             userRepository.AddSearchHistory("test search", user.UserId);
 

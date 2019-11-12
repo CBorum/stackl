@@ -1,14 +1,17 @@
 using Xunit;
+using stackl.Models;
 
 namespace stackl.DataAccessLayer.Post
 {
     public class PostDataServiceTests
     {
+        raw2Context context;
+
         [Fact]
         public void TestGetPostByID_NotFound()
         {
             //Given
-            var postDataService = new PostRepository();
+            var postDataService = new PostRepository(context);
 
             //When
             var post = postDataService.Get(1);
@@ -21,7 +24,7 @@ namespace stackl.DataAccessLayer.Post
         public void TestGetPostByID_Valid()
         {
             //Given
-            var postDataService = new PostRepository();
+            var postDataService = new PostRepository(context);
             var testPost = new Models.Post();
             testPost.PostId = 71;
 
@@ -37,7 +40,7 @@ namespace stackl.DataAccessLayer.Post
         public void TestGetAllPosts()
         {
             //Given
-            var postDataService = new PostRepository();
+            var postDataService = new PostRepository(context);
 
             //When
             // var posts = postDataService.GetAll();
