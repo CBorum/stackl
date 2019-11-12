@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using stackl.DataAccessLayer;
+using stackl.DataAccessLayer.User;
 
 namespace stackl.Controllers
 {
