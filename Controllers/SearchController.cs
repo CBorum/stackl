@@ -18,8 +18,6 @@ namespace stackl.Controllers
             repository = new SearchRepository(new raw2Context());
         }
 
-
-
         [HttpGet]
         public ActionResult Search(SearchRequest searchRequest)
         {

@@ -26,6 +26,7 @@ namespace stackl.Controllers {
             return Ok(new PostDTO()
             {
                 PostId = post.PostId,
+                Title = post.Title,
                 Body = post.Body,
                 Score = post.Score,
                 CreationDate = post.CreationDate,
