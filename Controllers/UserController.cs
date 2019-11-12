@@ -1,6 +1,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using stackl.DataAccessLayer;
+using stackl.Controllers.DTO;
 using stackl.DataAccessLayer.User;
 
 namespace stackl.Controllers
@@ -16,7 +16,7 @@ namespace stackl.Controllers
             var markings = new UserRepository().GetMarkings(0, 10);
             if (markings == null) return NotFound();
 
-            var markingsDTO = markings.Select(m => new MarkingDTO 
+            var markingsDTO = markings.Select(m => new DTO.Marking 
             {
                 Userid = m.UserId,
                 RowId = m.RowId,
