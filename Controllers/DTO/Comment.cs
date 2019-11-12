@@ -4,6 +4,10 @@ namespace stackl.Controllers.DTO {
 
     public class Comment
     {
+        public Comment(){
+            
+        }
+
         public Comment(int commentId, int? score, string text, DateTime? createdDate)
         {
             CommentId = commentId;

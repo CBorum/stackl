@@ -29,7 +29,7 @@ namespace stackl.Controllers
             if (post == null) return NotFound();
 
             var dto = this.postDTOMapper(post);
-            return Ok(dto);
+            return this.SerializeContent<DTO.Post>(dto);
         }
 
         private DTO.Post postDTOMapper(Models.Post post)
@@ -38,7 +38,7 @@ namespace stackl.Controllers
             postDTO.Tags = post.PostTag.Select(pt => pt.Tag.Text).ToList();
             postDTO.PostLinks = post.PostLinkFromPost.Select(pl => PostDTOFromModel(pl.ToPost)).ToList();
             postDTO.Author = AuthorDTOFromModel(post.Author);
-            postDTO.AcceptedAnswerPost = PostDTOFromModel(post.AcceptedAnswer);
+            postDTO.AcceptedAnswerPost = post.AcceptedAnswer == null ? null : PostDTOFromModel(post.AcceptedAnswer);
             postDTO.Answers = post.InverseParent.Select(p =>
             {
                 var post = PostDTOFromModel(p);

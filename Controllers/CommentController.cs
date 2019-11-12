@@ -17,6 +17,9 @@ namespace stackl.Controllers {
         [HttpGet("{id}", Name = nameof(GetComment))]
         public async Task<ActionResult> GetComment(int id)
         {
+            
+            // this.Request.ContentType
+
             var comment = await repository.Get(id, new CommentOptions(){IncludedModels = new List<string>{"Post", "Author"}});  
             if (comment == null) return NotFound();
 
