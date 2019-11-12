@@ -156,7 +156,7 @@ $$
 LANGUAGE plpgsql;
 
 -- D6:
-CREATE OR REPLACE FUNCTION ranked_weighted (user_id int, query text)
+CREATE OR REPLACE FUNCTION ranked_weighted (query text)
     RETURNS TABLE (
         post_id integer, rdt numeric
 )
@@ -167,8 +167,6 @@ DECLARE
     term_arr text[];
     r CHARACTER VARYING;
 BEGIN
-    INSERT INTO search_entry (user_id, query)
-    VALUES (user_id, query);
     term_arr := string_to_array(query, ' ');
     raise notice '%', term_arr[1];
     ids := ARRAY (
@@ -257,18 +255,18 @@ END
 $$
 LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION "public"."search_ranked_weighted"("offset" int4, "limit" int4, VARIADIC "_terms" _varchar)
+CREATE OR REPLACE FUNCTION "public"."search_ranked_weighted"(IN "offset" int4, IN "limit" int4, "input" text)
     RETURNS TABLE("post_id" int4, "creation_date" timestamp, "body" text, "score" int4, "closed_date" timestamp, "title" text, "author_id" int4, "parent_id" int4, "accepted_answer_id" int4, "post_type_id" int4) AS $BODY$
 BEGIN
     RETURN query
         SELECT
-            ranked_weighted_2.post_id,
+            ranked_weighted.post_id,
             post.creation_date,post.body,post.score,post.closed_date,post.title,post.author_id,post.parent_id,post.accepted_answer_id,post.post_type_id
         FROM
-            ranked_weighted_2 (VARIADIC _terms)
+            ranked_weighted("input")
                 JOIN post USING (post_id)
         ORDER BY
-            r_sum DESC
+            rdt DESC
             OFFSET "offset" ROWS
         LIMIT "limit";
 END
