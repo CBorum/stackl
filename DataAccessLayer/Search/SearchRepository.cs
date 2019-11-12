@@ -12,7 +12,19 @@ namespace stackl.DataAccessLayer.Search {
         {
             try
             {
-                return context.Post.FromSqlRaw("select * from ranked_weighted_2_w_body_2({0},{1},{2},{3})", id, offset, limit, input).ToList();
+                var user = context.StacklUser.FirstOrDefault(ux => ux.UserId == id);
+                if (user != null)
+                {
+                    context.SearchEntry.Add(new SearchEntry()
+                    {
+                        Query = input,
+                        CreationDate = DateTime.Now,
+                        User = user
+                    });
+                    context.SaveChanges();
+                }
+                if(limit <= 0 || limit > 100) limit = 10;
+                return context.Post.FromSqlRaw("select * from search_ranked_weighted({0},{1},{2})", offset, limit, input).ToList();
             }
             catch (Exception e)
             {
