@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using stackl.Controllers.DTO;
 using stackl.DataAccessLayer.User;
@@ -15,7 +16,7 @@ namespace stackl.Controllers
         public UserController(UserRepository repository){
             this.repository = repository;
         }
-
+        [Authorize]
         [HttpGet("{userid}/marking", Name = nameof(GetUserMarkings))]
         public ActionResult GetUserMarkings(int userid)
         {
