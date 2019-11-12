@@ -416,9 +416,9 @@ namespace stackl.Models
                     .HasColumnName("creation_date")
                     .HasDefaultValueSql("now()");
 
-                entity.Property(e => e.Password)
-                    .HasColumnName("password")
-                    .HasMaxLength(100);
+                entity.Property(e => e.Passwordhash).HasColumnName("passwordhash");
+
+                entity.Property(e => e.Passwordsalt).HasColumnName("passwordsalt");
 
                 entity.Property(e => e.Username)
                     .HasColumnName("username")
