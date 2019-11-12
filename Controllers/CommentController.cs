@@ -36,8 +36,8 @@ namespace stackl.Controllers {
                 // },
                 AuthorDTO = new AuthorDTO
                 {
-                    AuthorId = comment.Post.Author.AuthorId,
-                    Name = comment.Post.Author.Name
+                    AuthorId = comment.Author.AuthorId,
+                    Name = comment.Author.Name
                 }
             });
 

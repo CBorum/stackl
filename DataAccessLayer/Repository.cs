@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -54,17 +55,14 @@ namespace stackl.DataAccessLayer
 
         public async Task<TEntity> Get(int id, TOptions options)
         {
-            using (var dbContext = new raw2Context())
+            var entry = await DbContext.Set<TEntity>().FindAsync(id);
+
+            foreach (var model in options.IncludedModels)
             {
-                var entry = dbContext.Set<TEntity>().FindAsync();
-
-                foreach (var model in options.IncludedModels)
-                {
-                    dbContext.Entry(entry).Reference(model).Load();
-                }
-
-                return await entry;
+                DbContext.Entry(entry).Reference(model).Load();
             }
+
+            return entry;
         }
 
         public async Task<List<TEntity>> GetAll(int offset, int limit)
