@@ -1,6 +1,6 @@
 using System;
 
-namespace stackl.DataAccessLayer.User {
+namespace stackl.Controllers {
 
     public class MarkingDTO
     {

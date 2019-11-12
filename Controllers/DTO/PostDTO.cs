@@ -1,6 +1,6 @@
 using System;
 
-namespace stackl.DataAccessLayer.Post {
+namespace stackl.Controllers {
 
     public class PostDTO
     {
