@@ -280,7 +280,8 @@ DROP TABLE IF EXISTS marking CASCADE;
 CREATE TABLE stackl_user (
     user_id SERIAL PRIMARY KEY,
     username varchar(25) UNIQUE,
-    password varchar(100),
+    passwordhash bytea,
+	passwordsalt bytea,
     creation_date timestamp DEFAULT NOW()
 );
 

@@ -10,16 +10,17 @@ namespace stackl.Models
             Marking = new HashSet<Marking>();
             SearchEntry = new HashSet<SearchEntry>();
         }
-
-        public StacklUser(string username, string password)
-        {
-            this.Username = username;
-            this.Password = password;
-        }
+        
+//        public StacklUser(string username, string password)
+//        {
+//            this.Username = username;
+//            this.Password = password;
+//        }
 
         public int UserId { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
+        public byte[] Passwordhash { get; set; }
+        public byte[] Passwordsalt { get; set; }
         public DateTime? CreationDate { get; set; }
 
         public virtual ICollection<Marking> Marking { get; set; }
