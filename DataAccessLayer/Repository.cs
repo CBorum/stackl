@@ -10,6 +10,12 @@ namespace stackl.DataAccessLayer
         where TEntity : class
         where TOptions : IOptions, new()
     {
+        private raw2Context DbContext {get; set;}
+
+        public Repository(raw2Context dbContext){
+            DbContext = dbContext;
+        }
+
         public async Task<TEntity> Create(TEntity entity)
         {
             using (var dbContext = new raw2Context())

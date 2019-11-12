@@ -10,10 +10,16 @@ namespace stackl.Controllers
     [Route("api/user")]
     public class UserController : ControllerBase
     {
+        UserRepository repository;
+
+        public UserController(UserRepository repository){
+            this.repository = repository;
+        }
+
         [HttpGet("{userid}/markings", Name = nameof(GetUserMarkings))]
         public ActionResult GetUserMarkings(int userid)
         {
-            var markings = new UserRepository().GetMarkings(0, 10);
+            var markings = repository.GetMarkings(0, 10);
             if (markings == null) return NotFound();
 
             var markingsDTO = markings.Select(m => new MarkingDTO 
@@ -30,6 +36,5 @@ namespace stackl.Controllers
 
             return Ok(markingsDTO);
         }
-
     } 
 }
