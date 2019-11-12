@@ -17,7 +17,7 @@ namespace stackl.Controllers {
         [HttpGet("{id}", Name = nameof(GetComment))]
         public async Task<ActionResult> GetComment(int id)
         {
-            var comment = await repository.Get(id, new CommentOptions(){IncludedModels = new List<string>{"Author"}});  
+            var comment = await repository.Get(id, new CommentOptions(){IncludedModels = new List<string>{"Post", "Author"}});  
             if (comment == null) return NotFound();
 
             return Ok(new CommentDTO
@@ -27,13 +27,13 @@ namespace stackl.Controllers {
                 Text = comment.Text,
                 CreatedDate = comment.CreatedDate,
                 PostId = comment.PostId,
-                // Post = new PostDTO {
-                //     PostId = comment.Post.PostId,
-                //     CreationDate = comment.Post.CreationDate,
-                //     Body = comment.Post.Body,
-                //     Score = comment.Post.Score,
-                //     Title = comment.Post.Title
-                // },
+                Post = new PostDTO { // maybe just a postURI
+                    PostId = comment.Post.PostId,
+                    CreationDate = comment.Post.CreationDate,
+                    Body = comment.Post.Body,
+                    Score = comment.Post.Score,
+                    Title = comment.Post.Title
+                },
                 AuthorDTO = new AuthorDTO
                 {
                     AuthorId = comment.Author.AuthorId,

@@ -24,7 +24,7 @@ namespace stackl.Controllers
             var res = repository.RankedWeightedSearch(searchRequest.UserId, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
             if (res == null) return NotFound();
             var posts = from post in res
-                select new PostDTO()
+                select new DTO.Post()
                 {
                     PostId = post.PostId,
                     Body = post.Body,
