@@ -7,10 +7,17 @@ namespace stackl.Controllers {
     [ApiController]
     [Route("api/comment")]
     public class CommentController : ControllerBase {
+
+        CommentRepository repository;
+
+        public CommentController(CommentRepository repository){
+            this.repository = repository;
+        }
+
         [HttpGet("{id}", Name = nameof(GetComment))]
         public async Task<ActionResult> GetComment(int id)
         {
-            var comment = await new CommentRepository().Get(id, new CommentOptions(){IncludedModels = new List<string>{"Author"}});  
+            var comment = await repository.Get(id, new CommentOptions(){IncludedModels = new List<string>{"Author"}});  
             if (comment == null) return NotFound();
 
             return Ok(new CommentDTO
