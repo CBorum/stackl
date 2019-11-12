@@ -16,7 +16,7 @@ namespace stackl.Controllers
             this.repository = repository;
         }
 
-        [HttpGet("{userid}/markings", Name = nameof(GetUserMarkings))]
+        [HttpGet("{userid}/marking", Name = nameof(GetUserMarkings))]
         public ActionResult GetUserMarkings(int userid)
         {
             var markings = repository.GetMarkings(0, 10);
