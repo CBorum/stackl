@@ -6,6 +6,7 @@ namespace stackl.DataAccessLayer.Comment {
     {
         public CommentRepository(raw2Context dbContext) : base(dbContext)
         {
+            DbContext = dbContext;
         }
 
         public List<Models.Comment> GetCommentsForPost(int postId)

@@ -5,6 +5,7 @@ namespace stackl.DataAccessLayer.Post {
     {
         public PostRepository(raw2Context dbContext) : base(dbContext)
         {
+            DbContext = dbContext;
         }
     }
 }

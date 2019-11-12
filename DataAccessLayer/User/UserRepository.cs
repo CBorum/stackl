@@ -6,17 +6,16 @@ using stackl.Models;
 namespace stackl.DataAccessLayer.User {
     public class UserRepository : Repository<StacklUser, UserOptions>, IUserRepository 
     {
-        raw2Context context = new raw2Context();
-
         public UserRepository(raw2Context dbContext) : base(dbContext)
         {
+            DbContext = dbContext;
         }
 
         public SearchEntry AddSearchHistory(string query, int userId)
         {
             var searchEntry = new SearchEntry(query, userId);
-            context.SearchEntry.Add(searchEntry);
-            var res = context.SaveChanges();
+            DbContext.SearchEntry.Add(searchEntry);
+            var res = DbContext.SaveChanges();
             return res != 1 ? null : searchEntry;
         }
 
@@ -26,7 +25,7 @@ namespace stackl.DataAccessLayer.User {
             {
                 limit = 100;
             }
-            return context.Marking
+            return DbContext.Marking
                 .Skip(offset)
                 .Take(limit)
                 .ToList();
@@ -38,7 +37,7 @@ namespace stackl.DataAccessLayer.User {
             {
                 limit = 100;
             }
-            return context.SearchEntry
+            return DbContext.SearchEntry
                 .Skip(offset)
                 .Take(limit)
                 .ToList();
@@ -46,7 +45,7 @@ namespace stackl.DataAccessLayer.User {
 
         public void SetPostMarking(int userId, int rowId, string tableName, string note)
         {
-            context.StacklUser.FromSqlRaw("select * from marker({0}, {1}, {2}, {3})", userId, rowId, tableName, note);
+            DbContext.StacklUser.FromSqlRaw("select * from marker({0}, {1}, {2}, {3})", userId, rowId, tableName, note);
         }
     }
 }
