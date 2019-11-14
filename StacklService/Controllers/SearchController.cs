@@ -7,6 +7,7 @@ using stackl.DataAccessLayer.Post;
 using stackl.DataAccessLayer.Search;
 using stackl.Models;
 using stackl.Controllers.DTO;
+using System.Collections.Generic;
 
 namespace stackl.Controllers
 {
@@ -25,7 +26,7 @@ namespace stackl.Controllers
         [Authorize]
         public ActionResult Search([FromQuery] string userid, [FromQuery] string offset, [FromQuery] string limit, [FromQuery] string input)
         {
-            var query = createFromSearchQuery(userid, offset, limit, input);
+            var query = CreateFromSearchQuery(userid, offset, limit, input);
             if (query == null) return BadRequest();
             var res = repository.RankedWeightedSearch(query.userid, query.offset, query.limit, query.input);
             if (res == null) return NotFound();
@@ -38,10 +39,10 @@ namespace stackl.Controllers
                     CreationDate = post.CreationDate,
                     PostURI = Url.ActionLink("GetPost", "Post", new { id = post.PostId })
                 };
-            return Ok(posts);
+                return this.SerializeContent<List<DTO.PostDTO>>(posts.ToList());
         }
 
-        public SearchRequest createFromSearchQuery(string userid, string offset, string limit, string input)
+        public SearchRequest CreateFromSearchQuery(string userid, string offset, string limit, string input)
         {
             try
             {
