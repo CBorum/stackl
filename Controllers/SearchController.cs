@@ -21,8 +21,11 @@ namespace stackl.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
+        [Authorize]
         public ActionResult Search(SearchRequest searchRequest)
         {
+            
             var res = repository.RankedWeightedSearch(searchRequest.UserId, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
             if (res == null) return NotFound();
             var posts = from post in res

@@ -39,13 +39,16 @@ namespace stackl.Controllers
             postDTO.PostLinks = post.PostLinkFromPost.Select(pl => PostDTOFromModel(pl.ToPost)).ToList();
             postDTO.Author = AuthorDTOFromModel(post.Author);
             postDTO.AcceptedAnswerPost = post.AcceptedAnswer == null ? null : PostDTOFromModel(post.AcceptedAnswer);
-            postDTO.Answers = post.InverseParent.Select(p =>
-            {
-                var post = PostDTOFromModel(p);
-                post.Author = AuthorDTOFromModel(p.Author);
-                post.Comments = p.Comment.Select(c => CommentDTOFromModel(c)).ToList();
-                return post;
-            }).ToList();
+            postDTO.Answers = post.InverseParent
+                .Where(p => post.PostId != postDTO.AcceptedAnswerPost.PostId)
+                .Select(p =>
+                {
+                    var post = PostDTOFromModel(p);
+                    post.Author = AuthorDTOFromModel(p.Author);
+                    post.Comments = p.Comment.Select(c => CommentDTOFromModel(c)).ToList();
+                    return post;
+                })
+                .ToList();
             postDTO.Comments = post.Comment.Select(c => CommentDTOFromModel(c)).ToList();
 
             return postDTO;
