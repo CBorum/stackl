@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using stackl.DataAccessLayer;
+using stackl.DataAccessLayer.Login;
 using stackl.Helpers;
 using stackl.Models;
 using stackl.Models.Users;
@@ -17,7 +18,7 @@ namespace stackl.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/login")]
     public class LoginController : ControllerBase
     {
         private ILoginRepository _loginRepository;

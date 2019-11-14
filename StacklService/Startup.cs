@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using stackl.Models;
 using stackl.DataAccessLayer;
 using stackl.Helpers;
+using stackl.DataAccessLayer.Login;
 
 namespace stackl
 {
@@ -42,6 +43,7 @@ namespace stackl
             services.AddScoped<DataAccessLayer.Search.SearchRepository>();
             services.AddScoped<DataAccessLayer.User.UserRepository>();
             services.AddScoped<DataAccessLayer.Comment.CommentRepository>();
+            services.AddScoped<DataAccessLayer.Login.LoginRepository>();
 
             // configure jwt authentication
             var key = Encoding.ASCII.GetBytes(Env.GetInstance().Dict["JWT_SECRET"]);

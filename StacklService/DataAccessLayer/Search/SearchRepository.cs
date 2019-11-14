@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using stackl.Models;
+using System.Threading.Tasks;
 
 namespace stackl.DataAccessLayer.Search {
     public class SearchRepository : Repository<SearchEntry, SearchOptions> {
@@ -12,22 +13,24 @@ namespace stackl.DataAccessLayer.Search {
             DbContext = dbContext;
         }
 
-        public List<Models.Post> RankedWeightedSearch(int id,int offset, int limit, string input)
+        public void AddSearchHistory(string query, int userId)
+        {
+            Task.Run(() => {
+                var searchEntry = new SearchEntry(query, userId);
+                DbContext.SearchEntry.Add(searchEntry);
+                var res = DbContext.SaveChanges();
+                return res != 1 ? null : searchEntry;
+            });
+        }
+
+        public List<Models.Post> RankedWeightedSearch(int? userId,int offset, int limit, string input)
         {
             try
             {
-                var user = DbContext.StacklUser.FirstOrDefault(ux => ux.UserId == id);
-                if (user != null)
+                if (userId != null && userId > 0)
                 {
-                    DbContext.SearchEntry.Add(new SearchEntry()
-                    {
-                        Query = input,
-                        CreationDate = DateTime.Now,
-                        User = user
-                    });
-                    DbContext.SaveChanges();
+                    AddSearchHistory(input, (int) userId);
                 }
-                if(limit <= 0 || limit > 100) limit = 10;
                 return DbContext.Post.FromSqlRaw("select * from search_ranked_weighted({0},{1},{2})", offset, limit, input).ToList();
             }
             catch (Exception e)

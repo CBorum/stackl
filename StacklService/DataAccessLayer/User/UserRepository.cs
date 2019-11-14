@@ -31,16 +31,28 @@ namespace stackl.DataAccessLayer.User {
                 .ToList();
         }
 
-        public List<SearchEntry> GetSearchHistory(int offset, int limit)
+        public List<SearchEntry> GetSearchHistory(int userId, int offset, int limit)
         {
             if (limit > 100)
             {
                 limit = 100;
             }
             return DbContext.SearchEntry
+                .Where(s => s.UserId == userId)
                 .Skip(offset)
                 .Take(limit)
                 .ToList();
+        }
+
+        public bool DeleteSearchHistory(int userId, int searchEntryId)
+        {
+            var searchEntry = DbContext.SearchEntry.FirstOrDefault(s => s.UserId == userId && s.SearchEntryId == searchEntryId);
+            if (searchEntry == null)
+            {
+                return false;
+            }
+            DbContext.Remove(searchEntry);
+            return DbContext.SaveChanges() == 1;
         }
 
         public void SetPostMarking(int userId, int rowId, string tableName, string note)
