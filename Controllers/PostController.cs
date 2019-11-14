@@ -29,7 +29,7 @@ namespace stackl.Controllers
             if (post == null) return NotFound();
 
             var dto = this.postDTOMapper(post);
-            return this.SerializeContent<DTO.Post>(dto);
+            return this.SerializeContent<DTO.PostDTO>(dto);
         }
 
         private PostDTO postDTOMapper(Models.Post post)
