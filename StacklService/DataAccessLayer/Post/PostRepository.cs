@@ -7,8 +7,6 @@ namespace stackl.DataAccessLayer.Post
 {
     public class PostRepository : Repository<Models.Post, PostOptions>
     {
-        raw2Context context = new raw2Context();
-
         public PostRepository(raw2Context dbContext) : base(dbContext)
         {
             DbContext = dbContext;
@@ -16,10 +14,9 @@ namespace stackl.DataAccessLayer.Post
 
         public async Task<Models.Post> GetComplete(int id)
         {
-            return await context.Post
+            return await DbContext.Post
                 .Include(p => p.PostTag)
                     .ThenInclude(pt => pt.Tag)
-                .Include(p => p.InverseAcceptedAnswer)
                 .Include(p => p.PostLinkFromPost)
                     .ThenInclude(pl => pl.ToPost)
                 .Include(p => p.Author)

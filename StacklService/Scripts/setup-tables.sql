@@ -416,6 +416,10 @@ drop index if exists term1_idx;
 drop index if exists term2_idx;
 drop index if exists post2_idx;
 
+drop index if exists comment_post_idx;
+drop index if exists comment_author_idx;
+drop index if exists post_parent_idx;
+
 create index stopwords_word on stopwords(word);
 create index post_idx on terms(post_id);
 create index term_idx on terms(term);
@@ -423,5 +427,9 @@ create index post1_idx on ndwi(post_id);
 create index term1_idx on ntwi(term);
 create index term2_idx on ndtwi(term);
 create index post2_idx on ndtwi(post_id);
+
+create index comment_post_idx on comment(post_id)
+create index comment_author_idx on comment(author_id)
+create index post_parent_idx on post(parent_id)
 
 COMMIT;
