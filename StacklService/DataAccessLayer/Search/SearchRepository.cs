@@ -15,12 +15,16 @@ namespace stackl.DataAccessLayer.Search {
 
         public void AddSearchHistory(string query, int userId)
         {
-            Task.Run(() => {
-                var searchEntry = new SearchEntry(query, userId);
-                DbContext.SearchEntry.Add(searchEntry);
-                var res = DbContext.SaveChanges();
-                return res != 1 ? null : searchEntry;
-            });
+            Task.Run(() =>
+                {
+                    using (var context = new raw2Context())
+                    {
+                        var searchEntry = new SearchEntry(query, userId);
+                        context.SearchEntry.Add(searchEntry);
+                        var res = DbContext.SaveChanges();
+                        return res != 1 ? null : searchEntry;
+                    }
+                });
         }
 
         public List<Models.Post> RankedWeightedSearch(int? userId,int offset, int limit, string input)
