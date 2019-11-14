@@ -1,6 +1,6 @@
-using stackl.Models;
 using Xunit;
 using stackl.Controllers.DTO;
+using StacklServiceTests;
 
 namespace stackl.Controllers
 {
