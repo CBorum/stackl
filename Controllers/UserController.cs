@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using stackl.Controllers.DTO;
+using stackl.DataAccessLayer.Login;
 using stackl.DataAccessLayer.User;
 
 namespace stackl.Controllers
@@ -11,11 +12,13 @@ namespace stackl.Controllers
     [Route("api/user")]
     public class UserController : ControllerBase
     {
-        IUserRepository repository;
+        UserRepository repository;
+        LoginRepository loginRepository;
 
-        public UserController(IUserRepository repository)
+        public UserController(UserRepository repository, LoginRepository loginRepository)
         {
             this.repository = repository;
+            this.loginRepository = loginRepository;
         }
 
         [Authorize]
@@ -25,19 +28,26 @@ namespace stackl.Controllers
             var markings = repository.GetMarkings(0, 10);
             if (markings == null) return NotFound();
 
-            var markingsDTO = markings.Select(m => new MarkingDTO
+            return loginRepository.isUser(userid, User.Identity.Name, res =>
             {
-                Userid = m.UserId,
-                RowId = m.RowId,
-                Note = m.Note,
-                CreationDate = m.CreationDate,
-                MarkingURI = Url.Link(
-                    m.TableName == "post" ? "GetPost" : "GetComment",
-                    new { id = m.RowId }
-                )
-            });
+                if (!res) return Unauthorized();
+                var markings = repository.GetMarkings(0, 10);
+                if (markings == null) return NotFound();
 
-            return Ok(markingsDTO);
+                var markingsDTO = markings.Select(m => new MarkingDTO
+                {
+                    Userid = m.UserId,
+                    RowId = m.RowId,
+                    Note = m.Note,
+                    CreationDate = m.CreationDate,
+                    MarkingURI = Url.Link(
+                        m.TableName == "post" ? "GetPost" : "GetComment",
+                        new { id = m.RowId }
+                    )
+                });
+
+                return Ok(markingsDTO);
+            });
         }
 
         [Authorize]
@@ -51,7 +61,7 @@ namespace stackl.Controllers
                 return NotFound();
             }
 
-            var SearchEntryDTOs = searchHistory.Select(s => new SearchEntryDTO(s.Query, s.CreationDate));
+            var SearchEntryDTOs = searchHistory.Select(s => new SearchEntryDTO(s.SearchEntryId, s.Query, s.CreationDate));
             return Ok(SearchEntryDTOs);
         }
 

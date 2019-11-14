@@ -23,10 +23,11 @@ namespace stackl.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Authorize]
-        public ActionResult Search(SearchRequest searchRequest)
+        public ActionResult Search([FromQuery] string userid, [FromQuery] string offset, [FromQuery] string limit, [FromQuery] string input)
         {
-            
-            var res = repository.RankedWeightedSearch(searchRequest.UserId, searchRequest.Offset, searchRequest.Limit, searchRequest.Input);
+            var query = createFromSearchQuery(userid, offset, limit, input);
+            if (query == null) return BadRequest();
+            var res = repository.RankedWeightedSearch(query.userid, query.offset, query.limit, query.input);
             if (res == null) return NotFound();
             var posts = from post in res
                 select new PostDTO()
@@ -38,6 +39,19 @@ namespace stackl.Controllers
                     PostURI = Url.ActionLink("GetPost", "Post", new { id = post.PostId })
                 };
             return Ok(posts);
+        }
+
+        public SearchRequest createFromSearchQuery(string userid, string offset, string limit, string input)
+        {
+            try
+            {
+                return new SearchRequest(Int32.Parse(userid), Int32.Parse(offset), Int32.Parse(limit), input);
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine("ERROR!!!: " + e);
+                return null;
+            }
         }
     }
 }

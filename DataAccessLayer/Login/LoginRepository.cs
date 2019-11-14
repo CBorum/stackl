@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using stackl.Helpers;
 using stackl.Models;
 
 
-namespace stackl.Service
+namespace stackl.DataAccessLayer.Login
 {
-    public interface IUserService
+    public interface ILoginRepository
     {
         StacklUser Authenticate(string username, string password);
         IEnumerable<StacklUser> GetAll();
@@ -17,11 +18,11 @@ namespace stackl.Service
         void Delete(int id);
     }
 
-    public class UserService : IUserService
+    public class LoginRepository : ILoginRepository
     {
         private raw2Context _context;
 
-        public UserService(raw2Context context)
+        public LoginRepository(raw2Context context)
         {
             _context = context;
         }
@@ -152,6 +153,18 @@ namespace stackl.Service
             }
 
             return true;
+        }
+
+        public delegate ActionResult isUserDelegate(bool res);
+        public ActionResult isUser(int queryId, string id, isUserDelegate cb)
+        {
+            try
+            {
+                int userid = Int32.Parse(id);
+                return cb(queryId == userid);
+            } catch (Exception e) {
+                return cb(false);
+            }
         }
     }
 }

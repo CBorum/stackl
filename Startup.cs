@@ -18,7 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using stackl.Models;
 using stackl.DataAccessLayer;
 using stackl.Helpers;
-using stackl.Service;
+using stackl.DataAccessLayer.Login;
 
 namespace stackl
 {
@@ -43,6 +43,7 @@ namespace stackl
             services.AddScoped<DataAccessLayer.Search.SearchRepository>();
             services.AddScoped<DataAccessLayer.User.UserRepository>();
             services.AddScoped<DataAccessLayer.Comment.CommentRepository>();
+            services.AddScoped<DataAccessLayer.Login.LoginRepository>();
 
             // configure jwt authentication
             var key = Encoding.ASCII.GetBytes(Env.GetInstance().Dict["JWT_SECRET"]);
@@ -57,7 +58,7 @@ namespace stackl
                     {
                         OnTokenValidated = context =>
                         {
-                            var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
+                            var userService = context.HttpContext.RequestServices.GetRequiredService<ILoginRepository>();
                             var userId = int.Parse(context.Principal.Identity.Name);
                             var user = userService.GetById(userId);
                             if (user == null)
@@ -80,7 +81,7 @@ namespace stackl
                 });
 
             // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
