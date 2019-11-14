@@ -37,7 +37,7 @@ namespace stackl.Controllers
             }
             try
             {
-                var xmlserializer = new XmlSerializer(typeof(T));
+                var xmlserializer = new XmlSerializer(typeof(Type));
                 var stringWriter = new StringWriter();
                 using (var writer = XmlWriter.Create(stringWriter))
                 {
