@@ -18,7 +18,7 @@ namespace stackl.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/login")]
     public class LoginController : ControllerBase
     {
         private ILoginRepository _loginRepository;
