@@ -4,7 +4,7 @@ using System.IO;
 
 namespace stackl.Helpers {
 
-    class Env {
+    public class Env {
         private static Env instance {get;} = new Env();
 
         public Dictionary<String, String> Dict {get;}

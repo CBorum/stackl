@@ -14,7 +14,6 @@ namespace stackl.Controllers
     [Route("api/post")]
     public class PostController : ControllerBase
     {
-
         PostRepository repository;
 
         public PostController(PostRepository repository){
@@ -24,6 +23,7 @@ namespace stackl.Controllers
         [HttpGet("{id}", Name = nameof(GetPost))]
         public async Task<ActionResult> GetPost(int id)
         {
+            
             // postid 30373
             var post = await repository.GetComplete(id);
             if (post == null) return NotFound();
@@ -39,13 +39,16 @@ namespace stackl.Controllers
             postDTO.PostLinks = post.PostLinkFromPost.Select(pl => PostDTOFromModel(pl.ToPost)).ToList();
             postDTO.Author = AuthorDTOFromModel(post.Author);
             postDTO.AcceptedAnswerPost = post.AcceptedAnswer == null ? null : PostDTOFromModel(post.AcceptedAnswer);
-            postDTO.Answers = post.InverseParent.Select(p =>
-            {
-                var post = PostDTOFromModel(p);
-                post.Author = AuthorDTOFromModel(p.Author);
-                post.Comments = p.Comment.Select(c => CommentDTOFromModel(c)).ToList();
-                return post;
-            }).ToList();
+            postDTO.Answers = post.InverseParent
+                .Where(p => post.PostId != postDTO.AcceptedAnswerPost.PostId)
+                .Select(p =>
+                {
+                    var post = PostDTOFromModel(p);
+                    post.Author = AuthorDTOFromModel(p.Author);
+                    post.Comments = p.Comment.Select(c => CommentDTOFromModel(c)).ToList();
+                    return post;
+                })
+                .ToList();
             postDTO.Comments = post.Comment.Select(c => CommentDTOFromModel(c)).ToList();
 
             return postDTO;

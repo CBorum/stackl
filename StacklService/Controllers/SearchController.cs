@@ -22,6 +22,8 @@ namespace stackl.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
+        [Authorize]
         public ActionResult Search([FromQuery] string userid, [FromQuery] string offset, [FromQuery] string limit, [FromQuery] string input)
         {
             var query = CreateFromSearchQuery(userid, offset, limit, input);
