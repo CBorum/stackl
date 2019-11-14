@@ -12,8 +12,8 @@ namespace stackl.Controllers{
 
         public static ActionResult SerializeContent<T>(this ControllerBase controller, T obj){
             var xmlSerializer = new XmlSerializer(typeof(T));
-
-            var contentType = controller.Request.ContentType;
+            var contentType = controller.Request.ContentType != null ? controller.Request.ContentType : ""; // if no ContentType was in request 
+            
             if(contentType.Contains("json")){
                 return controller.Ok(obj);
             }
@@ -26,7 +26,8 @@ namespace stackl.Controllers{
                     return controller.Content(textWriter.ToString(), "text/xml");
                 }                
             }
-            
+            // if no ContentType header was provided return json
+            controller.Request.ContentType = "application/json";
             return controller.Ok(obj);
         }
 

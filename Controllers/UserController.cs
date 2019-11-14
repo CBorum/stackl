@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,8 +42,7 @@ namespace stackl.Controllers
                         new { id = m.RowId }
                     )
                 });
-
-                return Ok(markingsDTO);
+                return this.SerializeContent<List<DTO.MarkingDTO>>(markingsDTO.ToList());
             });
         }
     }
