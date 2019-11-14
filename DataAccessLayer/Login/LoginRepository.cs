@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using stackl.Helpers;
 using stackl.Models;
 
 
-namespace stackl.DataAccessLayer
+namespace stackl.DataAccessLayer.Login
 {
     public interface ILoginRepository
     {
@@ -152,6 +153,18 @@ namespace stackl.DataAccessLayer
             }
 
             return true;
+        }
+
+        public delegate ActionResult isUserDelegate(bool res);
+        public ActionResult isUser(int queryId, string id, isUserDelegate cb)
+        {
+            try
+            {
+                int userid = Int32.Parse(id);
+                return cb(queryId == userid);
+            } catch (Exception e) {
+                return cb(false);
+            }
         }
     }
 }

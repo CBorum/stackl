@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using stackl.DataAccessLayer;
+using stackl.DataAccessLayer.Login;
 using stackl.Helpers;
 using stackl.Models;
 using stackl.Models.Users;
