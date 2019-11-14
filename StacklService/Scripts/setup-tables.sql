@@ -428,8 +428,8 @@ create index term1_idx on ntwi(term);
 create index term2_idx on ndtwi(term);
 create index post2_idx on ndtwi(post_id);
 
-create index comment_post_idx on comment(post_id)
-create index comment_author_idx on comment(author_id)
-create index post_parent_idx on post(parent_id)
+create index comment_post_idx on comment(post_id);
+create index comment_author_idx on comment(author_id);
+create index post_parent_idx on post(parent_id);
 
 COMMIT;
