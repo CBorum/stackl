@@ -162,7 +162,7 @@ namespace stackl.DataAccessLayer.Login
             {
                 int userid = Int32.Parse(id);
                 return cb(queryId == userid);
-            } catch (Exception e) {
+            } catch (Exception) {
                 return cb(false);
             }
         }
