@@ -5,9 +5,11 @@ namespace stackl.Controllers.DTO {
     public class AuthorDTO
     {
         public AuthorDTO() {}
-        public AuthorDTO(string Name)
+
+        public AuthorDTO(string name, int authorId)
         {
-            this.Name = Name;
+            Name = name;
+            AuthorId = authorId;
         }
 
         public string Name { get; set; }

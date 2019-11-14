@@ -67,7 +67,7 @@ namespace stackl.Controllers
 
         private AuthorDTO AuthorDTOFromModel(Models.Author author)
         {
-            return new AuthorDTO(author.Name);
+            return new AuthorDTO(author.Name, author.AuthorId);
         }
 
         private CommentDTO CommentDTOFromModel(Models.Comment comment)
@@ -78,7 +78,7 @@ namespace stackl.Controllers
                 comment.CreatedDate);
             if (comment.Author != null)
             {
-                c.AuthorDTO = AuthorDTOFromModel(comment.Author);
+                c.Author = AuthorDTOFromModel(comment.Author);
             }
             return c;
         }
