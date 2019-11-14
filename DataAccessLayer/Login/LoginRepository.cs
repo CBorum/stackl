@@ -5,9 +5,9 @@ using stackl.Helpers;
 using stackl.Models;
 
 
-namespace stackl.Service
+namespace stackl.DataAccessLayer
 {
-    public interface IUserService
+    public interface ILoginRepository
     {
         StacklUser Authenticate(string username, string password);
         IEnumerable<StacklUser> GetAll();
@@ -17,11 +17,11 @@ namespace stackl.Service
         void Delete(int id);
     }
 
-    public class UserService : IUserService
+    public class LoginRepository : ILoginRepository
     {
         private raw2Context _context;
 
-        public UserService(raw2Context context)
+        public LoginRepository(raw2Context context)
         {
             _context = context;
         }

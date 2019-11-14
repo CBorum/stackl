@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using stackl.DataAccessLayer;
 using stackl.Helpers;
 using stackl.Models;
 using stackl.Models.Users;
-using stackl.Service;
 
 namespace stackl.Controllers
 {
@@ -20,15 +20,15 @@ namespace stackl.Controllers
     [Route("[controller]")]
     public class LoginController : ControllerBase
     {
-        private IUserService _userService;
+        private ILoginRepository _loginRepository;
         private IMapper _mapper;
 
         public LoginController(
-            IUserService userService,
+            ILoginRepository loginRepository,
             IMapper mapper
             )
         {
-            _userService = userService;
+            _loginRepository = loginRepository;
             _mapper = mapper;
         }
 
@@ -36,7 +36,7 @@ namespace stackl.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]AuthenticateModel model)
         {
-            var user = _userService.Authenticate(model.Username, model.Password);
+            var user = _loginRepository.Authenticate(model.Username, model.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -74,7 +74,7 @@ namespace stackl.Controllers
             try
             {
                 // create user
-                _userService.Create(user, model.Password);
+                _loginRepository.Create(user, model.Password);
                 return Ok();
             }
             catch (AppException ex)
