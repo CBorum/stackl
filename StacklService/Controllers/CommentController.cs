@@ -38,7 +38,7 @@ namespace stackl.Controllers {
                     Score = comment.Post.Score,
                     Title = comment.Post.Title
                 },
-                AuthorDTO = new AuthorDTO
+                Author = new AuthorDTO
                 {
                     AuthorId = comment.Author.AuthorId,
                     Name = comment.Author.Name
