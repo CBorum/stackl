@@ -14,7 +14,6 @@ namespace stackl.Controllers
     [Route("api/post")]
     public class PostController : ControllerBase
     {
-
         PostRepository repository;
 
         public PostController(PostRepository repository){
@@ -24,6 +23,7 @@ namespace stackl.Controllers
         [HttpGet("{id}", Name = nameof(GetPost))]
         public async Task<ActionResult> GetPost(int id)
         {
+            
             // postid 30373
             var post = await repository.GetComplete(id);
             if (post == null) return NotFound();
