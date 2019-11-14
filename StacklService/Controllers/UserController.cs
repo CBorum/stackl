@@ -29,9 +29,9 @@ namespace stackl.Controllers
             var markings = repository.GetMarkings(0, 10);
             if (markings == null) return NotFound();
 
-            return loginRepository.isUser(userid, User.Identity.Name, res =>
+            return loginRepository.isUser(userid, User.Identity.Name, isUser =>
             {
-                if (!res) return Unauthorized();
+                if (!isUser) return Unauthorized();
                 var markings = repository.GetMarkings(0, 10);
                 if (markings == null) return NotFound();
 
@@ -52,30 +52,32 @@ namespace stackl.Controllers
 
         [Authorize]
         [HttpGet("{userid}/searchhistory")]
-        public ActionResult GetSearchHistory()
+        public ActionResult GetSearchHistory(int userid)
         {
-            var id = int.Parse(User.Identity.Name);
-            var searchHistory = repository.GetSearchHistory(id, 0, 10);
-            if (searchHistory == null)
+            return loginRepository.isUser(userid, User.Identity.Name, isUser =>
             {
-                return NotFound();
-            }
+                if (!isUser) return Unauthorized();
+                var searchHistory = repository.GetSearchHistory(userid, 0, 10);
+                if (searchHistory == null) return NotFound();
 
-            var SearchEntryDTOs = searchHistory.Select(s => new SearchEntryDTO(s.SearchEntryId, s.Query, s.CreationDate));
-            return Ok(SearchEntryDTOs);
+                var SearchEntryDTOs = searchHistory.Select(s => new SearchEntryDTO(s.SearchEntryId, s.Query, s.CreationDate));
+                return this.SerializeContent<List<SearchEntryDTO>>(SearchEntryDTOs.ToList());
+            });
         }
 
         [Authorize]
         [HttpDelete("{userid}/searchhistory/{searchentryid}")]
         public ActionResult DeleteSearchHistory(int userid, int searchentryid)
         {
-            var userId = int.Parse(User.Identity.Name);
-            var res = repository.DeleteSearchHistory(userId, searchentryid);
-            if (!res)
+            return loginRepository.isUser(userid, User.Identity.Name, isUser =>
             {
-                return NotFound();
-            }
-            return Ok(res);
+                if(!isUser) return Unauthorized();
+                
+                var res = repository.DeleteSearchHistory(userid, searchentryid);
+                if (!res) return NotFound();
+
+                return this.SerializeContent<bool>(res);
+            });
         }
     }
 }

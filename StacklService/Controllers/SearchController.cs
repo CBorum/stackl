@@ -50,7 +50,7 @@ namespace stackl.Controllers
             }
             catch (Exception e)
             {
-                System.Console.WriteLine("ERROR!!!: " + e);
+                System.Console.WriteLine("Error when parsing search query: {0}", e);
                 return null;
             }
         }
