@@ -1,5 +1,5 @@
 using Xunit;
-using stackl.Controllers.DTO;
+using stackl.Controllers.Comment;
 using StacklServiceTests;
 using Xunit.Abstractions;
 

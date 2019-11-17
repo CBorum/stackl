@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using stackl.Controllers.Comment;
+using stackl.Controllers.Author;
 
-namespace stackl.Controllers.DTO {
+namespace stackl.Controllers.Post {
 
     public class PostAnswerDTO
     {

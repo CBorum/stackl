@@ -2,14 +2,12 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using stackl.DataAccessLayer;
-using stackl.DataAccessLayer.Post;
 using stackl.DataAccessLayer.Search;
 using stackl.Models;
-using stackl.Controllers.DTO;
+using stackl.Controllers.Post;
 using System.Collections.Generic;
 
-namespace stackl.Controllers
+namespace stackl.Controllers.Search
 {
     [ApiController]
     [Route("api/search")]
@@ -39,14 +37,14 @@ namespace stackl.Controllers
                     CreationDate = post.CreationDate,
                     PostURI = Url.ActionLink("GetPost", "Post", new { id = post.PostId })
                 };
-            return this.SerializeContent<List<DTO.PostDTO>>(posts.ToList());
+                return this.SerializeContent<List<PostDTO>>(posts.ToList());
         }
 
-        public SearchRequest CreateFromSearchQuery(string userid, string offset, string limit, string input)
+        public SearchRequestDTO CreateFromSearchQuery(string userid, string offset, string limit, string input)
         {
             try
             {
-                return new SearchRequest(Int32.Parse(userid), Int32.Parse(offset), Int32.Parse(limit), input);
+                return new SearchRequestDTO(Int32.Parse(userid), Int32.Parse(offset), Int32.Parse(limit), input);
             }
             catch (Exception e)
             {

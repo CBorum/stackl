@@ -1,6 +1,6 @@
 using System;
 
-namespace stackl.Controllers.DTO {
+namespace stackl.Controllers.User {
 
     public class MarkingDTO
     {

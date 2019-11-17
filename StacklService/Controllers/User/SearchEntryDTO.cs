@@ -1,6 +1,6 @@
 using System;
 
-namespace stackl.Controllers.DTO {
+namespace stackl.Controllers.Search {
 
     public class SearchEntryDTO
     {

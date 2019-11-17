@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using stackl.DataAccessLayer;
 using stackl.DataAccessLayer.Post;
-using stackl.Models;
-using stackl.Controllers.DTO;
+using stackl.Controllers.Comment;
+using stackl.Controllers.Author;
 
-namespace stackl.Controllers
+namespace stackl.Controllers.Post
 {
     [ApiController]
     [Route("api/post")]
@@ -27,18 +26,15 @@ namespace stackl.Controllers
             // postid 30373
 
             // Når der bliver lavet DbContext fix
-            // var postTask = repository.GetComplete(id);
-            // var postAnswersTask = repository.GetPostAnswers(id);
-            // Task.WaitAll(postTask, postAnswersTask);
-            // var post = postTask.Result;
-            // var postAnswers = postAnswersTask.Result;
-            // if (post == null) return NotFound();
-
-            var post = await repository.GetComplete(id);
-            var postAnswers = await repository.GetPostAnswers(id);
+            var postTask = repository.GetComplete(id);
+            var postAnswersTask = repository.GetPostAnswers(id);
+            Task.WaitAll(postTask, postAnswersTask);
+            var post = postTask.Result;
+            var postAnswers = postAnswersTask.Result;
+            if (post == null) return NotFound();
 
             var dto = this.postDTOMapper(post, postAnswers);
-            return this.SerializeContent<DTO.PostDTO>(dto);
+            return this.SerializeContent<PostDTO>(dto);
         }
 
         private PostDTO postDTOMapper(Models.Post post, List<Models.Post> Answers)
@@ -47,20 +43,19 @@ namespace stackl.Controllers
             postDTO.Tags = post.PostTag.Select(pt => pt.Tag.Text).ToList();
             postDTO.PostLinks = post.PostLinkFromPost.Select(pl => PostAnswerDTOFromModel(pl.ToPost)).ToList();
             postDTO.Author = AuthorDTOFromModel(post.Author);
-            postDTO.AcceptedAnswerPost = post.AcceptedAnswer == null ? null : PostAnswerDTOFromModel(post.AcceptedAnswer);
             postDTO.Answers = Answers
                 .Select(p =>
                 {
                     var post = PostAnswerDTOFromModel(p);
                     post.Author = AuthorDTOFromModel(p.Author);
                     post.Comments = p.Comment.Select(c => CommentDTOFromModel(c)).ToList();
+                    System.Console.WriteLine(post.PostId);
                     return post;
                 })
                 .ToList();
             // Sæt AcceptedAnswerPost fra Answers
-            postDTO.AcceptedAnswerPost = postDTO.Answers.Find(p => post.PostId != postDTO.AcceptedAnswerPost.PostId);
+            postDTO.AcceptedAnswerPost = postDTO.Answers.Find(p => p.PostId == post.AcceptedAnswerId);
             postDTO.Answers.Remove(postDTO.AcceptedAnswerPost);
-
             postDTO.Comments = post.Comment.Select(c => CommentDTOFromModel(c)).ToList();
 
             return postDTO;

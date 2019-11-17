@@ -14,7 +14,7 @@ using stackl.Helpers;
 using stackl.Models;
 using stackl.Models.Users;
 
-namespace stackl.Controllers
+namespace stackl.Controllers.User
 {
     [Authorize]
     [ApiController]

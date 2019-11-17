@@ -3,9 +3,9 @@ using System;
 namespace stackl.DataAccessLayer.Search
 {
 
-    public class SearchRequest
+    public class SearchRequestDTO
     {
-        public SearchRequest(int id, int offset, int limit, string input)
+        public SearchRequestDTO(int id, int offset, int limit, string input)
         {
             this.userid = id;
             this.offset = offset;
