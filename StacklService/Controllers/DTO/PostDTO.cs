@@ -27,10 +27,10 @@ namespace stackl.Controllers.DTO {
         public string Title { get; set; }
         public List<CommentDTO> Comments { get; set; }
         public AuthorDTO Author { get; set; }
-        public PostDTO AcceptedAnswerPost { get; set; }
-        public List<PostDTO> Answers { get; set; }
+        public PostAnswerDTO AcceptedAnswerPost { get; set; }
+        public List<PostAnswerDTO> Answers { get; set; }
         public List<string> Tags { get; set; }
-        public List<PostDTO> PostLinks { get; set; }
+        public List<PostAnswerDTO> PostLinks { get; set; }
 
     }
 }

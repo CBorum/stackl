@@ -2,13 +2,12 @@ using stackl.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace stackl.DataAccessLayer.Post
 {
     public class PostRepository : Repository<Models.Post, PostOptions>
     {
-        raw2Context context = new raw2Context();
-
         public PostRepository(raw2Context dbContext) : base(dbContext)
         {
             DbContext = dbContext;
@@ -16,20 +15,25 @@ namespace stackl.DataAccessLayer.Post
 
         public async Task<Models.Post> GetComplete(int id)
         {
-            return await context.Post
+            return await DbContext.Post
                 .Include(p => p.PostTag)
                     .ThenInclude(pt => pt.Tag)
-                .Include(p => p.InverseAcceptedAnswer)
                 .Include(p => p.PostLinkFromPost)
                     .ThenInclude(pl => pl.ToPost)
                 .Include(p => p.Author)
-                .Include(p => p.InverseParent)
-                    .ThenInclude(p => p.Author)
-                .Include(p => p.InverseParent)
-                    .ThenInclude(p => p.Comment)
                 .Include(p => p.Comment)
                     .ThenInclude(c => c.Author)
                 .FirstOrDefaultAsync(p => p.PostId == id);
+        }
+
+        public async Task<List<Models.Post>> GetPostAnswers(int id)
+        {
+            return await DbContext.Post
+                .Where(p => p.ParentId == id)
+                .Include(p => p.Author)
+                .Include(p => p.Comment)
+                    .ThenInclude(c => c.Author)
+                .ToListAsync();
         }
     }
 }

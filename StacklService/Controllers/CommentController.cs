@@ -18,13 +18,10 @@ namespace stackl.Controllers {
         [HttpGet("{id}", Name = nameof(GetComment))]
         public async Task<ActionResult> GetComment(int id)
         {
-            
-            // this.Request.ContentType
-
             var comment = await repository.Get(id, new CommentOptions(){IncludedModels = new List<string>{"Post", "Author"}});  
             if (comment == null) return NotFound();
 
-            return Ok(new CommentDTO
+            var cdto = new CommentDTO
             {
                 CommentId = comment.CommentId,
                 Score = comment.Score,
@@ -43,8 +40,9 @@ namespace stackl.Controllers {
                     AuthorId = comment.Author.AuthorId,
                     Name = comment.Author.Name
                 }
-            });
+            };
 
+            return this.SerializeContent<CommentDTO>(cdto);
         }
     }
 }
