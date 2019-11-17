@@ -55,6 +55,12 @@ namespace stackl.DataAccessLayer.User {
             return DbContext.SaveChanges() == 1;
         }
 
+        public bool DeleteMarking(int userid, int markingid)
+        {
+            // var marking = DbContext.Marking.FirstOrDefault(m => m.UserId == userid && m.)
+            return false;
+        }
+
         public void SetPostMarking(int userId, int rowId, string tableName, string note)
         {
             DbContext.StacklUser.FromSqlRaw("select * from marker({0}, {1}, {2}, {3})", userId, rowId, tableName, note);

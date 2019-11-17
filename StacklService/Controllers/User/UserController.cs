@@ -51,6 +51,18 @@ namespace stackl.Controllers.User
         }
 
         [Authorize]
+        [HttpGet("{userid}/marking/{markingid}")]
+        public ActionResult DeleteMarking(int userid, int markingid)
+        {
+            return loginRepository.isUser(userid, User.Identity.Name, isUser => 
+            {
+                if (!isUser) return Unauthorized();
+                // TODO: Lav om i markings-tabellen og lav marking_id.
+                return null;
+            });
+        }
+
+        [Authorize]
         [HttpGet("{userid}/searchhistory")]
         public ActionResult GetSearchHistory(int userid)
         {

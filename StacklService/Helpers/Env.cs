@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace stackl.Helpers {
 
@@ -9,11 +10,20 @@ namespace stackl.Helpers {
 
         public Dictionary<String, String> Dict {get;}
 
+        private string NthParent(int n, string path){
+            while(n > 0){
+                path = Directory.GetParent(path).ToString();
+                n--;
+            }
+            return path;
+        }
+
         private Env(){
             try{
                 Dict = new Dictionary<string, string>();
-                var path = Directory.GetCurrentDirectory().Replace("/bin/Debug/netcoreapp3.0", "")
-                    .Replace("/StacklService", "");
+                
+                var path = NthParent(5, Assembly.GetEntryAssembly().Location);
+
                 path += "/.env";
                 var lines = System.IO.File.ReadLines(path);
                 foreach (var line in lines)

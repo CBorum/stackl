@@ -15,8 +15,8 @@ namespace stackl.Controllers.Search
     {
         SearchRepository repository;
 
-        public SearchController(){
-            repository = new SearchRepository(new raw2Context());
+        public SearchController(SearchRepository repository){
+            this.repository = repository;
         }
 
         [HttpGet]
