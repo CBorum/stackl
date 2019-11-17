@@ -17,8 +17,8 @@ namespace stackl.Controllers
     {
         SearchRepository repository;
 
-        public SearchController(){
-            repository = new SearchRepository(new raw2Context());
+        public SearchController(SearchRepository repository){
+            this.repository = repository;
         }
 
         [HttpGet]
@@ -39,7 +39,7 @@ namespace stackl.Controllers
                     CreationDate = post.CreationDate,
                     PostURI = Url.ActionLink("GetPost", "Post", new { id = post.PostId })
                 };
-                return this.SerializeContent<List<DTO.PostDTO>>(posts.ToList());
+            return this.SerializeContent<List<DTO.PostDTO>>(posts.ToList());
         }
 
         public SearchRequest CreateFromSearchQuery(string userid, string offset, string limit, string input)
