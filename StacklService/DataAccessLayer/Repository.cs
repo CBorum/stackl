@@ -57,6 +57,8 @@ namespace stackl.DataAccessLayer
         {
             var entry = await DbContext.Set<TEntity>().FindAsync(id);
 
+            if(entry == null) return entry;
+
             foreach (var model in options.IncludedModels)
             {
                 DbContext.Entry(entry).Reference(model).Load();

@@ -2,6 +2,7 @@ using stackl.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace stackl.DataAccessLayer.Post
 {
@@ -20,13 +21,19 @@ namespace stackl.DataAccessLayer.Post
                 .Include(p => p.PostLinkFromPost)
                     .ThenInclude(pl => pl.ToPost)
                 .Include(p => p.Author)
-                .Include(p => p.InverseParent)
-                    .ThenInclude(p => p.Author)
-                .Include(p => p.InverseParent)
-                    .ThenInclude(p => p.Comment)
                 .Include(p => p.Comment)
                     .ThenInclude(c => c.Author)
                 .FirstOrDefaultAsync(p => p.PostId == id);
+        }
+
+        public async Task<List<Models.Post>> GetPostAnswers(int id)
+        {
+            return await DbContext.Post
+                .Where(p => p.ParentId == id)
+                .Include(p => p.Author)
+                .Include(p => p.Comment)
+                    .ThenInclude(c => c.Author)
+                .ToListAsync();
         }
     }
 }

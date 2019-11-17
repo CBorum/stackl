@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="433e8da0-3724-4441-907c-b78aa09cbbf7" name="@kogn 2019-11-14 14:41:08" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2019-11-14T14:41:08.7644920+01:00" queuing="2019-11-14T14:41:08.7644921+01:00" start="2019-11-14T14:41:07.2963360+01:00" finish="2019-11-14T14:41:08.7766156+01:00" />
+  <TestSettings name="default" id="8c96b4fa-ae14-4c10-898c-e61fc3cbfdba">
+    <Deployment runDeploymentRoot="_kogn_2019-11-14_14_41_08" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fcb7bb31-2127-40dd-9d98-ca78f74a1c66" testId="4392970b-2c5e-a0b1-6846-ba5d05aa49d8" testName="StacklServiceTests.CommentControllerTest.GetPost_InvalidId_NotFound" computerName="kogn" duration="00:00:00.0607765" startTime="2019-11-14T14:41:08.5991607+01:00" endTime="2019-11-14T14:41:08.5992506+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fcb7bb31-2127-40dd-9d98-ca78f74a1c66" />
+    <UnitTestResult executionId="5089b353-f04a-4cda-9655-430152be0c7e" testId="05f7c260-64b9-b72c-9ad6-e47dbb32ff84" testName="StacklServiceTests.CommentControllerTest.PostPost_ValidPost_Created" computerName="kogn" duration="00:00:00.0135602" startTime="2019-11-14T14:41:08.6151423+01:00" endTime="2019-11-14T14:41:08.6151432+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5089b353-f04a-4cda-9655-430152be0c7e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="StacklServiceTests.CommentControllerTest.PostPost_ValidPost_Created" storage="/home/kristian/ruc/portfolio/subproject2/stackl/stacklservicetests/bin/debug/netcoreapp3.0/stacklservicetests.dll" id="05f7c260-64b9-b72c-9ad6-e47dbb32ff84">
+      <Execution id="5089b353-f04a-4cda-9655-430152be0c7e" />
+      <TestMethod codeBase="/home/kristian/ruc/portfolio/subproject2/stackl/StacklServiceTests/bin/Debug/netcoreapp3.0/StacklServiceTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="StacklServiceTests.CommentControllerTest" name="StacklServiceTests.CommentControllerTest.PostPost_ValidPost_Created" />
+    </UnitTest>
+    <UnitTest name="StacklServiceTests.CommentControllerTest.GetPost_InvalidId_NotFound" storage="/home/kristian/ruc/portfolio/subproject2/stackl/stacklservicetests/bin/debug/netcoreapp3.0/stacklservicetests.dll" id="4392970b-2c5e-a0b1-6846-ba5d05aa49d8">
+      <Execution id="fcb7bb31-2127-40dd-9d98-ca78f74a1c66" />
+      <TestMethod codeBase="/home/kristian/ruc/portfolio/subproject2/stackl/StacklServiceTests/bin/Debug/netcoreapp3.0/StacklServiceTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="StacklServiceTests.CommentControllerTest" name="StacklServiceTests.CommentControllerTest.GetPost_InvalidId_NotFound" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4392970b-2c5e-a0b1-6846-ba5d05aa49d8" executionId="fcb7bb31-2127-40dd-9d98-ca78f74a1c66" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="05f7c260-64b9-b72c-9ad6-e47dbb32ff84" executionId="5089b353-f04a-4cda-9655-430152be0c7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.1 (64-bit .NET Core 3.0.0)
+[xUnit.net 00:00:00.60]   Discovering: StacklServiceTests
+[xUnit.net 00:00:00.64]   Discovered:  StacklServiceTests
+[xUnit.net 00:00:00.65]   Starting:    StacklServiceTests
+[xUnit.net 00:00:00.81]   Finished:    StacklServiceTests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
