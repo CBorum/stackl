@@ -15,25 +15,31 @@ namespace stackl.DataAccessLayer.Post
 
         public async Task<Models.Post> GetComplete(int id)
         {
-            return await DbContext.Post
-                .Include(p => p.PostTag)
-                    .ThenInclude(pt => pt.Tag)
-                .Include(p => p.PostLinkFromPost)
-                    .ThenInclude(pl => pl.ToPost)
-                .Include(p => p.Author)
-                .Include(p => p.Comment)
-                    .ThenInclude(c => c.Author)
-                .FirstOrDefaultAsync(p => p.PostId == id);
+            using (var context = new raw2Context())
+            {
+                return await context.Post
+                    .Include(p => p.PostTag)
+                        .ThenInclude(pt => pt.Tag)
+                    .Include(p => p.PostLinkFromPost)
+                        .ThenInclude(pl => pl.ToPost)
+                    .Include(p => p.Author)
+                    .Include(p => p.Comment)
+                        .ThenInclude(c => c.Author)
+                    .FirstOrDefaultAsync(p => p.PostId == id);
+            }
         }
 
         public async Task<List<Models.Post>> GetPostAnswers(int id)
         {
-            return await DbContext.Post
-                .Where(p => p.ParentId == id)
-                .Include(p => p.Author)
-                .Include(p => p.Comment)
-                    .ThenInclude(c => c.Author)
-                .ToListAsync();
+            using (var context = new raw2Context())
+            {
+                return await context.Post
+                    .Where(p => p.ParentId == id)
+                    .Include(p => p.Author)
+                    .Include(p => p.Comment)
+                        .ThenInclude(c => c.Author)
+                    .ToListAsync();
+            }
         }
     }
 }

@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using stackl.DataAccessLayer.Comment;
-using stackl.Controllers.DTO;
+using stackl.Controllers.Post;
+using stackl.Controllers.Author;
 
-namespace stackl.Controllers {
+namespace stackl.Controllers.Comment {
     [ApiController]
     [Route("api/comment")]
     public class CommentController : ControllerBase {

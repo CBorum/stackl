@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using stackl.Controllers.DTO;
 using stackl.DataAccessLayer.Login;
 using stackl.DataAccessLayer.User;
+using stackl.Controllers.Search;
 
-namespace stackl.Controllers
+namespace stackl.Controllers.User
 {
 
     [ApiController]
@@ -46,7 +46,7 @@ namespace stackl.Controllers
                         new { id = m.RowId }
                     )
                 });
-                return this.SerializeContent<List<DTO.MarkingDTO>>(markingsDTO.ToList());
+                return this.SerializeContent<List<MarkingDTO>>(markingsDTO.ToList());
             });
         }
 

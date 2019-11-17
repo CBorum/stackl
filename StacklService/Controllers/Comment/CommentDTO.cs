@@ -1,6 +1,8 @@
 using System;
+using stackl.Controllers.Author;
+using stackl.Controllers.Post;
 
-namespace stackl.Controllers.DTO {
+namespace stackl.Controllers.Comment {
 
     public class CommentDTO
     {
