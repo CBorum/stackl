@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace stackl.DataAccessLayer.Post
 {
-    public class PostRepository : Repository<Models.Post, PostOptions>
+    public class PostRepository : Repository<Models.Post, PostOptions>, IPostRepository
     {
         public PostRepository(raw2Context dbContext) : base(dbContext)
         {

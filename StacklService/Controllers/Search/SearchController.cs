@@ -40,11 +40,11 @@ namespace stackl.Controllers.Search
                 return this.SerializeContent<List<PostDTO>>(posts.ToList());
         }
 
-        public SearchRequest CreateFromSearchQuery(string userid, string offset, string limit, string input)
+        public SearchRequestDTO CreateFromSearchQuery(string userid, string offset, string limit, string input)
         {
             try
             {
-                return new SearchRequest(Int32.Parse(userid), Int32.Parse(offset), Int32.Parse(limit), input);
+                return new SearchRequestDTO(Int32.Parse(userid), Int32.Parse(offset), Int32.Parse(limit), input);
             }
             catch (Exception e)
             {
