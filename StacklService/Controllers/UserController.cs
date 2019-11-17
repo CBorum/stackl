@@ -24,15 +24,12 @@ namespace stackl.Controllers
 
         [Authorize]
         [HttpGet("{userid}/marking", Name = nameof(GetUserMarkings))]
-        public ActionResult GetUserMarkings(int userid)
+        public ActionResult GetUserMarkings(int userid, [FromQuery] int offset = 0, [FromQuery] int limit = 10)
         {
-            var markings = repository.GetMarkings(0, 10);
-            if (markings == null) return NotFound();
-
             return loginRepository.isUser(userid, User.Identity.Name, isUser =>
             {
                 if (!isUser) return Unauthorized();
-                var markings = repository.GetMarkings(0, 10);
+                var markings = repository.GetMarkings(offset, limit);
                 if (markings == null) return NotFound();
 
                 var markingsDTO = markings.Select(m => new MarkingDTO
@@ -76,7 +73,7 @@ namespace stackl.Controllers
                 var res = repository.DeleteSearchHistory(userid, searchentryid);
                 if (!res) return NotFound();
 
-                return this.SerializeContent<bool>(res);
+                return NoContent();
             });
         }
     }

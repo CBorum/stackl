@@ -1,23 +1,26 @@
 using Xunit;
 using stackl.Controllers.DTO;
 using StacklServiceTests;
+using Xunit.Abstractions;
 
 namespace stackl.Controllers
 {
     public class CommentControllerTest : ControllerTest
     {
         public override string BasePath {get;set;} = "/api/comment";
-
-        public CommentControllerTest(){
+        public override ITestOutputHelper IOutput {get;set;}
+        
+        public CommentControllerTest(ITestOutputHelper output){
+            this.IOutput = output;
         }
 
         [Fact]
-        public async void GetPost_OkResponse_ValidId()
+        public async void GetComment_InvalidId_StatusNotFound()
         {
             var id = 71;
             var response = await Get<CommentDTO>(id);
             
-            Assert.Equal(response.Status, System.Net.HttpStatusCode.OK);
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.Status);
         }
     }
 }
