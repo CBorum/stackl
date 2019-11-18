@@ -1,4 +1,4 @@
-# stackl
+# stackl - Section2
 This is the repository for the Project Portfolio for the RAWDATA course at Roskilde University fall 2019.
 
 ## Group raw2
