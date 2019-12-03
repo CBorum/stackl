@@ -1,4 +1,4 @@
-import {SET_POSTS} from './ActionTypes';
+import * as ActionTypes from './ActionTypes';
 
 export const setPosts = posts => {
     return {
@@ -6,3 +6,17 @@ export const setPosts = posts => {
         payload: posts,
     }
 };
+
+export const getPosts = queryStr => {
+    return {
+        type: ActionTypes.GET_POSTS,
+        payload: queryStr,
+    }
+}
+
+export const getPostsDone = res => {
+    return {
+        type: ActionTypes.GET_POSTS_DONE,
+        payload: res,
+    }
+}

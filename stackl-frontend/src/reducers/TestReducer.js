@@ -6,7 +6,7 @@ const defaultState = {
 
 const Test = (state = defaultState, action) => {
     switch (action.type) {
-        case ActionTypes.TEST:
+        case ActionTypes.TEST_DONE:
             return Object.assign({}, state, { test: action.payload })
         default:
             return state

@@ -1,7 +1,7 @@
 import {startLoad, endLoad} from '../actions/LoadActions';
 
 const getHeaders = () => {
-	let tmpToken = cookies.get(tokenName)
+	// let tmpToken = cookies.get(tokenName)
 	return {
 		'Content-Type': 'application/json',
 		// 'Authorization': 'Bearer ' + tmpToken
@@ -36,7 +36,7 @@ export const apiCall = (dispatch, endpoint, method, data) => {
 			throw Error(res.statusText)
 		}
 	}).catch((e) => {
-		dispatch(apiError(e.message))
+		// dispatch(apiError(e.message))
 		throw Error(e.statusText)
 	})
 }
