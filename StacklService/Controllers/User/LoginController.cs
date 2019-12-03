@@ -43,7 +43,15 @@ namespace stackl.Controllers.User
                 return BadRequest(new { message = "Username or password is incorrect" });
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Env.GetInstance().Dict["JWT_SECRET"]);
+            byte[] key = null;
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development"))
+            {
+                key = Encoding.ASCII.GetBytes(Env.GetInstance().Dict["JWT_SECRET"]);
+            }
+            else
+            {
+                key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"));
+            }
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

@@ -39,7 +39,14 @@ namespace stackl.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql(Env.GetInstance().Dict["CONNECTION_STRING"]);
+                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development"))
+                {
+                    optionsBuilder.UseNpgsql(Env.GetInstance().Dict["CONNECTION_STRING"]);
+                }
+                else
+                {
+                    optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
+                }
             }
         }
 
