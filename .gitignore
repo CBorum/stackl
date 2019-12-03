@@ -5,3 +5,4 @@ bin/
 .vscode/
 .env
 .env*
+stack-frontend/node_modules
