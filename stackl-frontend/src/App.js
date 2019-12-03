@@ -1,20 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import SearchLanding from './components/SearchLanding';
+import ModalBackdrop from './components/modals/ModalBackdrop';
+import {HashRouter as Router, Switch, Route} from 'react-router-dom';
 
 import './scss/index.scss';
 import { startTest } from './actions/TestActions';
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    test: state.Test.test
-  }
-}
+
+const mapStateToProps = (state, ownProps) => ({test: state.Test.test});
 
 class App extends React.Component {
-
-  state = {
-
-  }
 
   componentDidMount() {
     const { dispatch } = this.props
@@ -22,7 +18,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props.test)
     return (
       <div className="App">
         <header className="App-header">
@@ -42,6 +37,4 @@ class App extends React.Component {
   }
 }
 
-
-App = connect(mapStateToProps)(App)
-export default App;
+export default connect(mapStateToProps)(App);
