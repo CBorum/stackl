@@ -46,7 +46,15 @@ namespace stackl
             services.AddScoped<DataAccessLayer.Login.LoginRepository>();
 
             // configure jwt authentication
-            var key = Encoding.ASCII.GetBytes(Env.GetInstance().Dict["JWT_SECRET"]);
+            byte[] key = null;
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development"))
+            {
+                key = Encoding.ASCII.GetBytes(Env.GetInstance().Dict["JWT_SECRET"]);
+            }
+            else
+            {
+                key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"));
+            }
             services.AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
