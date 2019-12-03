@@ -17,7 +17,6 @@ class App extends React.Component {
   }
 
   render() {
-      console.log(this.props.test)
     return (
         <Router>
             <div className="App">

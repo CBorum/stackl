@@ -8,16 +8,16 @@ const getHeaders = () => {
 	}	
 }
 
-export const getServer = () => {
-	if (window.location.host.indexOf('localhost') !== -1) {
-        return `//localhost:5000/`
-	}
+// export const getServer = () => {
+// 	if (window.location.host.indexOf('localhost') !== -1) {
+//         return `//localhost:5000/`
+// 	}
 	
-	return `//${window.location.host}/`
-}
+// 	return `//${window.location.host}/`
+// }
 
 export const getAddress = (endpoint) => {
-	return `${getServer()}/${endpoint}`
+	return `//localhost:5000/${endpoint}`
 }
 
 export const apiCall = (dispatch, endpoint, method, data) => {
@@ -26,9 +26,9 @@ export const apiCall = (dispatch, endpoint, method, data) => {
 		method: method,
 		body: JSON.stringify(data)
 	}).then((res) => {
-		if (res.status === 403) {
-			dispatch(doLogout())
-		}
+		// if (res.status === 403) {
+		// 	dispatch(doLogout())
+		// }
 
 		if (res.ok) {
 			return res.json()
