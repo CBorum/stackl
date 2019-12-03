@@ -16,6 +16,7 @@ import './scss/index.scss';
 
 const store = createStore(
     AppStore,
+    middleware,
 )
 
 ReactDOM.render(

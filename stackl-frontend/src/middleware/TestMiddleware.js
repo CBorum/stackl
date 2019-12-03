@@ -12,4 +12,4 @@ const TestMiddleware = ({dispatch, getState}) => (next) => (action) => {
     }
 }
 
-export default InfoApiMiddleware
+export default TestMiddleware
