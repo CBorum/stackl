@@ -7,32 +7,32 @@ import {HashRouter as Router, Switch, Route} from 'react-router-dom';
 import './scss/index.scss';
 import { startTest } from './actions/TestActions';
 
-
 const mapStateToProps = (state, ownProps) => ({test: state.Test.test});
 
 class App extends React.Component {
 
   componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(startTest("hej med dig"))
+    const { dispatch } = this.props;
+    dispatch(startTest("hej med dig"));
   }
 
   render() {
+      console.log(this.props.test)
     return (
-      <div className="App">
-        <header className="App-header">
-        </header>
-          <div className="container">
-              <div className="row">
-                  <div className="col-sm">
-                      <h1>stackl med boisen</h1>
-                  </div>
-                  <div className="col-sm">
-                      <h2>sidebar</h2>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <Router>
+            <div className="App">
+                <Switch>
+                    <Route  exact path="/">
+                        hey
+                    </Route>
+                    <Route  exact path="/bois">
+                        bois
+                    </Route>
+                </Switch>
+                <SearchLanding/>
+                {1 == 2 ? (<ModalBackdrop/>) : ''}
+            </div>
+        </Router>
     );
   }
 }
