@@ -1,15 +1,8 @@
-import {POST_SEARCH, POST_SEARCH_DONE} from './ActionTypes';
+import {SET_POSTS} from './ActionTypes';
 
-export const startLoad = () => {
+export const setPosts = posts => {
     return {
-        type: "SET_IS_LOADING",
-        payload: true,
-    }
-};
-
-export const endLoad = () => {
-    return {
-        type: "SET_IS_LOADING",
-        payload: false,
+        type: "SET_POSTS",
+        payload: posts,
     }
 };

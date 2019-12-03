@@ -1,3 +1,5 @@
+import {startLoad, endLoad} from '../actions/LoadActions';
+
 const getHeaders = () => {
 	let tmpToken = cookies.get(tokenName)
 	return {

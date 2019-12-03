@@ -1,15 +1,15 @@
-import {SET_IS_LOADING} from './ActionTypes';
+import {START_LOAD, END_LOAD} from './ActionTypes';
 
 export const startLoad = () => {
     return {
-        type: SET_IS_LOADING,
-        payload: true,
+        type: START_LOAD,
+        payload: null,
     }
 };
 
 export const endLoad = () => {
     return {
-        type: SET_IS_LOADING,
-        payload: false,
+        type: END_LOAD,
+        payload: null,
     }
 };

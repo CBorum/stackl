@@ -1,18 +1,34 @@
 import * as ActionTypes from '../actions/ActionTypes'
 
 const defaultState = {
-    isLoading: false
+    isLoading: false,
+    loadingCount: 0
 };
 
-const Test = (state = defaultState, action) => {
+const Load = (state = defaultState, action) => {
     switch (action.type) {
-        case ActionTypes.POST_SEARCH:
+        case ActionTypes.START_LOAD:
+        {
+            const loadingCount = state.loadingCount + 1;
+            const isLoading = loadingCount > 0;
             return Object.assign({}, state, {
-                test: action.payload
+                loadingCount,
+                isLoading
             });
+        }
+
+        case ActionTypes.END_LOAD:
+        {
+            const loadingCount = state.loadingCount - 1;
+            const isLoading = loadingCount > 0;
+            return Object.assign({}, state, {
+                loadingCount,
+                isLoading
+            });
+        }
         default:
             return state
     }
 };
 
-export default Test
+export default Load

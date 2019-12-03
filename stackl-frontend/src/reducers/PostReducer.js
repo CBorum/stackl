@@ -1,18 +1,16 @@
 import * as ActionTypes from '../actions/ActionTypes'
 
 const defaultState = {
-    test: ""
-}
+    posts: null
+};
 
-const Test = (state = defaultState, action) => {
+const Posts = (state = defaultState, action) => {
     switch (action.type) {
-        case ActionTypes.POST_SEARCH:
-            return Object.assign({}, state, { isLoading: true });
-        case ActionTypes.POST_SEARCH_DONE:
+        case ActionTypes.SET_POSTS:
             return Object.assign({}, state, { posts: action.payload });
         default:
             return state
     }
-}
+};
 
-export default Test
+export default Posts
