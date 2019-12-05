@@ -17,7 +17,11 @@ import './scss/index.scss';
 const store = createStore(
     AppStore,
     middleware,
-)
+);
+
+store.subscribe(() => {
+    console.log(store.getState());
+})
 
 ReactDOM.render(
     <Provider store={store}>

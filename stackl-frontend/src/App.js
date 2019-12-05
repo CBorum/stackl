@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import {HashRouter as Router, Switch, Route} from 'react-router-dom';
+import './scss/index.scss';
+
 import SearchLanding from './components/SearchLanding';
 import ModalBackdrop from './components/modals/ModalBackdrop';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
@@ -9,13 +12,16 @@ import { startTest } from './actions/TestActions';
 import PostList from './components/PostList';
 import SinglePost from './components/SinglePost';
 
-const mapStateToProps = (state, ownProps) => ({ test: state.Test.test });
+import LoginModal from './components/modals/LoginModal';
+import RegisterModal from './components/modals/RegisterModal';
+
+
+const mapStateToProps = (state, ownProps) => ({currentModalId: state.currentModalId});
 
 class App extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(startTest("hej med dig"));
   }
 
   render() {
@@ -37,7 +43,9 @@ class App extends React.Component {
               </Route>
             </Switch>
           </div>
-          {1 == 2 ? (<ModalBackdrop />) : ''}
+            {this.props.currentModalId !== undefined ? (<ModalBackdrop/>) : ''}
+            <LoginModal/>
+            <RegisterModal/>
         </div>
       </Router>
     );
