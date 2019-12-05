@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { showModal, MODAL_IDS } from '../js/modals';
 import { getPosts } from '../actions/PostActions';
+import { withRouter } from 'react-router-dom'
 
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
 
@@ -13,6 +14,7 @@ const onSearchSubmitBtnClick = (props) => {
     const searchEntry = searchInput.value;
 
     props.dispatch(getPosts(searchEntry))
+    props.history.push("/posts")
 };
 
 const postSearch = (searchEntry) => {
@@ -57,5 +59,7 @@ function SearchLanding(props) {
         </div>
     );
 }
+
+SearchLanding = withRouter(SearchLanding)
 
 export default connect(mapStateToProps)(SearchLanding);
