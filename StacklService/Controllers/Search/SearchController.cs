@@ -35,7 +35,8 @@ namespace stackl.Controllers.Search
                     Body = post.Body,
                     Score = post.Score,
                     CreationDate = post.CreationDate,
-                    PostURI = Url.ActionLink("GetPost", "Post", new { id = post.PostId })
+                    PostURI = Url.ActionLink("GetPost", "Post", new { id = post.PostId }),
+                    Title = post.Title
                 };
                 return this.SerializeContent<List<PostDTO>>(posts.ToList());
         }

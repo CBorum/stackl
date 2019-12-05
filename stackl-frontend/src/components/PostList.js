@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import '../scss/index.scss';
-import { getPosts } from '../actions/PostActions';
+import { getPosts, getPostsDone } from '../actions/PostActions';
 
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
 
@@ -21,6 +21,11 @@ class PostList extends React.Component {
         if (obj[i]) delete obj[i];
         else obj[i] = true;
         this.setState({ openedIndices: obj })
+    }
+
+    componentWillUnmount() {
+        const { dispatch } = this.props
+        dispatch(getPostsDone([]))
     }
 
     render() {
@@ -55,14 +60,14 @@ class PostContainer extends React.Component {
                             <div>votes</div>
                         </div>
                         <div className="p-2 text-align-center">
-                            <h4>{post.answers ? post.answers : 0 }</h4>
+                            <h4>{post.answers ? post.answers : 0}</h4>
                             <div>answers</div>
-                        </div>      
+                        </div>
                     </div>
                 </div>
                 <div className="col-11">
-                    <div className="p-2" onClick={this.props.expandPost} style={{cursor: "pointer"}}>
-                        <h4 className="display-6"><a href="#">Hello, world!</a></h4>
+                    <div className="p-2" onClick={this.props.expandPost} style={{ cursor: "pointer" }}>
+                        <h4 className="display-6"><a href="#">{post.title}</a></h4>
                         <div className="mt-4"></div>
                         <div className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: post.body }}></div>
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
