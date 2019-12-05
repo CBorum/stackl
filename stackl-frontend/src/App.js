@@ -22,13 +22,13 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <div className="container">
+          <div className="container-fluid">
             <Switch>
               <Route exact path="/">
                 <SearchLanding />
               </Route>
               <Route exact path="/posts">
-                <div className="col-md-12">
+                <div className="col-12">
                   <PostList />
                 </div>
               </Route>
