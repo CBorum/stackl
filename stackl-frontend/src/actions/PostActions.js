@@ -34,3 +34,10 @@ export const getSinglePostDone = postId => {
         payload: postId,
     }
 }
+
+export const resetPosts = () => {
+    return {
+      type: ActionTypes.RESET_POSTS,
+      payload: []
+    }
+}
