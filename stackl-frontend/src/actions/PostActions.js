@@ -20,3 +20,17 @@ export const getPostsDone = res => {
         payload: res,
     }
 }
+
+export const getSinglePost = postId => {
+    return {
+        type: ActionTypes.GET_SINGLE_POST,
+        payload: postId,
+    }
+}
+
+export const getSinglePostDone = postId => {
+    return {
+        type: ActionTypes.GET_SINGLE_POST_DONE,
+        payload: postId,
+    }
+}
