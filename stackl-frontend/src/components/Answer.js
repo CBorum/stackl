@@ -6,6 +6,7 @@ const mapStateToProps = (state, ownProps) => ({})
 
 class SinglePost extends React.Component {
     render() {
+        if(!this.props.answer) return null
         return (
             <div>
                 <div dangerouslySetInnerHTML={{__html: this.props.answer.body}}></div>

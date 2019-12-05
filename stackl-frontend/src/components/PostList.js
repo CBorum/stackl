@@ -67,7 +67,7 @@ class PostContainer extends React.Component {
                 </div>
                 <div className="col-11">
                     <div className="p-2" onClick={this.props.expandPost} style={{ cursor: "pointer" }}>
-                        <h4 className="display-6"><a href="#">{post.title}</a></h4>
+                        <h4 className="display-6"><a href={`#/post/${post.postId}`}>{post.title ? post.title : post.parentTitle}</a></h4>
                         <div className="mt-4"></div>
                         <div className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: post.body }}></div>
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
