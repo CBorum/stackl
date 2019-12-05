@@ -22,10 +22,10 @@ const postSearch = (searchEntry) => {
     // should make an http request to the server, and update the store with results
 };
 
-const onSearchInputKeyEvent = (event) => {
-    console.log('onSearchInputKeyEvent()');
+const onSearchInputKeyEvent = (event, props) => {
     if (event.key === 'Enter') {
-        postSearch(event.target.value);
+        props.dispatch(getPosts(event.target.value))
+        props.history.push("/posts")
     }
 };
 
@@ -36,24 +36,13 @@ function SearchLanding(props) {
                 <div className="col-sm pt-3">
                     <h1 className="text-center mb-5">stackl</h1>
                     <div className="input-group mb-5 mw-450 mx-auto">
-                        <input id={searchInputId} className="form-control" onKeyPress={onSearchInputKeyEvent} type="text" placeholder="Search the Q&A's..." />
+                        <input id={searchInputId} className="form-control" onKeyPress={(e)=>onSearchInputKeyEvent(e, props)} type="text" placeholder="Search the Q&A's..." />
                         <span className="input-group-btn">
                             <button className="btn btn-primary" onClick={() => onSearchSubmitBtnClick(props)} type="button">Submit</button>
                         </span>
                     </div>
                     <button className="btn btn-primary btn-block mx-auto mw-300" onClick={showModal.bind(null, MODAL_IDS.LOGIN)} >Login</button>
                     <button className="btn btn-primary btn-block mx-auto mw-300" onClick={showModal.bind(null, MODAL_IDS.REGISTER)} >Register</button>
-                    {
-                        props.posts !== null ?
-                            <div>
-                                {
-                                    props.posts.map((p, i) => {
-                                        return <p key={i}>{p.body}</p>
-                                    })
-                                }
-                            </div>
-                            : null
-                    }
                 </div>
             </div>
         </div>
