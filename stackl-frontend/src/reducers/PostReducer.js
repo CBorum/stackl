@@ -11,6 +11,8 @@ const Posts = (state = defaultState, action) => {
             return Object.assign({}, state, { posts: action.payload })
         case ActionTypes.GET_SINGLE_POST_DONE:
             return Object.assign({}, state, { singlePost: action.payload })
+        case ActionTypes.RESET_POSTS:
+            return Object.assign({}, state, {posts: action.payload})
         default:
             return state
     }

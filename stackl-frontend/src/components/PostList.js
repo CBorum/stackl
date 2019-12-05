@@ -2,18 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import '../scss/index.scss';
-import { getPosts, getPostsDone } from '../actions/PostActions';
+import { getPostsDone, resetPosts} from '../actions/PostActions';
 
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
 
 class PostList extends React.Component {
     state = {
         openedIndices: {},
-    }
-
-    componentDidMount() {
-        const { dispatch } = this.props
-        dispatch(getPosts("java"))
     }
 
     expandPost(i) {
@@ -25,7 +20,7 @@ class PostList extends React.Component {
 
     componentWillUnmount() {
         const { dispatch } = this.props
-        dispatch(getPostsDone([]))
+        dispatch(resetPosts())
     }
 
     render() {
