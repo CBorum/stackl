@@ -9,10 +9,12 @@ export const login = (username, password) => {
     }
 };
 
-export const loginDone = ({token}) => {
+export const loginDone = ({token, username, userId}) => {
     return {
         type: LOGIN_DONE,
-        payload: token,
+        payload: {
+            token, username, userId
+        }
     }
 };
 

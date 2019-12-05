@@ -7,7 +7,11 @@ const defaultState = {
 const Login = (state = defaultState, action) => {
     switch (action.type) {
         case LOGIN_DONE:
-            return Object.assign({}, state, { token: action.payload.token });
+            return Object.assign({}, state, {
+                token: action.payload.token,
+                username: action.payload.username,
+                userId: action.payload.userId
+            });
         case LOGOUT:
             return Object.assign({}, state, { token: undefined });
         default:
