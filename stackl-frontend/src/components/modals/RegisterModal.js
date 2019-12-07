@@ -2,6 +2,21 @@ import React from "react";
 import ModalWrapper from './ModalWrapper';
 import {MODAL_IDS} from '../../actions/ModalActions';
 
+const invalidClass = 'invalid';
+
+
+
+const validateElement = validator => event => {
+    if(!validator(event.target.value)){
+        event.target.classList.add(invalidClass)
+    }else{
+        event.target.classList.remove(invalidClass)
+    }
+};
+
+const validateUsernameElement = validateElement(username => typeof username === 'string' && username > 4);
+const validatePasswordElement = validateElement(password => typeof password === 'string' && password > 4);
+
 function RegisterModal() {
     return (
         <ModalWrapper modalId={MODAL_IDS.REGISTER}>

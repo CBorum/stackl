@@ -57,9 +57,11 @@ $z-index-modal: 20;
         font-size: 200%;
         position: absolute;
         bottom: 50px;
-        width: 100%;
         text-align: center;
         cursor: pointer;
+        left: calc(50% - 35px);
+        padding: 25px;
+        margin: -25px;
 
         &:hover {
             opacity: 0.5;

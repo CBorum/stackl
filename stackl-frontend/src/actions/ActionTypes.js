@@ -18,4 +18,5 @@ export const LOGIN_DONE = 'LOGIN_DONE';
 export const LOGOUT = 'LOGOUT';
 
 export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';
 export const HIDE_CURRENT_MODAL = 'HIDE_CURRENT_MODAL';

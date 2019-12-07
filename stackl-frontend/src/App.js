@@ -5,7 +5,6 @@ import './scss/index.scss';
 
 import SearchLanding from './components/SearchLanding';
 import ModalBackdrop from './components/modals/ModalBackdrop';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 import './scss/index.scss';
 import { startTest } from './actions/TestActions';

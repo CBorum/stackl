@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { MODAL_IDS } from '../js/modals';
+import { MODAL_IDS } from '../actions/ModalActions';
 import { getPosts } from '../actions/PostActions';
 import { withRouter } from 'react-router-dom'
 
@@ -24,7 +24,7 @@ const postSearch = (searchEntry) => {
 
 const onSearchInputKeyEvent = (event, props) => {
     if (event.key === 'Enter') {
-        props.dispatch(getPosts(event.target.value))
+        props.dispatch(getPosts(event.target.value));
         props.history.push("/posts")
     }
 };
@@ -32,7 +32,6 @@ const onSearchInputKeyEvent = (event, props) => {
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts, token: state.Login.token });
 
 function SearchLanding(props) {
-
     return (
         <div className="container">
             <div className="row">
