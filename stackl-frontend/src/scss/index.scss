@@ -40,3 +40,26 @@ $z-index-modal: 20;
 .text-align-center {
     text-align: center;
 }
+
+.nav-bar-container {
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.sideBarBorder {
+    border-left: 1px solid black;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.rm-link {
+    color: inherit;
+}
+
+.rm-link:link, .rm-link:visited, .rm-link:hover, .rm-link:active {
+    text-decoration: none;
+    color: inherit;
+}

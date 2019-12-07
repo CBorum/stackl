@@ -8,6 +8,8 @@ import './scss/index.scss';
 import { startTest } from './actions/TestActions';
 import PostList from './components/PostList';
 import SinglePost from './components/SinglePost';
+import SearchNavBar from './components/SearchNavBar';
+import SideBar from './components/SideBar';
 
 const mapStateToProps = (state, ownProps) => ({ test: state.Test.test });
 
@@ -29,7 +31,13 @@ class App extends React.Component {
               </Route>
               <Route exact path="/posts">
                 <div className="col-12">
-                  <PostList />
+                  <div className="row">
+                    <SearchNavBar />
+                  </div>
+                  <div className="row"> 
+                    <PostList />
+                    <SideBar />
+                  </div>
                 </div>
               </Route>
               <Route exact path="/post/:postId">

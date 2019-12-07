@@ -28,7 +28,7 @@ namespace stackl.Controllers.Post {
         public string PostURI { get; set; }
         public string Title { get; set; }
         public int ParentId { get; set; }
-        public string ParentTitle { get; set; }
+        public PostDTO Parent { get; set; }
         public List<CommentDTO> Comments { get; set; }
         public AuthorDTO Author { get; set; }
         public PostAnswerDTO AcceptedAnswerPost { get; set; }

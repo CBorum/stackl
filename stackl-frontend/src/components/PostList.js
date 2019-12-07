@@ -2,13 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import '../scss/index.scss';
-import { getPostsDone, resetPosts} from '../actions/PostActions';
+import { resetPosts } from '../actions/PostActions';
 
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
 
 class PostList extends React.Component {
     state = {
         openedIndices: {},
+    }
+
+    componentDidMount() {
+        // const { dispatch } = this.props
+    }
+
+    componentWillUnmount() { // TODO: Skal flyttes over i searchlanding
+        const { dispatch } = this.props
+        dispatch(resetPosts())
     }
 
     expandPost(i) {
@@ -18,14 +27,9 @@ class PostList extends React.Component {
         this.setState({ openedIndices: obj })
     }
 
-    componentWillUnmount() {
-        const { dispatch } = this.props
-        dispatch(resetPosts())
-    }
 
     render() {
-        if (!this.props.posts) return null
-        console.log(this.props.posts)
+        if (!this.props.posts || (this.props.posts && this.props.posts.length === 0)) return <div className="col-9"><i>No posts where found.</i></div>
         return (
             <div className="col-9">
                 <ul className="list-group list-group-flush">
@@ -44,27 +48,38 @@ class PostList extends React.Component {
 class PostContainer extends React.Component {
     state = {}
 
+    convertDate(d) {
+        const date = new Date(d)
+        const res = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate()
+
+        return res;
+    }
+
     render() {
         const { post, expanded } = this.props
+        const parent = post && post.parent ? post.parent : null
+        if (!parent) return null
+
         return (
             <div className="row">
                 <div className="col-1">
                     <div>
                         <div className="p-2 text-align-center">
-                            <h4>{post.score}</h4>
+                            <h4>{parent.score}</h4>
                             <div>votes</div>
                         </div>
                         <div className="p-2 text-align-center">
-                            <h4>{post.answers ? post.answers : 0}</h4>
+                            <h4>{parent.answers ? post.answers : 0}</h4>
                             <div>answers</div>
                         </div>
                     </div>
                 </div>
                 <div className="col-11">
                     <div className="p-2" onClick={this.props.expandPost} style={{ cursor: "pointer" }}>
-                        <h4 className="display-6"><a href={`#/post/${post.postId}`}>{post.title ? post.title : post.parentTitle}</a></h4>
+                        <h4 className="display-6"><a href={`#/post/${parent.postId}`}>{parent.title}</a></h4>
                         <div className="mt-4"></div>
-                        <div className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: post.body }}></div>
+                        <div className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: parent.body }}></div>
+                        <div className="float-right mt-4">asked {this.convertDate(parent.creationDate)} by {parent.author ? parent.author.name : <i>Unknown</i>}</div>
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
                     </div>
                 </div>

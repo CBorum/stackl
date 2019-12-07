@@ -26,12 +26,13 @@ namespace stackl.Controllers.Search
         [HttpGet]
         [AllowAnonymous]
         [Authorize]
-        public async System.Threading.Tasks.Task<ActionResult> SearchAsync([FromQuery] string userid, [FromQuery] string offset, [FromQuery] string limit, [FromQuery] string input)
+        public ActionResult Search([FromQuery] string userid, [FromQuery] string offset, [FromQuery] string limit, [FromQuery] string input)
         {
             var query = CreateFromSearchQuery(userid, offset, limit, input);
             if (query == null) return BadRequest();
             var res = repository.RankedWeightedSearch(query.userid, query.offset, query.limit, query.input);
             if (res == null) return NotFound();
+
             var posts = from post in res
                         select new PostDTO()
                         {
@@ -41,18 +42,30 @@ namespace stackl.Controllers.Search
                             CreationDate = post.CreationDate,
                             PostURI = Url.ActionLink("GetPost", "Post", new { id = post.PostId }),
                             Title = post.Title,
-                            ParentId = post.ParentId ?? default(int)
+                            Author = new Author.AuthorDTO
+                            {
+                                AuthorId = post.Author.AuthorId,
+                                Name = post.Author.Name
+                            },
+                            Parent = post.Parent != null ? new PostDTO
+                            {
+                                PostId = post.Parent.PostId,
+                                Body = post.Parent.Body,
+                                Score = post.Parent.Score,
+                                CreationDate = post.Parent.CreationDate,
+                                PostURI = Url.ActionLink("GetPost", "Post", new { id = post.Parent.PostId }),
+                                Title = post.Parent.Title,
+                                Tags = post.Parent.PostTag != null ? post.Parent.PostTag.Select(pt => pt.Tag.Text).ToList() : null,
+                                Author = post.Parent.Author != null ? new Author.AuthorDTO
+                                {
+                                    AuthorId = post.Parent.Author.AuthorId,
+                                    Name = post.Parent.Author.Name
+                                } : null
+                            } : null,
                         };
-                        
-            var postsRes = posts.ToList();
-            foreach (var p in postsRes)
-            {
-                if (p.Title == null) {
-                    var parentP = await postRepository.Get(p.ParentId);
-                    p.ParentTitle = parentP.Title;
-                }  
-            }
-            return this.SerializeContent<List<PostDTO>>(postsRes);
+
+            // return this.SerializeContent<List<Models.Post>>(res); // FIXME: Mangler fix!
+            return Ok(posts.ToList());
         }
 
         public SearchRequestDTO CreateFromSearchQuery(string userid, string offset, string limit, string input)

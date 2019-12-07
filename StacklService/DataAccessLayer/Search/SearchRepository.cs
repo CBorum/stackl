@@ -35,7 +35,12 @@ namespace stackl.DataAccessLayer.Search {
                 {
                     AddSearchHistory(input, (int) userId);
                 }
-                return DbContext.Post.FromSqlRaw("select * from search_ranked_weighted({0},{1},{2})", offset, limit, input).ToList();
+                return DbContext.Post.FromSqlRaw("select * from search_ranked_weighted({0},{1},{2})", offset, limit, input)
+                .Include(p => p.Parent)
+                .Include(p => p.Author)
+                .Include(p => p.PostTag)
+                .ThenInclude(pt => pt.Tag)
+                .ToList();
             }
             catch (Exception e)
             {
