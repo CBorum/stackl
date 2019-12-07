@@ -24,16 +24,16 @@ class SinglePost extends React.Component {
                     <div dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
                     <div className="comments">
                         <h3>Comments</h3>
-                        {this.props.post.comments.map((c) => {
-                            return (<Comment comment={c} />)
+                        {this.props.post.comments.map((c, i) => {
+                            return (<Comment key={i} comment={c} />)
                         })}
                     </div>
 
                     <Answer answer={this.props.post.acceptedAnswerPost} />
                     <div className="answers">
                         <h2>Answers</h2>
-                        {this.props.post.answers.map((a) => {
-                            return (<Answer answer={a} />)
+                        {this.props.post.answers.map((a, i) => {
+                            return (<Answer key={i} answer={a} />)
                         })}
                     </div>
                 </div>
