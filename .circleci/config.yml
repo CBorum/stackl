@@ -23,4 +23,4 @@ jobs:
             docker build -t stackluser/backend .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push stackluser/backend
-            working_directory: ~/stackl/StacklService
+          working_directory: ~/stackl/StacklService
