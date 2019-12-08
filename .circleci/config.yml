@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/stackl
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.0
+      - image: jetcipher/circleci-dotnet-core:3.0
     steps:
       - checkout:
           path: ~/stackl
