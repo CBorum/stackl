@@ -1,6 +1,7 @@
 import {REGISTER, REGISTER_DONE, LOGIN} from "../actions/ActionTypes";
 import { loginDone} from '../actions/LoginActions';
 import { apiCall } from './helper';
+import {hideModal, MODAL_IDS} from "../actions/ModalActions";
 
 const RegisterMiddleware = ({dispatch, getState}) => (next) => (action) => {
     next(action);
@@ -8,7 +9,10 @@ const RegisterMiddleware = ({dispatch, getState}) => (next) => (action) => {
         case REGISTER:
             apiCall(dispatch, `api/login/register`, 'POST', action.payload)
                 .then(apiCall(dispatch, `api/login/authenticate`, 'POST', action.payload))
-                .then(res => dispatch(loginDone(action.payload)))
+                .then(res => {
+                    dispatch(loginDone(res));
+                    dispatch(hideModal(MODAL_IDS.REGISTER))
+                })
                 .catch(e => {
                     console.log("error: " + e)
                 });

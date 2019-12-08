@@ -9,7 +9,7 @@ const LoginMiddleware = ({dispatch, getState}) => (next) => (action) => {
         case LOGIN:
                 apiCall(dispatch, `api/login/authenticate`, 'POST', action.payload)
                     .then(res => {
-                        dispatch(loginDone(res))
+                        dispatch(loginDone(res));
                         dispatch(hideModal(MODAL_IDS.LOGIN))
                     })
                     .catch(e => {
