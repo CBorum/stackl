@@ -8,7 +8,7 @@ jobs:
       - checkout:
           path: ~/stackl
       - setup_remote_docker:
-            docker_layer_caching: false
+            docker_layer_caching: true
       - run:
           name: Build and push Docker image
           command: |
@@ -16,3 +16,19 @@ jobs:
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push stackluser/backend
           working_directory: ~/stackl/StacklService
+  build-front:
+    working_directory: ~/stackl
+    docker:
+      - image: circleci/ruby:2.4.2-jessie-node
+    steps:
+      - checkout:
+          path: ~/stackl
+      - setup_remote_docker:
+            docker_layer_caching: true
+      - run:
+          name: Build and push Docker image
+          command: |
+            docker build -t stackluser/frontend .
+            echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+            docker push stackluser/frontend
+          working_directory: ~/stackl/stackl-frontend
