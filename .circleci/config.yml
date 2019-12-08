@@ -1,21 +1,18 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/stackl
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.0
+      - image: jetcipher/circleci-dotnet-core:3.0
     steps:
-      - checkout
+      - checkout:
+          path: ~/stackl
       - setup_remote_docker:
             docker_layer_caching: false
-      - run:
-          name: Restore
-          command: dotnet restore
-      - run:
-          name: Build
-          command: dotnet build -c Release
       - run:
           name: Build and push Docker image
           command: |
             docker build -t stackluser/backend .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push stackluser/backend
+          working_directory: ~/stackl/StacklService
