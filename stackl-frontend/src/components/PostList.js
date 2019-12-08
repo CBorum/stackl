@@ -29,7 +29,7 @@ class PostList extends React.Component {
 
 
     render() {
-        if (!this.props.posts || (this.props.posts && this.props.posts.length === 0)) return <div className="col-9"><i>No posts where found.</i></div>
+        if (!this.props.posts || (this.props.posts && this.props.posts.length === 0)) return <div className="col-9"><i>No posts were found.</i></div>
         return (
             <div className="col-9">
                 <ul className="list-group list-group-flush">
@@ -54,7 +54,7 @@ class PostContainer extends React.Component {
 
     convertDate(d) {
         const date = new Date(d)
-        const res = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate()
+        const res = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
 
         return res;
     }
@@ -79,11 +79,20 @@ class PostContainer extends React.Component {
                     </div>
                 </div>
                 <div className="col-11">
-                    <div className="p-2" onClick={this.props.expandPost} style={{ cursor: "pointer" }}>
+                    <div className="p-2">
                         <h4 className="display-6"><a href={`#/post/${parent.postId}`}>{parent.title}</a></h4>
                         <div className="mt-4"></div>
-                        <div className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: parent.body }}></div>
-                        <div className="float-right mt-4">asked {this.convertDate(parent.creationDate)} by {parent.author ? parent.author.name : <i>Unknown</i>}</div>
+                        <div onClick={this.props.expandPost} style={{ cursor: "pointer" }} className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: parent.body }}></div>
+                        <div className="mt-4"></div>
+                        <div className="inline-block">
+                            {
+                                parent.tags.map((t, i) => {
+                                    return <span key={i} className={`badge badge-secondary ${i !== 0 ? "ml-2" : ""}`}>{t}</span>
+                                })
+                            }
+                        </div>
+                        <div className="float-right">asked {this.convertDate(parent.creationDate)} by {parent.author ? parent.author.name : <i>Unknown</i>}</div>
+
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
                     </div>
                 </div>
