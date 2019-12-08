@@ -5,7 +5,8 @@ jobs:
     docker:
       - image: mcr.microsoft.com/dotnet/core/sdk:3.0
     steps:
-      - checkout
+      - checkout:
+          path: ~/StacklService
       - setup_remote_docker:
             docker_layer_caching: false
       - run:
