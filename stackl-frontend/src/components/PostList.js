@@ -85,7 +85,7 @@ class PostContainer extends React.Component {
                                 })
                             }
                         </div>
-                        <div className="float-right">asked {formatDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
+                        <div className="float-right" style={{color: "gray"}}>asked {formatDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
 
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
                     </div>
