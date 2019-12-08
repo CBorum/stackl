@@ -24,8 +24,8 @@ class SinglePost extends React.Component {
                     <div className="col-11">
                         <div dangerouslySetInnerHTML={{__html: answer.body}}></div>
                             <div className="comments list-group">
-                            {answer.comments.map((c) => {
-                                return (<Comment comment={c} />)
+                            {answer.comments.map((c, i) => {
+                                return (<Comment key={i} comment={c} />)
                             })}
                         </div>
                     </div>
