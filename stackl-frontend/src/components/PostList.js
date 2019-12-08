@@ -61,37 +61,37 @@ class PostContainer extends React.Component {
 
     render() {
         const { post, expanded } = this.props
-        const parent = post && post.parent ? post.parent : null
-        if (!parent) return null
+        const item = post && post.parent !== null ? post.parent : post // if the post itself is the parent otherwise use parent
+        if (!item) return null
 
         return (
             <div className="row">
                 <div className="col-1">
                     <div>
                         <div className="p-2 text-align-center">
-                            <h4>{parent.score}</h4>
+                            <h4>{item.score}</h4>
                             <div>votes</div>
                         </div>
                         <div className="p-2 text-align-center">
-                            <h4>{parent.answersCount}</h4>
+                            <h4>{item.answersCount}</h4>
                             <div>answers</div>
                         </div>
                     </div>
                 </div>
                 <div className="col-11">
                     <div className="p-2">
-                        <h4 className="display-6"><a href={`#/post/${parent.postId}`}>{parent.title}</a></h4>
+                        <h4 className="display-6"><a href={`#/post/${item.postId}`}>{item.title}</a></h4>
                         <div className="mt-4"></div>
-                        <div onClick={this.props.expandPost} style={{ cursor: "pointer" }} className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: parent.body }}></div>
+                        <div onClick={this.props.expandPost} style={{ cursor: "pointer" }} className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: item.body }}></div>
                         <div className="mt-4"></div>
                         <div className="inline-block">
                             {
-                                parent.tags.map((t, i) => {
+                                item.tags.map((t, i) => {
                                     return <span key={i} className={`badge badge-secondary ${i !== 0 ? "ml-2" : ""}`}>{t}</span>
                                 })
                             }
                         </div>
-                        <div className="float-right">asked {this.convertDate(parent.creationDate)} by {parent.author ? parent.author.name : <i>Unknown</i>}</div>
+                        <div className="float-right">asked {this.convertDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
 
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
                     </div>
