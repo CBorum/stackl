@@ -8,7 +8,7 @@ jobs:
       - checkout:
           path: ~/stackl
       - setup_remote_docker:
-            docker_layer_caching: true
+            docker_layer_caching: false
       - run:
           name: Build and push Docker image
           command: |
@@ -24,7 +24,7 @@ jobs:
       - checkout:
           path: ~/stackl
       - setup_remote_docker:
-            docker_layer_caching: true
+            docker_layer_caching: false
       - run:
           name: Build and push Docker image
           command: |
