@@ -10,14 +10,6 @@ jobs:
       - setup_remote_docker:
             docker_layer_caching: false
       - run:
-          name: Restore
-          command: dotnet restore
-          working_directory: ~/stackl/StacklService
-      - run:
-          name: Build
-          command: dotnet build -c Release
-          working_directory: ~/stackl/StacklService
-      - run:
           name: Build and push Docker image
           command: |
             docker build -t stackluser/backend .
