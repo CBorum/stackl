@@ -1,7 +1,7 @@
 import {LOGOUT, LOGIN, LOGIN_DONE} from "../actions/ActionTypes";
 import { login, logout, loginDone} from '../actions/LoginActions';
 import { hideModal, MODAL_IDS} from '../actions/ModalActions';
-import { apiCall } from './helper';
+import { apiCall } from './apiService';
 
 const LoginMiddleware = ({dispatch, getState}) => (next) => (action) => {
     next(action);

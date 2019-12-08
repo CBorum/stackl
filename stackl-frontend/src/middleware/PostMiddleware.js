@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actions/ActionTypes'
 import { getPostsDone, getSinglePostDone } from '../actions/PostActions'
-import { apiCall } from './helper'
+import { apiCall } from './apiService'
 
 const PostMiddleware = ({dispatch, getState}) => (next) => (action) => {
     next(action)

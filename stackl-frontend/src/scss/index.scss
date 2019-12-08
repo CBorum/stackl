@@ -91,3 +91,24 @@ $z-index-modal: 20;
         }
     }
 }
+
+.comments {
+    font-size: 13px;
+
+    .comments-header {
+        color: grey;
+    }
+
+    .comment-votes {
+        width: 40px;
+        color: grey;
+    }
+
+    .comment-text {
+        font-size: 14px;
+    }
+
+    .author {
+        color: grey;
+    }
+}
