@@ -20,7 +20,7 @@ class SinglePost extends React.Component {
         if (!this.props.post) return null;
         
         return (
-            <div className="row">
+            <div className="row mt-4">
                 <div className="col-1">
                     <div className="p-2 text-align-center">
                         <h4>{post.score}</h4>
@@ -28,10 +28,12 @@ class SinglePost extends React.Component {
                     </div>
                 </div>
                 <div className="col-11">
-                    <h1>{post.title}</h1>
+                    <h2>{post.title}</h2>
                     <div>asked {formatDate(post.creationDate)} by {post.author ? post.author.name : <i>Unknown</i>}</div>
+                    <hr className="mb-1" />
                     <div dangerouslySetInnerHTML={{__html: post.body}}></div>
-                    <span className="comments-header">Comments</span>
+                    {/* <span className="comments-header">Comments</span> */}
+                    <hr style={{marginBottom: 0}} />
                     <div className="comments list-group list-group-flush">
                         {post.comments.map((c, i) => {
                             return (<Comment key={i} comment={c} />)
@@ -39,7 +41,8 @@ class SinglePost extends React.Component {
                     </div>
                 </div>
                 <div className="col-12">
-                    <h2>Answers</h2>
+                    <h4>{post.answers.length} Answers</h4>
+                    <hr />
                 </div>
                 <div className="answers list-group list-group-flush">
                     <Answer answer={post.acceptedAnswerPost} accepted={true}/>

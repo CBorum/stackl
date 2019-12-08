@@ -94,7 +94,8 @@ $z-index-modal: 20;
 
 .comments {
     font-size: 13px;
-
+    padding-right: 50px;
+    padding-left: 50px;
     .comments-header {
         color: grey;
     }
@@ -111,4 +112,9 @@ $z-index-modal: 20;
     .author {
         color: grey;
     }
+}
+
+.post-author {
+    color: gray;
+    font-size: 12px;
 }
