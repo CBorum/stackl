@@ -31,4 +31,8 @@
     <Folder Include="Service" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include=".circleci\config.yml" />
+  </ItemGroup>
+
 </Project>
