@@ -36,7 +36,11 @@ class PostList extends React.Component {
                     {
                         this.props.posts.map((p, i) => {
                             // return <PostContainer key={i} expandPost={() => this.expandPost(i)} expanded={this.state.openedIndices[i]} body={p.body} />
-                            return <li className={`list-group-item ${this.state.openedIndices[i] ? 'bg-light' : ""}`} key={i}><PostContainer expandPost={() => this.expandPost(i)} expanded={this.state.openedIndices[i]} post={p} /></li>
+                            if (p.parent) { // dont render li-element if no parent post exists
+                                return <li className={`list-group-item ${this.state.openedIndices[i] ? 'bg-light' : ""}`} key={i}><PostContainer expandPost={() => this.expandPost(i)} expanded={this.state.openedIndices[i]} post={p} /></li>
+                            } else {
+                                return null
+                            }
                         })
                     }
                 </ul>
