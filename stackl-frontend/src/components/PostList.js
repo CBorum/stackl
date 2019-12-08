@@ -73,7 +73,7 @@ class PostContainer extends React.Component {
                             <div>votes</div>
                         </div>
                         <div className="p-2 text-align-center">
-                            <h4>{parent.answers ? post.answers : 0}</h4>
+                            <h4>{parent.answersCount}</h4>
                             <div>answers</div>
                         </div>
                     </div>

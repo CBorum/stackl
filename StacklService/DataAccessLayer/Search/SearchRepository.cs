@@ -48,5 +48,23 @@ namespace stackl.DataAccessLayer.Search {
             }
             return null;
         }
+
+        public int ParentCount(int parentId)
+        {
+            try
+            {
+                return DbContext.Post
+                    .Where(p => p.ParentId == parentId)
+                    .GroupBy(p => p.ParentId)
+                    .Select(g => new { Count = g.Count() })
+                    .FirstOrDefault().Count;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return 0;
+        }
+
     }
 }

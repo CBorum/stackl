@@ -33,6 +33,7 @@ namespace stackl.Controllers.Post {
         public AuthorDTO Author { get; set; }
         public PostAnswerDTO AcceptedAnswerPost { get; set; }
         public List<PostAnswerDTO> Answers { get; set; }
+        public int AnswersCount { get; set; }
         public List<string> Tags { get; set; }
         public List<PostAnswerDTO> PostLinks { get; set; }
 

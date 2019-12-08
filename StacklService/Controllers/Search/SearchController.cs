@@ -60,7 +60,8 @@ namespace stackl.Controllers.Search
                                 {
                                     AuthorId = post.Parent.Author.AuthorId,
                                     Name = post.Parent.Author.Name
-                                } : null
+                                } : null,
+                                AnswersCount = repository.ParentCount(post.ParentId ?? default(int))
                             } : null,
                         };
 
