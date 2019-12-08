@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import '../scss/index.scss';
 import { resetPosts } from '../actions/PostActions';
+import { formatDate } from './dateFormat';
 
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
 
@@ -52,13 +53,6 @@ class PostList extends React.Component {
 class PostContainer extends React.Component {
     state = {}
 
-    convertDate(d) {
-        const date = new Date(d)
-        const res = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
-
-        return res;
-    }
-
     render() {
         const { post, expanded } = this.props
         const item = post && post.parent !== null ? post.parent : post // if the post itself is the parent otherwise use parent
@@ -91,7 +85,7 @@ class PostContainer extends React.Component {
                                 })
                             }
                         </div>
-                        <div className="float-right">asked {this.convertDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
+                        <div className="float-right">asked {formatDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
 
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
                     </div>
