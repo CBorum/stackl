@@ -25,9 +25,9 @@ const getHeaders = () => {
 // 	return `//${window.location.host}/`
 // }
 
-const host = process.env.STACKL_API_HOST || 'http://localhost';
+const host = process.env.REACT_APP_STACKL_API_HOST || 'http://localhost';
 // const host = 'http://212.47.241.119';
-const port = process.env.STACKL_API_PORT || 5000;
+const port = process.env.REACT_APP_STACKL_API_PORT || 5000;
 
 console.log('host:')
 console.log(typeof host)
