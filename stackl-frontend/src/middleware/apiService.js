@@ -20,8 +20,6 @@ const getHeaders = () => {
 const host = process.env.REACT_APP_STACKL_API_HOST || 'http://localhost';
 const port = process.env.REACT_APP_STACKL_API_PORT || 5000;
 
-console.log(host)
-
 export const getAddress = (endpoint) => `${host}:${port}/${endpoint}`;
 
 export const apiCall = (dispatch, endpoint, method, data) => {
