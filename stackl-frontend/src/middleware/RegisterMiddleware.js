@@ -10,6 +10,7 @@ const RegisterMiddleware = ({dispatch, getState}) => (next) => (action) => {
             apiCall(dispatch, `api/login/register`, 'POST', action.payload)
                 .then(apiCall(dispatch, `api/login/authenticate`, 'POST', action.payload))
                 .then(res => {
+                    console.log('register res:', res);
                     dispatch(loginDone(res));
                     dispatch(hideModal(MODAL_IDS.REGISTER))
                 })

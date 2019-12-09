@@ -13,7 +13,11 @@ const Login = (state = defaultState, action) => {
                 userId: action.payload.userId
             });
         case LOGOUT:
-            return Object.assign({}, state, { token: undefined });
+            return Object.assign({}, state, {
+                token: null,
+                username: null,
+                userId: null
+            });
         default:
             return state
     }

@@ -2,6 +2,9 @@
 @import "~bootstrap/scss/bootstrap";
 
 $z-index-modal: 20;
+$z-index-loader: 30;
+$bezier-fast-acc: cubic-bezier(.15,.71,.29,1);
+$transition-dur-500: 125ms; // base duration for transitions
 
 .mw-300 {
     max-width: 300px;
@@ -117,4 +120,53 @@ $z-index-modal: 20;
 .post-author {
     color: gray;
     font-size: 12px;
+}
+
+.loader-container {
+    $lc-height: 80;
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,.25), rgba(0,0,0,0));
+    height: $lc-height + px;
+    user-select: none;
+    pointer-events: none;
+    transition: opacity 125ms $bezier-fast-acc;
+
+    &:not(.is-loading){
+        opacity: 0;
+
+        .spinner{
+            transform: translateX(25%);
+        }
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(180deg);
+        }
+    }
+
+    .spinner {
+        $spinner-dimensions: 40;
+        $border-width: 2;
+
+        position: fixed;
+        right: #{($lc-height - $spinner-dimensions) / 2}px;
+        bottom: #{($lc-height - $spinner-dimensions) / 2}px;
+        height: #{$spinner-dimensions - ($border-width * 2)}px;
+        width: #{$spinner-dimensions - ($border-width * 2)}px;
+        border-radius: 9999px;
+        border: $border-width+px solid;
+        border-color: var(--primary) rgba(0,0,0,0) var(--primary) rgba(0,0,0,0);
+        animation: rotate 500ms linear infinite;
+
+        transition: transform 125ms $bezier-fast-acc;
+    }
+
 }

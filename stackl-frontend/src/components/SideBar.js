@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import '../scss/index.scss';
 import store from "../store";
-import {login} from "../actions/LoginActions";
+import {login, logout} from "../actions/LoginActions";
 import {register} from "../actions/RegisterActions";
 
 const makeToast = (msg, options = {}) => {
@@ -35,22 +35,24 @@ const unsafeRegister = () => {
         return;
     }
 
-    console.log('unsafe register', username, password);
-
     store.dispatch(register(username, password));
 };
 
-
-const mapStateToProps = (state, ownProps) => ({
-    username: state.Login.username,
-    token: state.Login.token
-});
 
 const VIEW_IDS = {
     MENU: 'MENU',
     HISTORY: 'HISTORY',
     MARKINGS: 'MARKINGS'
 }
+
+const dispatchLogout = () =>  {
+    store.dispatch(logout());
+};
+
+const mapStateToProps = (state, ownProps) => ({
+    username: state.Login.username,
+    token: state.Login.token
+});
 
 class SideBar extends React.Component {
     state = {
@@ -75,7 +77,7 @@ class SideBar extends React.Component {
                 <span>
                     <p className="small text-muted mb-0">logged in as:</p>
                     <h5 className="mb-4 text-info">{this.props.username}</h5>
-                    <button className="btn btn-outline-secondary btn-block btn-sm">logout</button>
+                    <button onClick={dispatchLogout} className="btn btn-outline-secondary btn-block btn-sm">logout</button>
 
                     <hr/>
 

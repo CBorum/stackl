@@ -6,7 +6,7 @@ import store from '../store';
 const getHeaders = () => {
 	const headers = {
         'Content-Type': 'application/json'
-    }
+    };
 
     const state = store.getState();
 
@@ -15,23 +15,10 @@ const getHeaders = () => {
 	}
 
 	return headers;
-}
-
-// export const getServer = () => {
-// 	if (window.location.host.indexOf('localhost') !== -1) {
-//         return `//localhost:5000/`
-// 	}
-	
-// 	return `//${window.location.host}/`
-// }
+};
 
 const host = process.env.STACKL_API_HOST || 'http://localhost';
-// const host = 'http://212.47.241.119';
 const port = process.env.STACKL_API_PORT || 5000;
-
-console.log('host:')
-console.log(typeof host)
-console.log(host)
 
 export const getAddress = (endpoint) => `${host}:${port}/${endpoint}`;
 
@@ -49,12 +36,16 @@ export const apiCall = (dispatch, endpoint, method, data) => {
 		}
 
 		if (res.ok) {
-			return res.json()
+			try{
+                return res.json()
+			}catch(err){
+				return res.text();
+			}
+
 		} else {
 			throw Error(res.statusText)
 		}
 	}).catch((e) => {
-		// dispatch(apiError(e.message))
-		throw Error(e.statusText)
+		throw Error(e)
 	}).finally(dispatch.bind(null, endLoad()))
-}
+};
