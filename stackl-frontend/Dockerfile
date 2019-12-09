@@ -5,7 +5,7 @@ ARG HOST_ARG
 ARG PORT_ARG
 ENV REACT_APP_STACKL_API_HOST=$HOST_ARG
 ENV REACT_APP_STACKL_API_PORT=$PORT_ARG
-
+RUN echo $REACT_APP_STACKL_API_HOST
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
 RUN npm install --silent
