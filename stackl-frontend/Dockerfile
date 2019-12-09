@@ -1,10 +1,10 @@
 # build environment
 FROM node:12.2.0-alpine as build
 WORKDIR /app
-ARG HOST_ARG=localhost
-ARG PORT_ARG=3000
-ENV STACKL_API_HOST=212.47.241.119
-ENV STACKL_API_PORT=$PORT_ARG
+ARG HOST_ARG
+ARG PORT_ARG
+ENV REACT_APP_STACKL_API_HOST=$HOST_ARG
+ENV REACT_APP_STACKL_API_PORT=$PORT_ARG
 
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
