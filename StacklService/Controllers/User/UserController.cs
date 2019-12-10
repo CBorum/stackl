@@ -34,8 +34,8 @@ namespace stackl.Controllers.User
 
                 var markingsDTO = markings.Select(m => new MarkingDTO
                 {
-                    Userid = m.UserId,
-                    RowId = m.RowId,
+                    UserId = m.UserId,
+                    PostId = m.RowId,
                     Note = m.Note,
                     CreationDate = m.CreationDate,
                     MarkingURI = Url.Link(
@@ -57,6 +57,25 @@ namespace stackl.Controllers.User
                 // TODO: Lav om i markings-tabellen og lav marking_id.
                 return null;
             });
+        }
+
+        [Authorize]
+        [HttpPost("{userId}/marking")]
+        public ActionResult PostMarking(int userId, MarkingDTO marking){
+            if(userId != int.Parse(User.Identity.Name)){
+                return Unauthorized();
+            }
+            
+            var savedMarking = repository.CreateMarking(userId, marking.PostId, marking.Note);
+
+            var savedMarkingDTO = new MarkingDTO(){
+                UserId = savedMarking.UserId,
+                PostId = savedMarking.RowId,
+                CreationDate = savedMarking.CreationDate,
+                Note = savedMarking.Note
+            };
+
+            return this.SerializeContent<MarkingDTO>(savedMarkingDTO);
         }
 
         [Authorize]

@@ -5,6 +5,7 @@ import Load from './LoadReducer';
 import Login from './LoginReducer';
 import Modal from './ModalReducer';
 import SavedPost from './SavedPostReducer';
+import User from './UserReducer';
 
 const AppStore = combineReducers({
     Load,
@@ -12,6 +13,7 @@ const AppStore = combineReducers({
     Login,
     Modal,
     SavedPost,
+    User,
 });
 
 export default AppStore

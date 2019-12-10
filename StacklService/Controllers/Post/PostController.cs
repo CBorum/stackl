@@ -49,7 +49,6 @@ namespace stackl.Controllers.Post
                     var post = PostAnswerDTOFromModel(p);
                     post.Author = AuthorDTOFromModel(p.Author);
                     post.Comments = p.Comment.Select(c => CommentDTOFromModel(c)).ToList();
-                    System.Console.WriteLine(post.PostId);
                     return post;
                 })
                 .ToList();
