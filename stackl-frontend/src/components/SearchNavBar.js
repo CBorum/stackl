@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import '../scss/index.scss';
 import { getPosts } from '../actions/PostActions';
@@ -20,8 +20,9 @@ class SearchNavBar extends React.Component {
     }
 
     render() {
+        if (this.props.location.pathname === "/") return null
         return (
-            <div className="nav-bar-container mt-2">
+            <div className="nav-bar-container mt-2 pl-3 pr-3">
                 <div style={{ width: 100 }} className="inline-block">
                     <Link className="rm-link" to="/#">
                         <h2>Stackl</h2>
@@ -39,5 +40,7 @@ class SearchNavBar extends React.Component {
         );
     }
 }
+
+SearchNavBar = withRouter(SearchNavBar)
 
 export default connect(mapStateToProps)(SearchNavBar);

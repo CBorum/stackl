@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import {HashRouter as Router, Switch, Route} from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import './scss/index.scss';
 import SearchLanding from './components/SearchLanding';
 import PostList from './components/PostList';
@@ -11,7 +11,7 @@ import LoginModal from './components/modals/LoginModal';
 import RegisterModal from './components/modals/RegisterModal';
 import Loader from './components/Loader';
 
-const mapStateToProps = (state) => ({currentModalId: state.currentModalId});
+const mapStateToProps = (state) => ({ currentModalId: state.currentModalId });
 
 class App extends React.Component {
 
@@ -24,29 +24,27 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <div className="container-fluid">
-            <Switch>
-              <Route exact path="/">
-                <SearchLanding />
-              </Route>
-              <Route exact path="/posts">
-                <div className="col-12">
-                  <div className="row">
-                    <SearchNavBar />
-                  </div>
-                  <div className="row"> 
-                    <PostList />
-                    <SideBar />
-                  </div>
-                </div>
-              </Route>
-              <Route exact path="/post/:postId">
-                <SinglePost />
-              </Route>
-            </Switch>
+            <div className="row">
+              <SearchNavBar />
+            </div>
+            <div className="row">
+              <Switch>
+                <Route exact path="/">
+                  <SearchLanding />
+                </Route>
+                <Route exact path="/posts">
+                  <PostList />
+                </Route>
+                <Route exact path="/post/:postId">
+                  <SinglePost />
+                </Route>
+              </Switch>
+              <SideBar />
+            </div>
           </div>
-            <LoginModal/>
-            <RegisterModal/>
-            <Loader></Loader>
+          <LoginModal />
+          <RegisterModal />
+          <Loader></Loader>
         </div>
       </Router>
     );

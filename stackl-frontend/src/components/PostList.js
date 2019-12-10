@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import '../scss/index.scss';
-import { resetPosts } from '../actions/PostActions';
 import { formatDate } from './dateFormat';
 
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
