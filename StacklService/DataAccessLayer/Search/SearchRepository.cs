@@ -21,7 +21,7 @@ namespace stackl.DataAccessLayer.Search {
                     {
                         var searchEntry = new SearchEntry(query, userId);
                         context.SearchEntry.Add(searchEntry);
-                        var res = DbContext.SaveChanges();
+                        var res = context.SaveChanges();
                         return res != 1 ? null : searchEntry;
                     }
                 });
@@ -29,10 +29,12 @@ namespace stackl.DataAccessLayer.Search {
 
         public List<Models.Post> RankedWeightedSearch(int? userId,int offset, int limit, string input)
         {
+            System.Console.WriteLine(userId);
             try
             {
                 if (userId != null && userId > 0)
                 {
+                    System.Console.WriteLine("her1");
                     AddSearchHistory(input, (int) userId);
                 }
                 return DbContext.Post.FromSqlRaw("select * from search_ranked_weighted({0},{1},{2})", offset, limit, input)

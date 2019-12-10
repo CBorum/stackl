@@ -7,10 +7,11 @@ export const setPosts = posts => {
     }
 };
 
-export const getPosts = queryStr => {
+export const getPosts = (queryStr, userId) => {
     return {
         type: ActionTypes.GET_POSTS,
         payload: queryStr,
+        userId,
     }
 }
 

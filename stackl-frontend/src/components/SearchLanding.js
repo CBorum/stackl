@@ -7,26 +7,27 @@ import { withRouter } from 'react-router-dom'
 import { showModal } from '../actions/ModalActions';
 
 
-const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts, token: state.Login.token });
+const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts, token: state.Login.token, userId: state.Login.userId });
 
 class SearchLanding extends React.Component {
     state = {
         searchInput: ""
-    }   
+    }
 
     componentDidMount() {
         const { dispatch } = this.props
         dispatch(resetPosts())
     }
     
-    onSearchSubmitBtnClick = () => {    
-        this.props.dispatch(getPosts(this.state.searchInput))
+    onSearchSubmitBtnClick = () => {
+        this.props.dispatch(getPosts(this.state.searchInput, this.props.userId))
         this.props.history.push("/posts")
     };
     
     onSearchInputKeyEvent = (event) => {
         if (event.key === 'Enter') {
-            this.props.dispatch(getPosts(event.target.value));
+            this.props.dispatch(getPosts(event.target.value, this.props.userId));
+            // TODO: add userid
             this.props.history.push("/posts")
         }
     };

@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { formatDate } from './dateFormat'
 import { getSearchHistory } from '../actions/UserActions';
 
 const mapStateToProps = (state, ownProps) => ({
