@@ -31,6 +31,10 @@ namespace stackl.DataAccessLayer.User {
                 .ToList();
         }
 
+        // public Marking PostMarking(Marking marking){
+        //     return DbContext
+        // }
+
         public List<SearchEntry> GetSearchHistory(int userId, int offset, int limit)
         {
             if (limit > 100)

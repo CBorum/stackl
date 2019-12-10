@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import '../scss/index.scss';
 import store from "../store";
 import SearchHistory from './SearchHistory';
+import SavedPosts from './SavedPosts';
 import {login, logout} from "../actions/LoginActions";
 import {register} from "../actions/RegisterActions";
 import { withRouter } from 'react-router-dom'
@@ -74,8 +75,9 @@ class SideBar extends React.Component {
     render() {
         if(this.props.location.pathname === "/") return null
         return (
-            <div className="col-3 pt-3 sideBarBorder">
-                {this.props.username &&
+            <div className="col-3 sideBarBorder">
+                <div className="side-bar-sticky-content pt-3">
+                    {this.props.username &&
                     /*logged in*/
 
                     <span>
@@ -86,19 +88,19 @@ class SideBar extends React.Component {
                         <hr />
 
                         {this.state.viewId === VIEW_IDS.MENU &&
-                            <span>
+                        <span>
                                 <button onClick={this.setView.bind(this, VIEW_IDS.HISTORY)} type="button" className="btn btn-link">Search history</button>
                                 <button onClick={this.setView.bind(this, VIEW_IDS.MARKINGS)} type="button" className="btn btn-link">Saved posts</button>
                             </span>
                         || this.state.viewId === VIEW_IDS.HISTORY &&
-                            <span>
+                        <span>
                                 <button onClick={this.setView.bind(this, VIEW_IDS.MENU)} type="button" className="btn btn-link btn-block">Back</button>
                                 <SearchHistory></SearchHistory>
                             </span>
                         || this.state.viewId === VIEW_IDS.MARKINGS &&
-                            <span>
+                        <span>
                                 <button onClick={this.setView.bind(this, VIEW_IDS.MENU)} type="button" className="btn btn-link btn-block">Back</button>
-                                markings
+                                <SavedPosts/>
                             </span>
                         }
                     </span>
@@ -118,7 +120,8 @@ class SideBar extends React.Component {
                         <button onClick={unsafeRegister} className="btn btn-outline-secondary btn-block">Register</button>
 
                     </span>
-                }
+                    }
+                </div>
 
             </div>
         );

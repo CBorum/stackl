@@ -175,7 +175,6 @@ $transition-dur-600: (125 * 1.6) + ms;
 
         transition: transform $transition-dur-600 $bezier-fast-acc;
     }
-
 }
 
 .skrid-padding {
@@ -191,4 +190,9 @@ $transition-dur-600: (125 * 1.6) + ms;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.side-bar-sticky-content {
+    position: sticky;
+    top: 0;
 }
