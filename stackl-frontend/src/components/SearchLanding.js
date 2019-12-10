@@ -42,7 +42,7 @@ class SearchLanding extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-sm pt-3">
+                    <div className="col-12 pt-3">
                         <h1 className="display-2 text-center mb-5">stackl</h1>
                         <div className="input-group mb-5 mw-450 mx-auto">
                             <div className="input-group-prepend">

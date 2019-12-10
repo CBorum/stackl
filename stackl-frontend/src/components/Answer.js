@@ -20,7 +20,7 @@ class SinglePost extends React.Component {
         return (
             <div className="list-group-item">
                 <div className="row">
-                    <div className="col-1">
+                    <div className="col-2 col-md-1">
                         <div className="text-align-center">
                             <h4>{answer.score}</h4>
                             <div>votes</div>
@@ -34,7 +34,7 @@ class SinglePost extends React.Component {
                             }
                         </div>
                     </div>
-                    <div className="col-11">
+                    <div className="col-10 col-md-11">
                         <div dangerouslySetInnerHTML={{ __html: answer.body }}></div>
                         <span className="post-author">Answered by {answer.author.name} on {formatDate(answer.creationDate)}</span>
                         {

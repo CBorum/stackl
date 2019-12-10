@@ -25,18 +25,18 @@ class SinglePost extends React.Component {
 
     render() {
         let post = this.props.post;
-        if (!this.props.post) return <div className="col-9 mt-4"></div>;
+        if (!this.props.post) return <div className="col-12 col-md-9 col-lg-9 mt-4"></div>;
 
         return (
-            <div className="col-9 mt-4">
+            <div className="col-12 col-md-9 col-lg-9 mt-4">
                 <div className="row">
-                    <div className="col-1 pr-0">
+                    <div className="col-2 col-md-1 pr-0">
                         <div className="p-2 text-align-center">
                             <h4>{post.score}</h4>
                             <div>votes</div>
                         </div>
                     </div>
-                    <div className="col-11">
+                    <div className="col-10 col-md-11">
                         <h2>{post.title}</h2>
                         <div style={{ color: "gray" }}>asked {formatDate(post.creationDate)} by {post.author ? post.author.name : <i>Unknown</i>}</div>
                         <hr />

@@ -56,7 +56,7 @@ class PostList extends React.Component {
     render() {
         if (!this.props.posts || (this.props.posts && this.props.posts.length === 0)) return <div className="col-9 mt-2"><i>No posts were found.</i></div>
         return (
-            <div className="col-9">
+            <div className="col-12 col-md-9 col-lg-9">
                 <ul className="list-group list-group-flush">
                     {
                         this.props.posts.map((p, i) => {
@@ -88,7 +88,7 @@ class PostContainer extends React.Component {
 
         return (
             <div className="row">
-                <div className="col-1">
+                <div className="col-2 col-md-1 skrid-padding">
                     <div>
                         <div className="p-2 text-align-center">
                             <h4>{item.score}</h4>
@@ -100,21 +100,23 @@ class PostContainer extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="col-11">
+                <div className="col-10 col-md-11">
                     <div className="p-2">
                         <h4 className="display-6"><a href={`#/post/${item.postId}`}>{item.title}</a></h4>
                         <div className="mt-4"></div>
                         <div onClick={this.props.expandPost} style={{ cursor: "pointer" }} className={`${expanded ? "" : "post-list-height"}`} dangerouslySetInnerHTML={{ __html: item.body }}></div>
-                        <div className="mt-4"></div>
-                        <div className="inline-block">
-                            {
-                                item.tags.map((t, i) => {
-                                    return <span key={i} className={`badge badge-secondary ${i !== 0 ? "ml-2" : ""}`}>{t}</span>
-                                })
-                            }
+                        <div className="row">
+                            <div className="col-12 col-md-9 pt-4">
+                                {
+                                    item.tags.map((t, i) => {
+                                        return <span key={i} className={`badge badge-secondary ${i !== 0 ? "ml-2" : ""}`}>{t}</span>
+                                    })
+                                }
+                            </div>
+                            <div className="col-12 col-md-3 pt-4">
+                                <div className="float-right" style={{ color: "gray" }}>asked {formatDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
+                            </div>
                         </div>
-                        <div className="float-right" style={{ color: "gray" }}>asked {formatDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
-
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
                     </div>
                 </div>

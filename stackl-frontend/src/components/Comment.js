@@ -11,10 +11,10 @@ class Comment extends React.Component {
         return (
             <div className="list-group-item">
                 <div className="row">
-                    <div className="px-2 my-auto text-align-center comment-votes">
+                    <div className="px-2 col-2 col-md-1 my-auto text-align-center comment-votes">
                         {comment.score}
                     </div>
-                    <div className="col-11">
+                    <div className="col-10 col-md-11">
                         <div>
                             <span className="comment-text" dangerouslySetInnerHTML={{__html: comment.text}}></span>
                             <span className="author"> - {comment.author.name} on {formatDate(comment.createdDate)}</span>

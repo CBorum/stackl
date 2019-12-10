@@ -82,7 +82,7 @@ class SideBar extends React.Component {
     render() {
         if(this.props.location.pathname === "/") return null
         return (
-            <div className="col-3 sideBarBorder">
+            <div className="col-12 col-md-3 sideBarBorder">
                 <div className="side-bar-sticky-content pt-3">
                     {this.props.username &&
                     /*logged in*/

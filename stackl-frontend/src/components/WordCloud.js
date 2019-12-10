@@ -35,10 +35,10 @@ class WordCloud extends React.Component {
           spiral: 'archimedean',
           transitionDuration: 1000,
         };
-        if (!this.props.words) return <div className="col-9 mt-4"></div>;
+        if (!this.props.words) return <div className="col-12 col-md-9 col-lg-9 mt-4"></div>;
 
         return (
-          <div className="col-9 mt-4">
+          <div className="col-12 col-md-9 col-lg-9 mt-4">
             <ReactWordcloud options={options} words={words} />
           </div>
         );

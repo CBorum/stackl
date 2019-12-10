@@ -32,7 +32,7 @@ $transition-dur-600: (125 * 1.6) + ms;
 
 
 .post-list-height {
-    max-height: 100px;
+    max-height: 110px;
     overflow: hidden;
 }
 
@@ -99,8 +99,8 @@ $transition-dur-600: (125 * 1.6) + ms;
 
 .comments {
     font-size: 13px;
-    padding-right: 50px;
-    padding-left: 50px;
+    // padding-right: 50px;
+    // padding-left: 50px;
     .comments-header {
         color: grey;
     }
