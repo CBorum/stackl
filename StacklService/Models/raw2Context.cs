@@ -34,6 +34,7 @@ namespace stackl.Models
         public virtual DbSet<Tag> Tag { get; set; }
         public virtual DbSet<Terms> Terms { get; set; }
         public virtual DbSet<Words> Words { get; set; }
+        public virtual DbSet<WordCloud> WC { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -482,6 +483,14 @@ namespace stackl.Models
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("terms_post_id_fkey");
+            });
+
+            modelBuilder.Entity<WordCloud>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToTable("wordcount");
+                entity.Property(e => e.Term).HasColumnName("term");
+                entity.Property(e => e.Term_Count).HasColumnName("term_count");
             });
 
             modelBuilder.Entity<Words>(entity =>

@@ -25,6 +25,12 @@ const unsafeLogin = () => {
     store.dispatch(login(username, password));
 };
 
+const onEnter = handler => event => {
+    if (event.key === 'Enter') {
+        handler();
+    }
+};
+
 function LoginModal(props){
     return (
         <ModalWrapper modalId={MODAL_IDS.LOGIN}>
@@ -35,7 +41,7 @@ function LoginModal(props){
             </div>
             <div className="form-group mb-5 mw-450 mx-auto">
                 <label htmlFor={passwordInputId}>Password</label>
-                <input type="password" className="form-control" id={passwordInputId} placeholder="Enter password"/>
+                <input onKeyPress={onEnter(unsafeLogin)} type="password" className="form-control" id={passwordInputId} placeholder="Enter password"/>
             </div>
             <button onClick={unsafeLogin} className="btn btn-primary btn-block mw-450 mx-auto">Submit</button>
         </ModalWrapper>

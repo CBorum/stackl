@@ -6,6 +6,7 @@ import Login from './LoginReducer';
 import Modal from './ModalReducer';
 import SavedPost from './SavedPostReducer';
 import User from './UserReducer';
+import Words from './WordCloudReducer'
 
 const AppStore = combineReducers({
     Load,
@@ -14,6 +15,7 @@ const AppStore = combineReducers({
     Modal,
     SavedPost,
     User,
+    Words
 });
 
 export default AppStore

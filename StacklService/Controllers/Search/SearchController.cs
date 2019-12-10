@@ -23,6 +23,26 @@ namespace stackl.Controllers.Search
             this.postRepository = postRepository;
         }
 
+        [HttpGet("wc")]
+        [AllowAnonymous]
+        [Authorize]
+        public ActionResult SearchWordCloud([FromQuery] string input)
+        {
+            var query = CreateFromSearchQuery(User.Identity.Name, "0", "10", input);
+            if (query == null) return BadRequest();
+            var res = repository.WordCloudSearch(query.userid, query.input);
+            if (res == null) return NotFound();
+
+            IEnumerable<WordCloudDTO> returlist = from term in res
+                select new WordCloudDTO()
+                {
+                    Text = term.Term,
+                    Value = term.Term_Count
+                };
+            
+            return Ok(returlist);
+        }
+
         [HttpGet]
         [AllowAnonymous]
         [Authorize]

@@ -5,6 +5,7 @@ import LoginMiddleware from './LoginMiddleware'
 import RegisterMiddleware from './RegisterMiddleware'
 import UserMiddleware from './UserMiddleware'
 import SavedPostMiddleware from './SavedPostMiddleware'
+import WordCloudMiddleware from './WordCloudMiddleware'
 
 const middleware = applyMiddleware(
     TestMiddleware,
@@ -13,6 +14,7 @@ const middleware = applyMiddleware(
     RegisterMiddleware,
     UserMiddleware,
     SavedPostMiddleware,
+    WordCloudMiddleware
 );
 
 export default middleware

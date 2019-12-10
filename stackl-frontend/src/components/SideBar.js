@@ -49,6 +49,13 @@ const VIEW_IDS = {
     MARKINGS: 'MARKINGS'
 }
 
+const onEnter = handler => event => {
+    if (event.key === 'Enter') {
+        handler();
+    }
+};
+
+
 const dispatchLogout = () => {
     store.dispatch(logout());
 };
@@ -89,19 +96,19 @@ class SideBar extends React.Component {
 
                         {this.state.viewId === VIEW_IDS.MENU &&
                         <span>
-                                <button onClick={this.setView.bind(this, VIEW_IDS.HISTORY)} type="button" className="btn btn-link">Search history</button>
-                                <button onClick={this.setView.bind(this, VIEW_IDS.MARKINGS)} type="button" className="btn btn-link">Saved posts</button>
-                            </span>
+                            <button onClick={this.setView.bind(this, VIEW_IDS.HISTORY)} type="button" className="btn btn-link">Search history</button>
+                            <button onClick={this.setView.bind(this, VIEW_IDS.MARKINGS)} type="button" className="btn btn-link">Saved posts</button>
+                        </span>
                         || this.state.viewId === VIEW_IDS.HISTORY &&
                         <span>
-                                <button onClick={this.setView.bind(this, VIEW_IDS.MENU)} type="button" className="btn btn-link btn-block">Back</button>
-                                <SearchHistory></SearchHistory>
-                            </span>
+                            <button onClick={this.setView.bind(this, VIEW_IDS.MENU)} type="button" className="btn btn-link btn-block">Back</button>
+                            <SearchHistory></SearchHistory>
+                        </span>
                         || this.state.viewId === VIEW_IDS.MARKINGS &&
                         <span>
-                                <button onClick={this.setView.bind(this, VIEW_IDS.MENU)} type="button" className="btn btn-link btn-block">Back</button>
-                                <SavedPosts/>
-                            </span>
+                            <button onClick={this.setView.bind(this, VIEW_IDS.MENU)} type="button" className="btn btn-link btn-block">Back</button>
+                            <SavedPosts/>
+                        </span>
                         }
                     </span>
                     ||
@@ -113,7 +120,7 @@ class SideBar extends React.Component {
                         </div>
                         <div className="form-group mb-4">
                             <label className="small text-muted" htmlFor={passwordInputId}>Password</label>
-                            <input type="password" className="form-control" id={passwordInputId} placeholder="Enter password" />
+                            <input onKeyPress={onEnter(unsafeLogin)} type="password" className="form-control" id={passwordInputId} placeholder="Enter password" />
                         </div>
                         <button onClick={unsafeLogin} className="btn btn-primary btn-block">Login</button>
                         <button onClick={unsafeRegister} className="btn btn-outline-secondary btn-block">Register</button>

@@ -20,12 +20,21 @@ class SearchLanding extends React.Component {
     }
 
     onSearchSubmitBtnClick = () => {
-        this.props.history.push(`/posts?input=${this.state.searchInput}`)
+        if(this.state.searchMethod === "Q&A" ){
+          this.props.history.push(`/posts?input=${this.state.searchInput}`)
+        } else {
+          this.props.history.push(`/words?input=${this.state.searchInput}`)
+        }
+        
     };
 
     onSearchInputKeyEvent = (event) => {
         if (event.key === 'Enter') {
+          if(this.state.searchMethod === "Q&A" ){
             this.props.history.push(`/posts?input=${this.state.searchInput}`)
+          } else {
+            this.props.history.push(`/words?input=${this.state.searchInput}`)
+          }
         }
     };
 

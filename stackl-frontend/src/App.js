@@ -10,6 +10,7 @@ import SideBar from './components/SideBar';
 import LoginModal from './components/modals/LoginModal';
 import RegisterModal from './components/modals/RegisterModal';
 import Loader from './components/Loader';
+import WordCloud from './components/WordCloud';
 
 const mapStateToProps = (state) => ({ currentModalId: state.currentModalId });
 
@@ -37,6 +38,9 @@ class App extends React.Component {
                 </Route>
                 <Route exact path="/post/:postId">
                   <SinglePost />
+                </Route>
+                <Route exact path="/words">
+                  <WordCloud />
                 </Route>
               </Switch>
               <SideBar />
