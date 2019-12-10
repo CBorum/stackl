@@ -16,9 +16,7 @@ const mapStateToProps = (state) => ({ currentModalId: state.currentModalId });
 
 class App extends React.Component {
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-  }
+  componentDidMount() {}
 
   render() {
     return (

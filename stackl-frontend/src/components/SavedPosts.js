@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import '../scss/index.scss';
-import store from '../store';
 
 const mapStateToProps = (state) => ({
     savedPosts: state.SavedPost.savedPosts

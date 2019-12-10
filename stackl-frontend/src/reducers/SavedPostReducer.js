@@ -1,4 +1,4 @@
-import { GET_SAVED_POSTS_DONE, SAVE_POST_DONE } from '../actions/ActionTypes'
+import { GET_SAVED_POSTS_DONE } from '../actions/ActionTypes'
 
 const defaultState = {
     savedPosts: null

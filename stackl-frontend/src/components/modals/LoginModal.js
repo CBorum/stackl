@@ -1,6 +1,6 @@
 import React from "react";
 import ModalWrapper from './ModalWrapper';
-import {hideModal, MODAL_IDS} from '../../actions/ModalActions';
+import {MODAL_IDS} from '../../actions/ModalActions';
 import {login} from '../../actions/LoginActions';
 import store from '../../store';
 

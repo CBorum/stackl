@@ -84,7 +84,7 @@ class SideBar extends React.Component {
         return (
             <div className="col-12 col-md-3 sideBarBorder">
                 <div className="side-bar-sticky-content pt-3">
-                    {this.props.username &&
+                    { ( this.props.username &&
                     /*logged in*/
 
                     <span>
@@ -94,23 +94,23 @@ class SideBar extends React.Component {
 
                         <hr />
 
-                        {this.state.viewId === VIEW_IDS.MENU &&
+                        { ( this.state.viewId === VIEW_IDS.MENU && 
                         <span>
                             <button onClick={this.setView.bind(this, VIEW_IDS.HISTORY)} type="button" className="btn btn-link">Search history</button>
                             <button onClick={this.setView.bind(this, VIEW_IDS.MARKINGS)} type="button" className="btn btn-link">Saved posts</button>
-                        </span>
-                        || this.state.viewId === VIEW_IDS.HISTORY &&
+                        </span>)
+                        || ( this.state.viewId === VIEW_IDS.HISTORY &&
                         <span>
                             <button onClick={this.setView.bind(this, VIEW_IDS.MENU)} type="button" className="btn btn-link btn-block">Back</button>
                             <SearchHistory></SearchHistory>
-                        </span>
-                        || this.state.viewId === VIEW_IDS.MARKINGS &&
+                        </span> )
+                        || ( this.state.viewId === VIEW_IDS.MARKINGS &&
                         <span>
                             <button onClick={this.setView.bind(this, VIEW_IDS.MENU)} type="button" className="btn btn-link btn-block">Back</button>
                             <SavedPosts/>
-                        </span>
+                        </span> )
                         }
-                    </span>
+                    </span> )
                     ||
                     /*not logged in*/
                     <span>

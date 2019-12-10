@@ -1,8 +1,8 @@
-import {REGISTER, REGISTER_DONE} from './ActionTypes';
+import * as ActionTypes from './ActionTypes';
 
 export const register = (username, password) => {
     return {
-        type: REGISTER,
+        type: ActionTypes.REGISTER,
         payload: {
             username, password
         },

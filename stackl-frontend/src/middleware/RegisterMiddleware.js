@@ -1,6 +1,6 @@
-import {REGISTER, REGISTER_DONE, LOGIN} from "../actions/ActionTypes";
+import {REGISTER} from "../actions/ActionTypes";
 import { loginDone} from '../actions/LoginActions';
-import { apiCall, sleepAsync } from './apiService';
+import { apiCall } from './apiService';
 import {hideModal, MODAL_IDS} from "../actions/ModalActions";
 
 const RegisterMiddleware = ({dispatch, getState}) => (next) => (action) => {
