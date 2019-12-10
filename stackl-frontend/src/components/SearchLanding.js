@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom'
 
 import { showModal } from '../actions/ModalActions';
 
-
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts, token: state.Login.token, userId: state.Login.userId });
 
 class SearchLanding extends React.Component {

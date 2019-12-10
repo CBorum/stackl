@@ -24,6 +24,14 @@ class PostList extends React.Component {
 
     componentWillUnmount() { }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.location.search !== this.props.location.search) {
+            const { dispatch } = this.props
+            const query = queryString.parse(this.props.location.search)
+            dispatch(getPosts({ input: query.input, offset: 0, limit: 10 }, this.props.userId))
+        }
+    }
+
     loadMore() {
         this.setState({ offset: this.state.offset + 10 }, () => {
             const { dispatch } = this.props
@@ -38,7 +46,6 @@ class PostList extends React.Component {
         else obj[i] = true;
         this.setState({ openedIndices: obj })
     }
-
 
     render() {
         if (!this.props.posts || (this.props.posts && this.props.posts.length === 0)) return <div className="col-9 mt-2"><i>No posts were found.</i></div>
