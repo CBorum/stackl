@@ -61,6 +61,7 @@ namespace stackl.DataAccessLayer.User {
             }
             return DbContext.SearchEntry
                 .Where(s => s.UserId == userId)
+                .OrderByDescending(s => s.CreationDate)
                 .Skip(offset)
                 .Take(limit)
                 .ToList();
