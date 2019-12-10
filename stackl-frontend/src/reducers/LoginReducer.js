@@ -10,7 +10,7 @@ const Login = (state = defaultState, action) => {
             return Object.assign({}, state, {
                 token: action.payload.token,
                 username: action.payload.username,
-                userId: action.payload.userId
+                userId: action.payload.id
             });
         case LOGOUT:
             return Object.assign({}, state, {

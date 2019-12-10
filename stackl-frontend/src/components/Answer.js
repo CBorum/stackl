@@ -22,7 +22,7 @@ class SinglePost extends React.Component {
                             <div>votes</div>
                             {
                                 accepted ?
-                                    <div style={{fontSize: 14}} className="alert alert-success p-1 mt-2">
+                                    <div className="accepted-answer alert alert-success p-1 mt-2">
                                         Accepted answer
                                     {/* <span className="glyphicon glyphicon-ok"></span> Den er bra og accepted! */}
                                     </div>
