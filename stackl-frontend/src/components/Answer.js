@@ -11,7 +11,6 @@ class SinglePost extends React.Component {
     render() {
         let answer = this.props.answer;
         let accepted = this.props.accepted;
-        console.log(answer)
 
         if (!answer) return null
         return (
@@ -23,7 +22,7 @@ class SinglePost extends React.Component {
                             <div>votes</div>
                             {
                                 accepted ?
-                                    <div style={{fontSize: 14}} className="alert alert-success mt-2">
+                                    <div className="accepted-answer alert alert-success mt-2">
                                         Accepted answer
                                     {/* <span className="glyphicon glyphicon-ok"></span> Den er bra og accepted! */}
                                     </div>

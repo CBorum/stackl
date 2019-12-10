@@ -9,11 +9,11 @@ export const login = (username, password) => {
     }
 };
 
-export const loginDone = ({token, username, userId}) => {
+export const loginDone = ({token, username, id}) => {
     return {
         type: LOGIN_DONE,
         payload: {
-            token, username, userId
+            token, username, id
         }
     }
 };
