@@ -12,18 +12,13 @@ class PostList extends React.Component {
         openedIndices: {},
     }
 
-    componentDidMount() {
-        // const { dispatch } = this.props
-    }
+    componentDidMount() {}
 
-    componentWillUnmount() { // TODO: Skal flyttes over i searchlanding
-        const { dispatch } = this.props
-        dispatch(resetPosts())
-    }
+    componentWillUnmount() {}
 
     expandPost(i) {
         const obj = this.state.openedIndices
-        if (obj[i]) delete obj[i];
+        if (obj[i]) delete obj[i];  
         else obj[i] = true;
         this.setState({ openedIndices: obj })
     }
@@ -57,7 +52,7 @@ class PostContainer extends React.Component {
         const { post, expanded } = this.props
         const item = post && post.parent !== null ? post.parent : post // if the post itself is the parent otherwise use parent
         if (!item) return null
-
+        
         return (
             <div className="row">
                 <div className="col-1">

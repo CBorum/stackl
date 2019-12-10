@@ -1,7 +1,7 @@
 import {SHOW_MODAL, HIDE_CURRENT_MODAL, HIDE_MODAL} from './ActionTypes';
 
 export const showModal = modalId => {
-    console.log(`showModal(${modalId})`)
+    // console.log(`showModal(${modalId})`)
     return {
         type: SHOW_MODAL,
         payload: modalId,

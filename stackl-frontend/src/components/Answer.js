@@ -11,7 +11,6 @@ class SinglePost extends React.Component {
     render() {
         let answer = this.props.answer;
         let accepted = this.props.accepted;
-        console.log(answer)
 
         if (!answer) return null
         return (
