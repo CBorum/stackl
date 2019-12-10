@@ -73,7 +73,22 @@ namespace stackl.Controllers.Search
         {
             try
             {
-                return new SearchRequestDTO(Int32.Parse(userid), Int32.Parse(offset), Int32.Parse(limit), input);
+                int parsedUserId = 0;
+                int parsedOffset = 0;
+                int parsedLimit = 10;
+                if (userid != null) {
+                    parsedUserId = Int32.Parse(userid);
+                }
+
+                if (offset != null) {
+                    parsedOffset = Int32.Parse(offset);
+                }
+
+                if (limit != null) {
+                    parsedLimit = Int32.Parse(limit);
+                }
+
+                return new SearchRequestDTO(parsedUserId, parsedOffset, parsedLimit, input);
             }
             catch (Exception e)
             {
