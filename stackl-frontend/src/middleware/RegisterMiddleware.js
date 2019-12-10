@@ -8,8 +8,7 @@ const RegisterMiddleware = ({dispatch, getState}) => (next) => (action) => {
     switch (action.type) {
         case REGISTER:
             apiCall(dispatch, `api/login/register`, 'POST', action.payload)
-                .then(sleepAsync(2000))
-                .then(apiCall(dispatch, `api/login/authenticate`, 'POST', action.payload))
+                .then(apiCall.bind(null, dispatch, `api/login/authenticate`, 'POST', action.payload))
                 .then(res => {
                     console.log('register res:', res);
                     dispatch(loginDone(res));
