@@ -23,8 +23,8 @@ class SearchHistory extends React.Component {
         }
         console.log(searchHistory)
         return (
-            <div>
-                <h2>Search History</h2>
+            <div className="pt-2">
+                <h3>Search History</h3>
                 <div className="list-group list-group-flush">
                     {searchHistory.map((s, i) => {
                         return (

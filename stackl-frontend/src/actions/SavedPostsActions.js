@@ -16,3 +16,10 @@ export const getSavedPostsDone = savedPosts => {
         payload: savedPosts,
     }
 };
+
+export const savePost = (postId, note) => {
+    return {
+        type: ActionTypes.GET_SAVED_POSTS_DONE,
+        payload: savedPosts,
+    }
+};

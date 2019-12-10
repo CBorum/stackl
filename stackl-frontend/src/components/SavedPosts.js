@@ -9,20 +9,25 @@ const mapStateToProps = (state) => ({
 
 function SavedPosts(props){
     return (
-        <div className="col-xs-12">
-            {
-                props.savedPosts !== null && props.savedPosts.length > 0 ?
-                    props.savedPosts.map(savedPost => (
-                        <a href={`#/post/${savedPost.postId}`}>
-                            <div className="col-xs-12 pt-4">
-                                <h5>{savedPost.postTitle}</h5>
-                                {!!savedPost.note ? <p className="text-muted small font-italic">"{savedPost.note}"</p> : null}
+        <div className="col-xs-12 pt-2">
+            <h3>Saved Posts</h3>
+            <div className="list-group list-group-flush">
+                {
+                    props.savedPosts !== null && props.savedPosts.length > 0 ?
+                        props.savedPosts.map(savedPost => (
+                            <div className="list-group-item px-0">
+                                <a key={savedPost.postId} href={`#/post/${savedPost.postId}`}>
+                                    <h5>{savedPost.postTitle}</h5>
+                                    {!!savedPost.note ? <p className="text-muted small font-italic mb-0">"{savedPost.note}"</p> : null}
+                                </a>
                             </div>
-                        </a>
-                    ))
-                    :
-                    <p className="text-muted text-center font-italic">You have not saved any posts yet</p>
-            }
+
+                        ))
+                        :
+                        <p className="text-muted text-center font-italic">You have not saved any posts yet</p>
+                }
+            </div>
+
         </div>
 
     )
