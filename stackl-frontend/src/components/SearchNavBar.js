@@ -16,20 +16,22 @@ class SearchNavBar extends React.Component {
     search() {
         const { dispatch } = this.props
         dispatch(getPosts(this.state.searchStr, this.props.userId))
-        this.setState({ searchStr: "" })
+        this.setState({ searchStr: "" }, () => {
+            this.props.history.push("/posts")
+        })
     }
 
     render() {
         if (this.props.location.pathname === "/") return null
         return (
-            <div className="nav-bar-container mt-2 pl-3 pr-3">
+            <div className="nav-bar-container pt-2 pb-2 pl-3 pr-3 fixed-top" style={{backgroundColor: "white"}}>
                 <div style={{ width: 100 }} className="inline-block">
                     <Link className="rm-link" to="/#">
-                        <h2>Stackl</h2>
+                        <h2 className="mb-0">Stackl</h2>
                     </Link>
                 </div>
-                <div className="inline-block float-right" style={{ width: 300 }}>
-                    <div className="input-group input-group-sm mb-3 mt-1" >
+                <div className="inline-block float-right mt-1" style={{ width: 300 }}>
+                    <div className="input-group input-group-sm" >
                         <input onKeyDown={e => {if(e.key === "Enter") this.search()}} value={this.state.searchStr} onChange={e => this.setState({ searchStr: e.target.value })} placeholder="Search the Q&A's" type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
                         <div className="input-group-append">
                             <button onClick={() => this.search()} className="btn btn-outline-secondary" type="button">Submit</button>

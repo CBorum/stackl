@@ -1,7 +1,8 @@
 import * as ActionTypes from '../actions/ActionTypes'
 
 const defaultState = {
-    posts: null
+    posts: null,
+    singlePost: null
 };
 
 const Posts = (state = defaultState, action) => {

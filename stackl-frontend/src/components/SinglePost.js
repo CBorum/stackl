@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-import { getSinglePost } from '../actions/PostActions'
+import { getSinglePost, getSinglePostDone } from '../actions/PostActions'
 import { formatDate } from './dateFormat'
 import Answer from './Answer'
 import Comment from './Comment'
@@ -15,9 +15,14 @@ class SinglePost extends React.Component {
         window.scrollTo(0, 0)
     }
 
+    componentWillUnmount() {
+        const { dispatch } = this.props
+        dispatch(getSinglePostDone(null)) // clearing store of post
+    }
+
     render() {
         let post = this.props.post;
-        if (!this.props.post) return null;
+        if (!this.props.post) return <div className="col-9 mt-4"></div>;
         
         return (
             <div className="col-9 mt-4">
