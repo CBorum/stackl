@@ -31,9 +31,27 @@ namespace stackl.DataAccessLayer.User {
                 .ToList();
         }
 
-        // public Marking PostMarking(Marking marking){
-        //     return DbContext
-        // }
+        public Marking CreateMarking(int userId, int postId, string note = ""){
+            var marking = new Marking(){
+                UserId = userId,
+                RowId = postId,
+                TableName = "Post",
+                Note = note
+            };
+
+            DbContext.Marking.Add(marking);
+            DbContext.SaveChanges();
+
+            return marking;
+        }
+
+        public List<Marking> GetMarkingByUserId(int userId, int offset = 0, int limit = 10){
+            return DbContext.Marking
+                .Where(x => x.TableName == "Post" && x.UserId == userId)
+                .Skip(offset)
+                .Take(limit)
+                .ToList();
+        }
 
         public List<SearchEntry> GetSearchHistory(int userId, int offset, int limit)
         {
