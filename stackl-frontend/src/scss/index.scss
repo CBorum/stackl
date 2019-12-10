@@ -5,6 +5,7 @@ $z-index-modal: 20;
 $z-index-loader: 30;
 $bezier-fast-acc: cubic-bezier(.15,.71,.29,1);
 $transition-dur-500: 125ms; // base duration for transitions
+$transition-dur-600: (125 * 1.6) + ms;
 
 .mw-300 {
     max-width: 300px;
@@ -129,11 +130,12 @@ $transition-dur-500: 125ms; // base duration for transitions
     bottom: 0;
     right: 0;
     width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,.25), rgba(0,0,0,0));
-    height: $lc-height + px;
+    background: rgba(255,255,255,0.9);
+    height: 100%;
     user-select: none;
     pointer-events: none;
     transition: opacity 125ms $bezier-fast-acc;
+    z-index: $z-index-loader;
 
     &:not(.is-loading){
         opacity: 0;
@@ -153,20 +155,21 @@ $transition-dur-500: 125ms; // base duration for transitions
     }
 
     .spinner {
-        $spinner-dimensions: 40;
-        $border-width: 2;
+        $spinner-dimensions: 80;
+        $border-width: 4;
 
         position: fixed;
-        right: #{($lc-height - $spinner-dimensions) / 2}px;
-        bottom: #{($lc-height - $spinner-dimensions) / 2}px;
+        right: calc(50% - #{$spinner-dimensions / 2}px);
+        top: calc(50% - #{$spinner-dimensions / 2}px);
         height: #{$spinner-dimensions - ($border-width * 2)}px;
         width: #{$spinner-dimensions - ($border-width * 2)}px;
         border-radius: 9999px;
         border: $border-width+px solid;
         border-color: var(--primary) rgba(0,0,0,0) var(--primary) rgba(0,0,0,0);
         animation: rotate 500ms linear infinite;
+        z-index: $z-index-loader + 1;
 
-        transition: transform 125ms $bezier-fast-acc;
+        transition: transform $transition-dur-600 $bezier-fast-acc;
     }
 
 }

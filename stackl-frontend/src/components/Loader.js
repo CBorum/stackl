@@ -2,21 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import '../scss/index.scss';
 
-// // <delete>
-// import store from "../store";
-// import {endLoad, startLoad} from "../actions/LoadActions";
-// window.toggleLoading = () => {
-//     const state = store.getState()
-//     const {isLoading} = state.Load;
-//
-//     if(isLoading){
-//         store.dispatch(endLoad())
-//     }else{
-//         store.dispatch(startLoad())
-//     }
-// };
-// // </delete>
-
 const mapStateToProps = (state) => ({
     isLoading: state.Load.isLoading
 });

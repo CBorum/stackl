@@ -23,7 +23,6 @@ const port = process.env.REACT_APP_STACKL_API_PORT || 5000;
 export const getAddress = (endpoint) => `${host}:${port}/${endpoint}`;
 
 export const apiCall = (dispatch, endpoint, method, data) => {
-    console.log(`apiCall, getAddress(${endpoint}):`, getAddress(endpoint));
 	dispatch(startLoad());
 	return fetch(getAddress(endpoint), {
 		headers: getHeaders(),
