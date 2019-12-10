@@ -84,7 +84,7 @@ namespace stackl.Controllers.User
             {
                 // create user
                 _loginRepository.Create(user, model.Password);
-                return Ok();
+                return NoContent();
             }
             catch (AppException ex)
             {

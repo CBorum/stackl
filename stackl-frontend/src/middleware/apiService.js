@@ -2,7 +2,6 @@ import {startLoad, endLoad} from '../actions/LoadActions';
 import {logout} from '../actions/LoginActions';
 import store from '../store';
 
-
 const getHeaders = () => {
 	const headers = {
         'Content-Type': 'application/json'
@@ -34,15 +33,20 @@ export const apiCall = (dispatch, endpoint, method, data) => {
 			return;
 		}
 
-		if (res.ok) {
-			try{
-                return res.json()
-			}catch(err){
-				return res.text();
-			}
-
-		} else {
+		if(!res.ok){
 			throw Error(res.statusText)
+		}
+
+		return res.text()
+	}).then(responseText => {
+		if(!responseText){
+			return;
+		}
+
+		try{
+			return JSON.parse(responseText);
+		}catch(err){
+			return responseText
 		}
 	}).catch((e) => {
 		throw Error(e)

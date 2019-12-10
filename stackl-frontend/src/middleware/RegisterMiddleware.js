@@ -1,6 +1,6 @@
 import {REGISTER, REGISTER_DONE, LOGIN} from "../actions/ActionTypes";
 import { loginDone} from '../actions/LoginActions';
-import { apiCall } from './apiService';
+import { apiCall, sleepAsync } from './apiService';
 import {hideModal, MODAL_IDS} from "../actions/ModalActions";
 
 const RegisterMiddleware = ({dispatch, getState}) => (next) => (action) => {
@@ -8,7 +8,7 @@ const RegisterMiddleware = ({dispatch, getState}) => (next) => (action) => {
     switch (action.type) {
         case REGISTER:
             apiCall(dispatch, `api/login/register`, 'POST', action.payload)
-                .then(apiCall(dispatch, `api/login/authenticate`, 'POST', action.payload))
+                .then(apiCall.bind(null, dispatch, `api/login/authenticate`, 'POST', action.payload))
                 .then(res => {
                     console.log('register res:', res);
                     dispatch(loginDone(res));
