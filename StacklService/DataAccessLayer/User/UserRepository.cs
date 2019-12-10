@@ -35,7 +35,7 @@ namespace stackl.DataAccessLayer.User {
             var marking = new Marking(){
                 UserId = userId,
                 RowId = postId,
-                TableName = "Post",
+                TableName = "post",
                 Note = note
             };
 
@@ -47,7 +47,7 @@ namespace stackl.DataAccessLayer.User {
 
         public List<Marking> GetMarkingByUserId(int userId, int offset = 0, int limit = 10){
             return DbContext.Marking
-                .Where(x => x.TableName == "Post" && x.UserId == userId)
+                .Where(x => x.TableName == "post" && x.UserId == userId)
                 .Skip(offset)
                 .Take(limit)
                 .ToList();

@@ -1,6 +1,7 @@
 import { LOGIN } from "../actions/ActionTypes";
 import { loginDone } from '../actions/LoginActions';
 import { hideModal, MODAL_IDS } from '../actions/ModalActions';
+import { getSavedPosts } from '../actions/SavedPostsActions';
 import { apiCall } from './apiService';
 
 const LoginMiddleware = ({ dispatch, getState }) => (next) => (action) => {
@@ -10,7 +11,8 @@ const LoginMiddleware = ({ dispatch, getState }) => (next) => (action) => {
             apiCall(dispatch, `api/login/authenticate`, 'POST', action.payload)
                 .then(res => {
                     dispatch(loginDone(res));
-                    dispatch(hideModal(MODAL_IDS.LOGIN))
+                    dispatch(hideModal(MODAL_IDS.LOGIN));
+                    dispatch(getSavedPosts());
                 })
                 .catch(e => {
                     console.log("error: " + e)

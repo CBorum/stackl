@@ -202,3 +202,9 @@ $top-bar-height: 55;
 body {
     padding-top: $top-bar-height+px;
 }
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

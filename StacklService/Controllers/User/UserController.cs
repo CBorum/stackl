@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using stackl.DataAccessLayer.Login;
 using stackl.DataAccessLayer.User;
+using stackl.DataAccessLayer.Post;
+using stackl.Models;
 using stackl.Controllers.Search;
+using System.Threading.Tasks;
 
 namespace stackl.Controllers.User
 {
@@ -13,38 +16,53 @@ namespace stackl.Controllers.User
     [Route("api/user")]
     public class UserController : ControllerBase
     {
+        PostRepository postRepository;
         UserRepository repository;
         LoginRepository loginRepository;
 
-        public UserController(UserRepository repository, LoginRepository loginRepository)
+        public UserController(UserRepository repository, LoginRepository loginRepository, PostRepository postRepository)
         {
             this.repository = repository;
             this.loginRepository = loginRepository;
+            this.postRepository = postRepository;
         }
 
         [Authorize]
         [HttpGet("{userid}/marking", Name = nameof(GetUserMarkings))]
-        public ActionResult GetUserMarkings(int userid, [FromQuery] int offset = 0, [FromQuery] int limit = 10)
+        public async Task<ActionResult> GetUserMarkings(int userid, [FromQuery] int offset = 0, [FromQuery] int limit = 10)
         {
-            return loginRepository.isUser(userid, User.Identity.Name, isUser =>
-            {
-                if (!isUser) return Unauthorized();
-                var markings = repository.GetMarkings(offset, limit);
-                if (markings == null) return NotFound();
+            if(userid != int.Parse(User.Identity.Name)){
+                return Unauthorized();
+            }
 
-                var markingsDTO = markings.Select(m => new MarkingDTO
-                {
-                    UserId = m.UserId,
-                    PostId = m.RowId,
-                    Note = m.Note,
-                    CreationDate = m.CreationDate,
-                    MarkingURI = Url.Link(
-                        m.TableName == "post" ? "GetPost" : "GetComment",
-                        new { id = m.RowId }
-                    )
-                });
-                return this.SerializeContent<List<MarkingDTO>>(markingsDTO.ToList());
+            var markings = repository.GetMarkings(offset, limit);
+            if (markings == null) return NotFound();
+
+            var taskList = new List<Task<Models.Post>>();
+
+            foreach(var marking in markings) {
+                if(marking.TableName != "post"){
+                    continue;
+                } 
+                taskList.Add(postRepository.Get(marking.RowId));
+            }
+
+            var posts = await Task.WhenAll<Models.Post>(taskList);
+            var postsDict = posts.ToDictionary(x => x.PostId, x => x);
+
+            var markingsDTO = markings.Select(m => new MarkingDTO
+            {
+                UserId = m.UserId,
+                PostId = m.RowId,
+                Note = m.Note,
+                CreationDate = m.CreationDate,
+                PostTitle = postsDict[m.RowId].Title ?? "no title",
+                MarkingURI = Url.Link(
+                    m.TableName == "post" ? "GetPost" : "GetComment",
+                    new { id = m.RowId }
+                )
             });
+            return this.SerializeContent<List<MarkingDTO>>(markingsDTO.ToList());
         }
 
         [Authorize]
@@ -67,6 +85,8 @@ namespace stackl.Controllers.User
             }
             
             var savedMarking = repository.CreateMarking(userId, marking.PostId, marking.Note);
+
+
 
             var savedMarkingDTO = new MarkingDTO(){
                 UserId = savedMarking.UserId,

@@ -117,11 +117,9 @@ class SideBar extends React.Component {
                         </div>
                         <button onClick={unsafeLogin} className="btn btn-primary btn-block">Login</button>
                         <button onClick={unsafeRegister} className="btn btn-outline-secondary btn-block">Register</button>
-
                     </span>
                     }
                 </div>
-
             </div>
         );
     }

@@ -5,14 +5,14 @@ import * as ActionTypes from "./ActionTypes";
 
 export const getSavedPosts = () => {
     return {
-        type: ActionTypes.GET_SAVED_POSTS_DONE,
+        type: ActionTypes.GET_SAVED_POSTS,
         payload: null,
     }
 };
 
 export const getSavedPostsDone = savedPosts => {
     return {
-        type: ActionTypes.GET_POSTS_DONE,
+        type: ActionTypes.GET_SAVED_POSTS_DONE,
         payload: savedPosts,
     }
 };
