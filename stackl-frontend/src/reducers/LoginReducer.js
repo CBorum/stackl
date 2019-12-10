@@ -7,12 +7,22 @@ const defaultState = {
 const Login = (state = defaultState, action) => {
     switch (action.type) {
         case LOGIN_DONE:
+        {
+            const {token, username, id} = action.payload;
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('username', username);
+            localStorage.setItem('id', id);
+
             return Object.assign({}, state, {
-                token: action.payload.token,
-                username: action.payload.username,
-                userId: action.payload.id
+                token: token,
+                username: username,
+                userId: id
             });
+        }
+
         case LOGOUT:
+            localStorage.clear();
             return Object.assign({}, state, {
                 token: null,
                 username: null,
