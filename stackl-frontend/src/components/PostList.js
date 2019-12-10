@@ -6,6 +6,12 @@ import queryString from 'query-string'
 import '../scss/index.scss';
 import { formatDate } from './dateFormat';
 import { getPosts } from '../actions/PostActions';
+import store from '../store';
+import {savePost} from '../actions/SavedPostsActions';
+
+const dispatchSavePost = (postId, note) => store.dispatch(savePost({postId, note}));
+
+window.dispatchSavePost = dispatchSavePost;
 
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts, token: state.Login.token, userId: state.Login.userId });
 

@@ -72,6 +72,7 @@ $transition-dur-600: (125 * 1.6) + ms;
     padding-bottom: 150px;
     background: white;
     transition: 125ms ease-in;
+    z-index: $z-index-modal;
 
     &:not(.display){
         opacity: 0;

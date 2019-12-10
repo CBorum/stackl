@@ -15,9 +15,9 @@ function SavedPosts(props){
                 {
                     props.savedPosts !== null && props.savedPosts.length > 0 ?
                         props.savedPosts.map(savedPost => (
-                            <div className="list-group-item px-0">
-                                <a key={savedPost.postId} href={`#/post/${savedPost.postId}`}>
-                                    <h5>{savedPost.postTitle}</h5>
+                            <div key={savedPost.postId} className="list-group-item px-0">
+                                <a href={`#/post/${savedPost.postId}`}>
+                                    <h5 className="ellipsis" title={savedPost.postTitle}>{savedPost.postTitle}</h5>
                                     {!!savedPost.note ? <p className="text-muted small font-italic mb-0">"{savedPost.note}"</p> : null}
                                 </a>
                             </div>
