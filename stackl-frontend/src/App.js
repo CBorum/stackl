@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import './scss/index.scss';
+
 import SearchLanding from './components/SearchLanding';
 import PostList from './components/PostList';
 import SinglePost from './components/SinglePost';

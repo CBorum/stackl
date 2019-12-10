@@ -6,7 +6,12 @@ const PostMiddleware = ({dispatch, getState}) => (next) => (action) => {
     next(action)
     switch (action.type) {
         case ActionTypes.GET_POSTS:
-            apiCall(dispatch, `api/search?userid=1&offset=0&limit=10&input=${action.payload}`, 'GET')
+            let aPI_UII = `api/search?offset=0&limit=10&input=${action.payload}`
+            if (action.userId) {
+                aPI_UII += `&userid=${action.userId}`
+            }
+
+            apiCall(dispatch, aPI_UII, 'GET')
                 .then(res => {
                     dispatch(getPostsDone(res))
                 })

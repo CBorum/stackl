@@ -12,6 +12,8 @@ const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
 class PostList extends React.Component {
     state = {
         openedIndices: {},
+        offset: 0,
+        limit: 10
     }
 
     componentDidMount() { 
