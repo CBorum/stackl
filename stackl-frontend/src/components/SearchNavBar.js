@@ -15,10 +15,9 @@ class SearchNavBar extends React.Component {
 
     search() {
         const { dispatch } = this.props
-        dispatch(getPosts(this.state.searchStr, this.props.userId))
-        this.setState({ searchStr: "" }, () => {
-            this.props.history.push("/posts")
-        })
+        dispatch(getPosts({input: this.state.searchStr, offset: 0, limit: 10}, this.props.userId))
+        this.props.history.push(`/posts?input=${this.state.searchStr}`)
+        this.setState({ searchStr: "" })
     }
 
     render() {

@@ -38,6 +38,7 @@ namespace stackl.DataAccessLayer.Post
                     .Include(p => p.Author)
                     .Include(p => p.Comment)
                         .ThenInclude(c => c.Author)
+                    .OrderByDescending(p => p.Score)
                     .ToListAsync();
             }
         }

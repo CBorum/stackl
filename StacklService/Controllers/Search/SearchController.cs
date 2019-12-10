@@ -26,9 +26,9 @@ namespace stackl.Controllers.Search
         [HttpGet]
         [AllowAnonymous]
         [Authorize]
-        public ActionResult Search([FromQuery] string userid, [FromQuery] string offset, [FromQuery] string limit, [FromQuery] string input)
+        public ActionResult Search([FromQuery] string offset, [FromQuery] string limit, [FromQuery] string input)
         {
-            var query = CreateFromSearchQuery(userid, offset, limit, input);
+            var query = CreateFromSearchQuery(User.Identity.Name, offset, limit, input);
             if (query == null) return BadRequest();
             var res = repository.RankedWeightedSearch(query.userid, query.offset, query.limit, query.input);
             if (res == null) return NotFound();

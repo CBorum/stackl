@@ -8,6 +8,9 @@ import Answer from './Answer'
 import Comment from './Comment'
 
 class SinglePost extends React.Component {
+    state = {
+        amount: 5,
+    }
 
     componentDidMount() {
         const { dispatch, match: { params } } = this.props;
@@ -23,7 +26,7 @@ class SinglePost extends React.Component {
     render() {
         let post = this.props.post;
         if (!this.props.post) return <div className="col-9 mt-4"></div>;
-        
+
         return (
             <div className="col-9 mt-4">
                 <div className="row">
@@ -35,9 +38,9 @@ class SinglePost extends React.Component {
                     </div>
                     <div className="col-11">
                         <h2>{post.title}</h2>
-                        <div style={{color: "gray"}}>asked {formatDate(post.creationDate)} by {post.author ? post.author.name : <i>Unknown</i>}</div>
+                        <div style={{ color: "gray" }}>asked {formatDate(post.creationDate)} by {post.author ? post.author.name : <i>Unknown</i>}</div>
                         <hr />
-                        <div dangerouslySetInnerHTML={{__html: post.body}}></div>
+                        <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
                         {/* <span className="comments-header">Comments</span> */}
                         <div className="inline-block">
                             {
@@ -46,12 +49,23 @@ class SinglePost extends React.Component {
                                 })
                             }
                         </div>
-                        <hr style={{marginBottom: 0}} />
+                        <hr style={{ marginBottom: 0 }} />
                         <div className="comments list-group list-group-flush">
-                            {post.comments.map((c, i) => {
+                            {post.comments.filter((c, i) => i < this.state.amount).map((c, i) => {
                                 return (<Comment key={i} comment={c} />)
                             })}
                         </div>
+                        {
+                            this.state.amount < post.comments.length ?
+                                <div className="mt-2" style={{ width: "100%", textAlign: "center" }}>
+                                    <button onClick={() => this.setState({ amount: post.comments.length })} className="btn  btn-sm">Show <b>{post.comments.length - this.state.amount}</b> more comments</button>
+                                </div>
+                                : this.state.amount > 5 ?
+                                <div className="mt-2" style={{ width: "100%", textAlign: "center" }}>
+                                    <button onClick={() => this.setState({ amount: 5 })} className="btn  btn-sm">Show less comments</button>
+                                </div>
+                                : null
+                        }
                     </div>
                 </div>
                 {
@@ -62,7 +76,7 @@ class SinglePost extends React.Component {
                     <hr />
                 </div>
                 <div className="answers list-group list-group-flush">
-                    <Answer answer={post.acceptedAnswerPost} accepted={true}/>
+                    <Answer answer={post.acceptedAnswerPost} accepted={true} />
                     {post.answers.map((a, i) => {
                         return (<Answer key={i} answer={a} />)
                     })}
