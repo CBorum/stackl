@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actions/ActionTypes'
 import { getPostsDone, getSinglePostDone } from '../actions/PostActions'
 import { apiCall } from './apiService'
+import { getSearchHistory } from '../actions/UserActions'
 
 const PostMiddleware = ({dispatch, getState}) => (next) => (action) => {
     next(action)
@@ -17,6 +18,7 @@ const PostMiddleware = ({dispatch, getState}) => (next) => (action) => {
                     } else {
                         dispatch(getPostsDone(res))
                     }
+                    dispatch(getSearchHistory(action.payload.userId))
                 })
                 .catch(e => {
                     console.log("error: " + e)
