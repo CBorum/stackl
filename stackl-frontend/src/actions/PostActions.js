@@ -21,10 +21,10 @@ export const getSinglePost = postId => {
     }
 }
 
-export const getSinglePostDone = postId => {
+export const getSinglePostDone = res => {
     return {
         type: ActionTypes.GET_SINGLE_POST_DONE,
-        payload: postId,
+        payload: res,
     }
 }
 
