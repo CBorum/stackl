@@ -1,9 +1,10 @@
 import * as ActionTypes from './ActionTypes';
 
-export const getPosts = queryStr => {
+export const getPosts = (queryStr, userId) => {
     return {
         type: ActionTypes.GET_POSTS,
         payload: queryStr,
+        userId,
     }
 }
 
@@ -21,10 +22,10 @@ export const getSinglePost = postId => {
     }
 }
 
-export const getSinglePostDone = postId => {
+export const getSinglePostDone = res => {
     return {
         type: ActionTypes.GET_SINGLE_POST_DONE,
-        payload: postId,
+        payload: res,
     }
 }
 

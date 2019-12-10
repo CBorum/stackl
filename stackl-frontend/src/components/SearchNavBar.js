@@ -6,7 +6,7 @@ import '../scss/index.scss';
 import { getPosts } from '../actions/PostActions';
 
 
-const mapStateToProps = (state, ownProps) => ({});
+const mapStateToProps = (state, ownProps) => ({ userId: state.Login.userId });
 
 class SearchNavBar extends React.Component {
     state = {
@@ -15,8 +15,10 @@ class SearchNavBar extends React.Component {
 
     search() {
         const { dispatch } = this.props
-        dispatch(getPosts(this.state.searchStr))
-        this.setState({ searchStr: "" })
+        dispatch(getPosts(this.state.searchStr, this.props.userId))
+        this.setState({ searchStr: "" }, () => {
+            this.props.history.push("/posts")
+        })
     }
 
     render() {

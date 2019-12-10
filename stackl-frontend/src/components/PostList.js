@@ -1,23 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import queryString from 'query-string'
 
 import '../scss/index.scss';
 import { formatDate } from './dateFormat';
+import { getPosts } from '../actions/PostActions';
 
 const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
 
 class PostList extends React.Component {
     state = {
         openedIndices: {},
+        offset: 0,
+        limit: 10
     }
 
-    componentDidMount() {}
+    componentDidMount() { 
+        const { dispatch } = this.props
+        const values = queryString.parse(this.props.location.search)
+        dispatch(getPosts(values.input))
+     }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     expandPost(i) {
         const obj = this.state.openedIndices
-        if (obj[i]) delete obj[i];  
+        if (obj[i]) delete obj[i];
         else obj[i] = true;
         this.setState({ openedIndices: obj })
     }
@@ -39,6 +48,10 @@ class PostList extends React.Component {
                         })
                     }
                 </ul>
+                <div className="mt-4 mb-4 text-align-center">
+                    <button className="btn btn-primary btn-sm inline-block">Load more posts</button>
+                    <div className="float-right mr-2"><i>Showing {this.props.posts.length} results</i></div>
+                </div>
             </div>
         );
     }
@@ -51,7 +64,7 @@ class PostContainer extends React.Component {
         const { post, expanded } = this.props
         const item = post && post.parent !== null ? post.parent : post // if the post itself is the parent otherwise use parent
         if (!item) return null
-        
+
         return (
             <div className="row">
                 <div className="col-1">
@@ -79,7 +92,7 @@ class PostContainer extends React.Component {
                                 })
                             }
                         </div>
-                        <div className="float-right" style={{color: "gray"}}>asked {formatDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
+                        <div className="float-right" style={{ color: "gray" }}>asked {formatDate(item.creationDate)} by {item.author ? item.author.name : <i>Unknown</i>}</div>
 
                         {/* <button type="button" className="btn btn-primary btn-sm mt-3" onClick={this.props.expandPost} >Show {expanded ? "less" : "more"}</button> */}
                     </div>
@@ -88,5 +101,7 @@ class PostContainer extends React.Component {
         )
     }
 }
+
+PostList = withRouter(PostList)
 
 export default connect(mapStateToProps)(PostList);

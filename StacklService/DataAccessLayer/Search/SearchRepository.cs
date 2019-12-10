@@ -21,7 +21,7 @@ namespace stackl.DataAccessLayer.Search {
                     {
                         var searchEntry = new SearchEntry(query, userId);
                         context.SearchEntry.Add(searchEntry);
-                        var res = DbContext.SaveChanges();
+                        var res = context.SaveChanges();
                         return res != 1 ? null : searchEntry;
                     }
                 });
