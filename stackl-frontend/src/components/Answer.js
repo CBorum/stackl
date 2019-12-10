@@ -17,12 +17,12 @@ class SinglePost extends React.Component {
             <div className="list-group-item">
                 <div className="row">
                     <div className="col-1">
-                        <div className="p-2 text-align-center">
+                        <div className="text-align-center">
                             <h4>{answer.score}</h4>
                             <div>votes</div>
                             {
                                 accepted ?
-                                    <div className="accepted-answer alert alert-success mt-2">
+                                    <div className="accepted-answer alert alert-success p-1 mt-2">
                                         Accepted answer
                                     {/* <span className="glyphicon glyphicon-ok"></span> Den er bra og accepted! */}
                                     </div>
@@ -36,7 +36,7 @@ class SinglePost extends React.Component {
                         {
                             answer.comments.length > 0 ? <hr style={{marginBottom: 0}} /> : null
                         }
-                        <div className="comments list-group">
+                        <div className="comments list-group comment-width">
                             {answer.comments.map((c, i) => {
                                 return (<Comment key={i} comment={c} />)
                             })}

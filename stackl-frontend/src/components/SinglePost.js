@@ -12,7 +12,7 @@ class SinglePost extends React.Component {
     componentDidMount() {
         const { dispatch, match: { params } } = this.props;
         dispatch(getSinglePost(params.postId))
-        console.log(this.props)
+        window.scrollTo(0, 0)
     }
 
     render() {
@@ -20,26 +20,38 @@ class SinglePost extends React.Component {
         if (!this.props.post) return null;
         
         return (
-            <div className="row mt-4">
-                <div className="col-1">
-                    <div className="p-2 text-align-center">
-                        <h4>{post.score}</h4>
-                        <div>votes</div>
+            <div className="col-9 mt-4">
+                <div className="row">
+                    <div className="col-1 pr-0">
+                        <div className="p-2 text-align-center">
+                            <h4>{post.score}</h4>
+                            <div>votes</div>
+                        </div>
+                    </div>
+                    <div className="col-11">
+                        <h2>{post.title}</h2>
+                        <div style={{color: "gray"}}>asked {formatDate(post.creationDate)} by {post.author ? post.author.name : <i>Unknown</i>}</div>
+                        <hr />
+                        <div dangerouslySetInnerHTML={{__html: post.body}}></div>
+                        {/* <span className="comments-header">Comments</span> */}
+                        <div className="inline-block">
+                            {
+                                post.tags.map((t, i) => {
+                                    return <span key={i} className={`badge badge-secondary ${i !== 0 ? "ml-2" : ""}`}>{t}</span>
+                                })
+                            }
+                        </div>
+                        <hr style={{marginBottom: 0}} />
+                        <div className="comments list-group list-group-flush">
+                            {post.comments.map((c, i) => {
+                                return (<Comment key={i} comment={c} />)
+                            })}
+                        </div>
                     </div>
                 </div>
-                <div className="col-11">
-                    <h2>{post.title}</h2>
-                    <div>asked {formatDate(post.creationDate)} by {post.author ? post.author.name : <i>Unknown</i>}</div>
-                    <hr className="mb-1" />
-                    <div dangerouslySetInnerHTML={{__html: post.body}}></div>
-                    {/* <span className="comments-header">Comments</span> */}
-                    <hr style={{marginBottom: 0}} />
-                    <div className="comments list-group list-group-flush">
-                        {post.comments.map((c, i) => {
-                            return (<Comment key={i} comment={c} />)
-                        })}
-                    </div>
-                </div>
+                {
+                    post.comments.length === 0 ? <div className="mt-4"></div> : null
+                }
                 <div className="col-12">
                     <h4>{post.answers.length} Answers</h4>
                     <hr />

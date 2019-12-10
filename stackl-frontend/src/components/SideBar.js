@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux'
 import '../scss/index.scss';
 import store from "../store";
-import { login, logout } from "../actions/LoginActions";
-import { register } from "../actions/RegisterActions";
 import SearchHistory from './SearchHistory';
+import {login, logout} from "../actions/LoginActions";
+import {register} from "../actions/RegisterActions";
+import { withRouter } from 'react-router-dom'
+
 
 const makeToast = (msg, options = {}) => {
     alert(msg);
@@ -70,6 +72,7 @@ class SideBar extends React.Component {
     }
 
     render() {
+        if(this.props.location.pathname === "/") return null
         return (
             <div className="col-3 pt-3 sideBarBorder">
                 {this.props.username &&
@@ -121,5 +124,7 @@ class SideBar extends React.Component {
         );
     }
 }
+
+SideBar = withRouter(SideBar)
 
 export default connect(mapStateToProps)(SideBar);
