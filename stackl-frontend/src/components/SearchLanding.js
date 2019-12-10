@@ -21,7 +21,7 @@ class SearchLanding extends React.Component {
     }
 
     onSearchSubmitBtnClick = () => {
-        this.props.history.push(`/posts/input=${this.state.searchInput}`)
+        this.props.history.push(`/posts?input=${this.state.searchInput}`)
     };
 
     onSearchInputKeyEvent = (event) => {

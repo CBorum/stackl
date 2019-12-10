@@ -8,6 +8,10 @@ import { formatDate } from './dateFormat';
 const mapStateToProps = (state, ownProps) => ({})
 
 class SinglePost extends React.Component {
+    state = {
+        amount: 5,
+    }
+
     render() {
         let answer = this.props.answer;
         let accepted = this.props.accepted;
@@ -37,10 +41,21 @@ class SinglePost extends React.Component {
                             answer.comments.length > 0 ? <hr style={{marginBottom: 0}} /> : null
                         }
                         <div className="comments list-group comment-width">
-                            {answer.comments.map((c, i) => {
+                            {answer.comments.filter((c, i) => i < this.state.amount).map((c, i) => {
                                 return (<Comment key={i} comment={c} />)
                             })}
                         </div>
+                        {
+                            this.state.amount < answer.comments.length ?
+                                <div className="mt-2" style={{ width: "100%", textAlign: "center" }}>
+                                    <button onClick={() => this.setState({ amount: answer.comments.length })} className="btn  btn-sm">Show <b>{answer.comments.length - this.state.amount}</b> more comments</button>
+                                </div>
+                                : this.state.amount > 5 ? 
+                                <div className="mt-2" style={{ width: "100%", textAlign: "center" }}>
+                                    <button onClick={() => this.setState({ amount: 5 })} className="btn  btn-sm">Show less comments</button>
+                                </div>
+                                : null
+                        }
                     </div>
                 </div>
             </div>

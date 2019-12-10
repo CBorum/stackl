@@ -1,10 +1,12 @@
 import * as ActionTypes from './ActionTypes';
 
-export const getPosts = (queryStr, userId) => {
+export const getPosts = (query, userId) => {
     return {
         type: ActionTypes.GET_POSTS,
-        payload: queryStr,
-        userId,
+        payload: {
+            query: query,
+            userId: userId
+        }
     }
 }
 

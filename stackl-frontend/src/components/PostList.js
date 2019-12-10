@@ -7,7 +7,7 @@ import '../scss/index.scss';
 import { formatDate } from './dateFormat';
 import { getPosts } from '../actions/PostActions';
 
-const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts });
+const mapStateToProps = (state, ownProps) => ({ posts: state.Posts.posts, token: state.Login.token, userId: state.Login.userId });
 
 class PostList extends React.Component {
     state = {
@@ -16,13 +16,21 @@ class PostList extends React.Component {
         limit: 10
     }
 
-    componentDidMount() { 
+    componentDidMount() {
         const { dispatch } = this.props
-        const values = queryString.parse(this.props.location.search)
-        dispatch(getPosts(values.input))
-     }
+        const query = queryString.parse(this.props.location.search)
+        dispatch(getPosts({ input: query.input, offset: this.state.offset, limit: this.state.limit }, this.props.userId))
+    }
 
     componentWillUnmount() { }
+
+    loadMore() {
+        this.setState({ offset: this.state.offset + 10 }, () => {
+            const { dispatch } = this.props
+            const query = queryString.parse(this.props.location.search)
+            dispatch(getPosts({ input: query.input, offset: this.state.offset, limit: this.state.limit }, this.props.userId))
+        })
+    }
 
     expandPost(i) {
         const obj = this.state.openedIndices
@@ -49,8 +57,8 @@ class PostList extends React.Component {
                     }
                 </ul>
                 <div className="mt-4 mb-4 text-align-center">
-                    <button className="btn btn-primary btn-sm inline-block">Load more posts</button>
-                    <div className="float-right mr-2"><i>Showing {this.props.posts.length} results</i></div>
+                    <button onClick={() => this.loadMore()} className="btn btn-primary btn-sm inline-block">Load more posts</button>
+                    <div className="float-right mr-2"><i>Showing {this.props.posts.filter(p => p.parent).length} results</i></div>
                 </div>
             </div>
         );

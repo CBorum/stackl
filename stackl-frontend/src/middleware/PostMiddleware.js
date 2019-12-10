@@ -6,14 +6,17 @@ const PostMiddleware = ({dispatch, getState}) => (next) => (action) => {
     next(action)
     switch (action.type) {
         case ActionTypes.GET_POSTS:
-            let aPI_UII = `api/search?offset=0&limit=10&input=${action.payload}`
-            if (action.userId) {
-                aPI_UII += `&userid=${action.userId}`
-            }
+            let aPI_UII = `api/search?offset=${action.payload.query.offset}&limit=${action.payload.query.limit}&input=${action.payload.query.input}`
 
             apiCall(dispatch, aPI_UII, 'GET')
                 .then(res => {
-                    dispatch(getPostsDone(res))
+                    if (action.payload.query.offset > 0) {
+                        let posts = getState()["Posts"]["posts"]
+                        const catPosts = posts.concat(res)
+                        dispatch(getPostsDone(catPosts))
+                    } else {
+                        dispatch(getPostsDone(res))
+                    }
                 })
                 .catch(e => {
                     console.log("error: " + e)
