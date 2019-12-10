@@ -35,7 +35,7 @@ namespace stackl.Controllers.User
                 return Unauthorized();
             }
 
-            var markings = repository.GetMarkings(offset, limit);
+            var markings = repository.GetMarkingByUserId(userid, offset, limit);
             if (markings == null) return NotFound();
 
             var taskList = new List<Task<Models.Post>>();

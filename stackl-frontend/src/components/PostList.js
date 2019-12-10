@@ -20,7 +20,7 @@ class PostList extends React.Component {
         openedIndices: {},
         offset: 0,
         limit: 10
-    }
+    };
 
     componentDidMount() {
         const { dispatch } = this.props
