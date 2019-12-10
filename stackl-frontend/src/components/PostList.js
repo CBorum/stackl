@@ -24,7 +24,7 @@ class PostList extends React.Component {
 
 
     render() {
-        if (!this.props.posts || (this.props.posts && this.props.posts.length === 0)) return <div className="col-9"><i>No posts were found.</i></div>
+        if (!this.props.posts || (this.props.posts && this.props.posts.length === 0)) return <div className="col-9 mt-2"><i>No posts were found.</i></div>
         return (
             <div className="col-9">
                 <ul className="list-group list-group-flush">

@@ -41,7 +41,7 @@ $transition-dur-600: (125 * 1.6) + ms;
 }
 
 .nav-bar-container {
-    height: 50px;
+    height: 55px;
     width: 100%;
     border-bottom: 1px solid black;
 }
@@ -187,4 +187,8 @@ $transition-dur-600: (125 * 1.6) + ms;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+body {
+    padding-top: 55px;
 }
