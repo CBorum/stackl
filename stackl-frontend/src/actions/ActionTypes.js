@@ -29,3 +29,6 @@ export const GET_SAVED_POSTS_DONE = "GET_SAVED_POSTS_DONE";
 
 export const SAVE_POST = 'SAVE_POST';
 export const SAVE_POST_DONE = 'SAVE_POST_DONE';
+
+export const GET_WORD_CLOUD = 'GET_WORD_CLOUD'
+export const GET_WORD_CLOUD_DONE = 'GET_WORD_CLOUD_DONE'

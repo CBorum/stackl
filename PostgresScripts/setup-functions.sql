@@ -59,7 +59,7 @@ CREATE OR REPLACE FUNCTION array_union (anyarray, anyarray)
 
 $$;
 
-CREATE OR REPLACE FUNCTION exact_match (user_id int, query text)
+CREATE OR REPLACE FUNCTION exact_match (query text)
     RETURNS TABLE (
         post_id integer, body text
 )
@@ -70,8 +70,6 @@ DECLARE
     term_arr text[];
     r CHARACTER VARYING;
 BEGIN
-    INSERT INTO search_entry (user_id, query)
-    VALUES (user_id, query);
     term_arr := string_to_array(query, ' ');
     raise notice '%', term_arr[1];
     ids := ARRAY (
@@ -317,14 +315,12 @@ $$
 LANGUAGE plpgsql;
 
 -- weight version with sum
-CREATE OR REPLACE FUNCTION words_to_words_weighted_sum (user_id int, query_string varchar)
+CREATE OR REPLACE FUNCTION words_to_words_weighted_sum (query_string varchar)
     RETURNS TABLE (
         term_freq numeric, term text
 )
     AS $$
 BEGIN
-    INSERT INTO search_entry (user_id, query)
-    VALUES (user_id, query_string);
     RETURN query
     SELECT
         SUM(ndtwi.rdt) AS term_rdt,
@@ -337,7 +333,7 @@ BEGIN
             SELECT
                 post_id
             FROM
-                exact_match (user_id, query_string))
+                exact_match (query_string))
         AND terms.term NOT IN (
             SELECT
                 word

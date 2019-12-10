@@ -49,6 +49,22 @@ namespace stackl.DataAccessLayer.Search {
             return null;
         }
 
+        public IEnumerable<WordCloud> WordCloudSearch(int id, string input)
+        {
+            try
+            {
+                var res =  DbContext.WC.FromSqlRaw("select round(term_freq,8) as term_count, term from words_to_words_weighted_sum({0}) limit 30", input)
+                    .ToList();
+                return res;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return null;
+        }
+        
         public int ParentCount(int parentId)
         {
             try
