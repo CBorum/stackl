@@ -17,7 +17,7 @@ class SinglePost extends React.Component {
 
     render() {
         let post = this.props.post;
-        if (!this.props.post) return null;
+        if (!this.props.post) return <div className="col-9 mt-4"></div>;
         
         return (
             <div className="col-9 mt-4">

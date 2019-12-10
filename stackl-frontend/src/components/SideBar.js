@@ -107,7 +107,6 @@ class SideBar extends React.Component {
                     ||
                     /*not logged in*/
                     <span>
-                        <h5 className="mb-4">Login/Register</h5>
                         <div className="form-group mb-2">
                             <label className="small text-muted" htmlFor={usernameInputId}>Username</label>
                             <input type="text" className="form-control" id={usernameInputId} placeholder="Enter username" />
