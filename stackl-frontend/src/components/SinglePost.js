@@ -12,6 +12,7 @@ class SinglePost extends React.Component {
     componentDidMount() {
         const { dispatch, match: { params } } = this.props;
         dispatch(getSinglePost(params.postId))
+        window.scrollTo(0, 0)
     }
 
     render() {
