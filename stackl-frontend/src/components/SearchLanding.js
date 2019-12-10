@@ -39,8 +39,8 @@ class SearchLanding extends React.Component {
                         <h1 className="display-2 text-center mb-5">stackl</h1>
                         <div className="input-group mb-5 mw-450 mx-auto">
                             <input className="form-control" value={this.state.searchInput} onChange={e => this.setState({ searchInput: e.target.value })} onKeyPress={(e)=> this.onSearchInputKeyEvent(e)} type="text" placeholder="Search the Q&A's..." />
-                            <span className="input-group-btn">
-                                <button className="btn btn-primary" onClick={() => this.onSearchSubmitBtnClick()} type="button">Submit</button>
+                            <span className="input-group-append">
+                                <button className="btn btn-outline-primary" onClick={() => this.onSearchSubmitBtnClick()} type="button">Submit</button>
                             </span>
                         </div>
                         {
