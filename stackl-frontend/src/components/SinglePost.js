@@ -12,7 +12,6 @@ class SinglePost extends React.Component {
     componentDidMount() {
         const { dispatch, match: { params } } = this.props;
         dispatch(getSinglePost(params.postId))
-        console.log(this.props)
     }
 
     render() {
@@ -34,6 +33,13 @@ class SinglePost extends React.Component {
                         <hr />
                         <div dangerouslySetInnerHTML={{__html: post.body}}></div>
                         {/* <span className="comments-header">Comments</span> */}
+                        <div className="inline-block">
+                            {
+                                post.tags.map((t, i) => {
+                                    return <span key={i} className={`badge badge-secondary ${i !== 0 ? "ml-2" : ""}`}>{t}</span>
+                                })
+                            }
+                        </div>
                         <hr style={{marginBottom: 0}} />
                         <div className="comments list-group list-group-flush">
                             {post.comments.map((c, i) => {
