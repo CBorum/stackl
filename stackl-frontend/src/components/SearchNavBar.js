@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 
 import '../scss/index.scss';
-import { getPosts } from '../actions/PostActions';
 
 
 const mapStateToProps = (state, ownProps) => ({ userId: state.Login.userId });
@@ -14,8 +13,6 @@ class SearchNavBar extends React.Component {
     }
 
     search() {
-        const { dispatch } = this.props
-        dispatch(getPosts({input: this.state.searchStr, offset: 0, limit: 10}, this.props.userId))
         this.props.history.push(`/posts?input=${this.state.searchStr}`)
         this.setState({ searchStr: "" })
     }
