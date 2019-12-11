@@ -18,7 +18,9 @@ const PostMiddleware = ({dispatch, getState}) => (next) => (action) => {
                     } else {
                         dispatch(getPostsDone(res))
                     }
-                    dispatch(getSearchHistory(action.payload.userId))
+                    if (getState()["Login"]["token"] !== undefined) {
+                        dispatch(getSearchHistory(action.payload.userId))
+                    }
                 })
                 .catch(e => {
                     console.log("error: " + e)

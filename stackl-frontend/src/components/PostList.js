@@ -128,7 +128,7 @@ class PostContainer extends React.Component {
                         <div className="text-align-center">
                             {
                                 this.props.token ?
-                                    <button onClick={() => this.props.openMarkingDialog()} className="btn btn-sm btn-outline-primary mt-2">Mark</button>
+                                    <button onClick={() => this.props.openMarkingDialog()} className="btn btn-sm btn-outline-primary mt-1">Mark</button>
                                     : null
                             }
                         </div>
