@@ -29,7 +29,6 @@ const SavedPostMiddleware = ({dispatch, getState}) => (next) => (action) => {
                     });
             }
             break;
-
         default:
             break;
     }

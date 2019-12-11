@@ -38,6 +38,7 @@ function LoginModal(props){
             <div className="form-group mb-3 mw-450 mx-auto">
                 <label htmlFor={usernameInputId}>Username</label>
                 <input type="text" className="form-control" id={usernameInputId} placeholder="Enter username"/>
+
             </div>
             <div className="form-group mb-5 mw-450 mx-auto">
                 <label htmlFor={passwordInputId}>Password</label>
@@ -47,6 +48,5 @@ function LoginModal(props){
         </ModalWrapper>
     )
 }
-
 
 export default LoginModal;
