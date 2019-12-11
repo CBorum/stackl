@@ -20,7 +20,7 @@ const host = process.env.REACT_APP_STACKL_API_HOST || 'http://localhost';
 const port = process.env.REACT_APP_STACKL_API_PORT || 5000;
 const deployHost = process.env.REACT_APP_STACKL_DEPLOYHOST || null;
 
-export const getAddress = "";
+export let getAddress = "";
 if(deployHost !== null) {
   getAddress = (endpoint) => `${deployHost}/${endpoint}`;
 } else{
