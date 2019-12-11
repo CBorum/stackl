@@ -27,6 +27,13 @@ class SinglePost extends React.Component {
         dispatch(getSinglePostDone(null)) // clearing store of post
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            const { dispatch, match: { params } } = this.props
+            dispatch(getSinglePost(params.postId))
+        }
+    }
+
     savePost() {
         const { dispatch } = this.props
         dispatch(savePost({ postId: this.state.postId, note: this.state.markingNote }))
@@ -46,7 +53,7 @@ class SinglePost extends React.Component {
                             <div>votes</div>
                             {
                                 this.props.token ?
-                                    <button onClick={() => { { this.setState({ postId: post.postId }, () => this.refs.markingPostDialog.show()) } }} className="btn btn-sm btn-outline-primary mt-4">Mark</button>
+                                    <button onClick={() => { this.setState({ postId: post.postId }, () => this.refs.markingPostDialog.show()) }} className="btn btn-sm btn-outline-primary mt-4">Mark</button>
                                     : null
                             }
                         </div>
