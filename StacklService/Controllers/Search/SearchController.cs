@@ -108,7 +108,7 @@ namespace stackl.Controllers.Search
                     parsedLimit = Int32.Parse(limit);
                 }
 
-                return new SearchRequestDTO(parsedUserId, parsedOffset, parsedLimit, input);
+                return new SearchRequestDTO(parsedUserId, parsedOffset, parsedLimit, input.ToLower());
             }
             catch (Exception e)
             {
