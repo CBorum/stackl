@@ -15,5 +15,6 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 EXPOSE 80/tcp
+EXPOSE 443/tcp
 
 ENTRYPOINT ["dotnet", "stackl.dll"]
