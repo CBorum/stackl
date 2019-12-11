@@ -6,10 +6,14 @@ import { getSinglePost, getSinglePostDone } from '../actions/PostActions'
 import { formatDate } from './dateFormat'
 import Answer from './Answer'
 import Comment from './Comment'
+import MarkingDialog from './modals/MarkingDialog'
+import { savePost } from '../actions/SavedPostsActions'
 
 class SinglePost extends React.Component {
     state = {
         amount: 5,
+        postId: -1,
+        markingNote: "",
     }
 
     componentDidMount() {
@@ -23,6 +27,12 @@ class SinglePost extends React.Component {
         dispatch(getSinglePostDone(null)) // clearing store of post
     }
 
+    savePost() {
+        const { dispatch } = this.props
+        dispatch(savePost({ postId: this.state.postId, note: this.state.markingNote }))
+        this.setState({ postId: -1, markingNote: "" })
+    }
+
     render() {
         let post = this.props.post;
         if (!this.props.post) return <div className="col-12 col-md-9 col-lg-9 mt-4"></div>;
@@ -34,10 +44,15 @@ class SinglePost extends React.Component {
                         <div className="p-2 text-align-center">
                             <h4>{post.score}</h4>
                             <div>votes</div>
+                            {
+                                this.props.token ?
+                                    <button onClick={() => { { this.setState({ postId: post.postId }, () => this.refs.markingPostDialog.show()) } }} className="btn btn-sm btn-outline-primary mt-4">Mark</button>
+                                    : null
+                            }
                         </div>
                     </div>
                     <div className="col-10 col-md-11">
-                        <h2>{post.title}</h2>
+                        <h2 className="inline-block">{post.title}</h2>
                         <div style={{ color: "gray" }}>asked {formatDate(post.creationDate)} by {post.author ? post.author.name : <i>Unknown</i>}</div>
                         <hr />
                         <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
@@ -61,10 +76,10 @@ class SinglePost extends React.Component {
                                     <button onClick={() => this.setState({ amount: post.comments.length })} className="btn  btn-sm">Show <b>{post.comments.length - this.state.amount}</b> more comments</button>
                                 </div>
                                 : this.state.amount > 5 ?
-                                <div className="mt-2" style={{ width: "100%", textAlign: "center" }}>
-                                    <button onClick={() => this.setState({ amount: 5 })} className="btn  btn-sm">Show less comments</button>
-                                </div>
-                                : null
+                                    <div className="mt-2" style={{ width: "100%", textAlign: "center" }}>
+                                        <button onClick={() => this.setState({ amount: 5 })} className="btn  btn-sm">Show less comments</button>
+                                    </div>
+                                    : null
                         }
                     </div>
                 </div>
@@ -81,6 +96,14 @@ class SinglePost extends React.Component {
                         return (<Answer key={i} answer={a} />)
                     })}
                 </div>
+                <MarkingDialog ref="markingPostDialog" closeHandler={() => { this.setState({ markingNote: "" }) }} saveHandler={() => this.savePost()} title="Create marking">
+                    <div className="input-group">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">Note</span>
+                        </div>
+                        <textarea value={this.state.markingNote} onChange={e => this.setState({ markingNote: e.target.value })} className="form-control" aria-label="With textarea"></textarea>
+                    </div>
+                </MarkingDialog>
             </div>
         );
     }
@@ -88,6 +111,6 @@ class SinglePost extends React.Component {
 
 SinglePost = withRouter(SinglePost);
 
-const mapStateToProps = (state, ownProps) => ({ post: state.Posts.singlePost });
+const mapStateToProps = (state, ownProps) => ({ post: state.Posts.singlePost, token: state.Login.token });
 
 export default connect(mapStateToProps)(SinglePost);
