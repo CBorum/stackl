@@ -100,8 +100,8 @@ class SideBar extends React.Component {
         store.dispatch(login(this.state.username, this.state.password));
     }
 
-    registerOnEnter(event){
-        onEnter(this.register.bind(this))(event);
+    loginOnEnter(event){
+        onEnter(this.login.bind(this))(event);
     }
 
     render() {
@@ -146,7 +146,7 @@ class SideBar extends React.Component {
                         </div>
                         <div className="form-group mb-4">
                             <label className="small text-muted" htmlFor={passwordInputId}>Password</label>
-                            <input onChange={this.setPassword.bind(this)} onKeyPress={this.registerOnEnter.bind(this)} type="password" className={`form-control ${this.state.passwordInputValidationClass}`} id={passwordInputId} placeholder="Enter password" />
+                            <input onChange={this.setPassword.bind(this)} onKeyPress={this.loginOnEnter.bind(this)} type="password" className={`form-control ${this.state.passwordInputValidationClass}`} id={passwordInputId} placeholder="Enter password" />
                             <p className="mb0 small muted-text text-danger">{this.state.passwordErrorString}</p>
                         </div>
                         <button onClick={this.login.bind(this)} className="btn btn-primary btn-block">Login</button>
