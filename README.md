@@ -10,4 +10,4 @@ The group consists of:
 - Magnus Larsen
 
 ## Live running application
-The live running application can be seen here: http://212.47.241.119/#/
+The live running application can be seen here: https://stackl.magnuslarsen.dk/#/
