@@ -7,7 +7,7 @@ import SavedPosts from './SavedPosts';
 import {login, logout} from "../actions/LoginActions";
 import {register} from "../actions/RegisterActions";
 import { withRouter } from 'react-router-dom'
-
+import {passwordValidator, usernameValidator} from "../helpers/validation";
 
 const makeToast = (msg, options = {}) => {
     alert(msg);
@@ -16,45 +16,17 @@ const makeToast = (msg, options = {}) => {
 const usernameInputId = 'sidebar_username';
 const passwordInputId = 'sidebar_password';
 
-const unsafeGetInputValue = query => (document.querySelector(query) || {}).value;
-
-const unsafeLogin = () => {
-    const username = unsafeGetInputValue(`#${usernameInputId}`);
-    const password = unsafeGetInputValue(`#${passwordInputId}`);
-
-    if (!username || !password) {
-        makeToast('Username or password missing');
-        return;
-    }
-
-    store.dispatch(login(username, password));
-};
-
-const unsafeRegister = () => {
-    const username = unsafeGetInputValue(`#${usernameInputId}`);
-    const password = unsafeGetInputValue(`#${passwordInputId}`);
-
-    if (!username || !password) {
-        makeToast('Username or password missing');
-        return;
-    }
-
-    store.dispatch(register(username, password));
-};
-
-
 const VIEW_IDS = {
     MENU: 'MENU',
     HISTORY: 'HISTORY',
     MARKINGS: 'MARKINGS'
-}
+};
 
 const onEnter = handler => event => {
     if (event.key === 'Enter') {
         handler();
     }
 };
-
 
 const dispatchLogout = () => {
     store.dispatch(logout());
@@ -67,8 +39,14 @@ const mapStateToProps = (state, ownProps) => ({
 
 class SideBar extends React.Component {
     state = {
-        viewId: VIEW_IDS.MENU
-    }
+        viewId: VIEW_IDS.MENU,
+        username: '',
+        password: '',
+        usernameErrorString: '',
+        passwordErrorString: '',
+        usernameInputValidationClass: '',
+        passwordInputValidationClass: '',
+    };
 
     setView(viewId) {
         this.setState({
@@ -76,7 +54,54 @@ class SideBar extends React.Component {
         })
     }
 
-    componentWillUnmount() {
+    setUsername(event){
+        this.setState({
+            username: event.target.value,
+            usernameErrorString: '',
+            usernameInputValidationClass: ''
+        });
+    }
+
+    setPassword(event){
+        this.setState({
+            password: event.target.value,
+            passwordErrorString: '',
+            passwordInputValidationClass: ''
+        });
+    }
+
+    register(){
+
+        const usernameError = usernameValidator(this.state.username);
+        const passwordError = passwordValidator(this.state.password);
+
+        if(usernameError){
+            this.setState({
+                usernameErrorString: usernameError.message,
+                usernameInputValidationClass: 'is-invalid'
+            })
+        }
+
+        if(passwordError){
+            this.setState({
+                passwordErrorString: passwordError.message,
+                passwordInputValidationClass: 'is-invalid'
+            })
+        }
+
+        if(usernameError !== undefined || passwordError !== undefined){
+            return;
+        }
+
+        store.dispatch(register(this.state.username, this.state.password));
+    }
+
+    login(){
+        store.dispatch(login(this.state.username, this.state.password));
+    }
+
+    loginOnEnter(event){
+        onEnter(this.login.bind(this))(event);
     }
 
     render() {
@@ -116,14 +141,16 @@ class SideBar extends React.Component {
                     <span>
                         <div className="form-group mb-2">
                             <label className="small text-muted" htmlFor={usernameInputId}>Username</label>
-                            <input type="text" className="form-control" id={usernameInputId} placeholder="Enter username" />
+                            <input onChange={this.setUsername.bind(this)} type="text" className={`form-control ${this.state.usernameInputValidationClass}`} id={usernameInputId} placeholder="Enter username" />
+                            <p className="mb0 small muted-text text-danger">{this.state.usernameErrorString}</p>
                         </div>
                         <div className="form-group mb-4">
                             <label className="small text-muted" htmlFor={passwordInputId}>Password</label>
-                            <input onKeyPress={onEnter(unsafeLogin)} type="password" className="form-control" id={passwordInputId} placeholder="Enter password" />
+                            <input onChange={this.setPassword.bind(this)} onKeyPress={this.loginOnEnter.bind(this)} type="password" className={`form-control ${this.state.passwordInputValidationClass}`} id={passwordInputId} placeholder="Enter password" />
+                            <p className="mb0 small muted-text text-danger">{this.state.passwordErrorString}</p>
                         </div>
-                        <button onClick={unsafeLogin} className="btn btn-primary btn-block">Login</button>
-                        <button onClick={unsafeRegister} className="btn btn-outline-secondary btn-block">Register</button>
+                        <button onClick={this.login.bind(this)} className="btn btn-primary btn-block">Login</button>
+                        <button onClick={this.register.bind(this)} className="btn btn-outline-secondary btn-block">Register</button>
                     </span>
                     }
                 </div>
