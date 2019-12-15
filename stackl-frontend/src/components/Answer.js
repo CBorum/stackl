@@ -22,12 +22,13 @@ class SinglePost extends React.Component {
                 <div className="row">
                     <div className="col-2 col-md-1">
                         <div className="text-align-center">
-                            <h4>{answer.score}</h4>
-                            <div>votes</div>
+                            <h4 className="mobile-number-size">{answer.score}</h4>
+                            <div className="mobile-text-size">votes</div>
                             {
                                 accepted ?
-                                    <div className="accepted-answer alert alert-success p-1 mt-2">
-                                        Accepted answer
+                                    <div title="Accepted answer" className="alert alert-success p-1 mt-2">
+                                        <i className="fas fa-check"></i>
+                                        {/* <span className="glyphicon glyphicon-ok"></span> */}
                                     {/* <span className="glyphicon glyphicon-ok"></span> Den er bra og accepted! */}
                                     </div>
                                     : null

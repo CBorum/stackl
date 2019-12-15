@@ -209,3 +209,13 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@media only screen and (max-width: 600px) {
+    .mobile-text-size {
+        font-size: 13px;
+    }
+
+    .mobile-number-size {
+        font-size: 18px;
+    }
+}

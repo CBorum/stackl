@@ -118,12 +118,12 @@ class PostContainer extends React.Component {
                 <div className="col-2 col-md-1 skrid-padding">
                     <div>
                         <div className="p-2 text-align-center">
-                            <h4>{item.score}</h4>
-                            <div>votes</div>
+                            <h4 className="mobile-number-size">{item.score}</h4>
+                            <div className="mobile-text-size">votes</div>
                         </div>
                         <div className="p-2 text-align-center">
-                            <h4>{item.answersCount}</h4>
-                            <div>answers</div>
+                            <h4 className="mobile-number-size">{item.answersCount}</h4>
+                            <div className="mobile-text-size">answers</div>
                         </div>
                         <div className="text-align-center">
                             {

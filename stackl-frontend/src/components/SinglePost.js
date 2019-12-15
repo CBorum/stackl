@@ -48,12 +48,12 @@ class SinglePost extends React.Component {
             <div className="col-12 col-md-9 col-lg-9 mt-4">
                 <div className="row">
                     <div className="col-2 col-md-1 pr-0">
-                        <div className="p-2 text-align-center">
-                            <h4>{post.score}</h4>
-                            <div>votes</div>
+                        <div className="text-align-center">
+                            <h4 className="mobile-number-size">{post.score}</h4>
+                            <div className="mobile-text-size">votes</div>
                             {
                                 this.props.token ?
-                                    <button onClick={() => { this.setState({ postId: post.postId }, () => this.refs.markingPostDialog.show()) }} className="btn btn-sm btn-outline-primary mt-4">Mark</button>
+                                    <button onClick={() => { this.setState({ postId: post.postId }, () => this.refs.markingPostDialog.show()) }} className="btn btn-sm btn-outline-primary mt-4 mobile-text-size">Mark</button>
                                     : null
                             }
                         </div>

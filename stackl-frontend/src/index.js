@@ -3,6 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import 'popper.js';
+
+import './scss/fontawesome/css/all.css'
+
 import 'jquery';
 import 'bootstrap';
 import './scss/index.scss';
